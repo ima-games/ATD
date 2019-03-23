@@ -1,0 +1,152 @@
+﻿[
+  {
+    "ID": 0,
+    "Name": "基础怪",
+    "HP": 500,
+    "Attack": 10,
+    "AttSpeed": 1,
+    "Speed": 1,
+    "AttDistance": 1,
+    "Money": 40.0
+  },
+  {
+    "ID": 1,
+    "Name": "近战怪",
+    "HP": 500,
+    "Attack": 10,
+    "AttSpeed": 1,
+    "Speed": 1,
+    "AttDistance": 1,
+    "Money": 40.0
+  },
+  {
+    "ID": 2,
+    "Name": "弓箭手",
+    "HP": 500,
+    "Attack": 12,
+    "AttSpeed": 0.8,
+    "Speed": 1,
+    "AttDistance": 25,
+    "Money": 52.0
+  },
+  {
+    "ID": 3,
+    "Name": "迅猛怪",
+    "HP": 300,
+    "Attack": 10,
+    "AttSpeed": 1.5,
+    "Speed": 1.3,
+    "AttDistance": 7,
+    "Money": 32.0
+  },
+  {
+    "ID": 4,
+    "Name": "爆炸怪",
+    "HP": 50,
+    "Attack": 0,
+    "AttSpeed": 0,
+    "Speed": 2,
+    "AttDistance": 0,
+    "Money": 20.0
+  },
+  {
+    "ID": 5,
+    "Name": "巨怪",
+    "HP": 1500,
+    "Attack": 20,
+    "AttSpeed": 0.5,
+    "Speed": 0.5,
+    "AttDistance": 0.5,
+    "Money": 100.0
+  },
+  {
+    "ID": 6,
+    "Name": "治疗怪",
+    "HP": 500,
+    "Attack": 3,
+    "AttSpeed": 0.5,
+    "Speed": 1,
+    "AttDistance": 5,
+    "Money": 40.0
+  },
+  {
+    "ID": 7,
+    "Name": "光环怪",
+    "HP": 500,
+    "Attack": 8,
+    "AttSpeed": 0.5,
+    "Speed": 1,
+    "AttDistance": 5,
+    "Money": 40.0
+  },
+  {
+    "ID": 8,
+    "Name": "精英怪",
+    "HP": 5000,
+    "Attack": 15,
+    "AttSpeed": 2,
+    "Speed": 1,
+    "AttDistance": 3,
+    "Money": 800.0
+  },
+  {
+    "ID": 9,
+    "Name": "飞行怪",
+    "HP": 175,
+    "Attack": 10,
+    "AttSpeed": 1,
+    "Speed": 1,
+    "AttDistance": 10,
+    "Money": 60.0
+  },
+  {
+    "ID": 10,
+    "Name": "分裂怪",
+    "HP": 1000,
+    "Attack": 8,
+    "AttSpeed": 0.8,
+    "Speed": 0.7,
+    "AttDistance": 1,
+    "Money": 0.0
+  },
+  {
+    "ID": 11,
+    "Name": "小分裂怪",
+    "HP": 500,
+    "Attack": 4,
+    "AttSpeed": 0.8,
+    "Speed": 0.7,
+    "AttDistance": 1,
+    "Money": 100.0
+  },
+  {
+    "ID": 12,
+    "Name": "复仇怪",
+    "HP": 100,
+    "Attack": 3,
+    "AttSpeed": 2,
+    "Speed": 1,
+    "AttDistance": 1,
+    "Money": 160.0
+  },
+  {
+    "ID": 13,
+    "Name": "坚韧怪",
+    "HP": 600,
+    "Attack": 8,
+    "AttSpeed": 0.8,
+    "Speed": 1.2,
+    "AttDistance": 1,
+    "Money": 160.0
+  },
+  {
+    "ID": 14,
+    "Name": "瘟疫鸟",
+    "HP": 150,
+    "Attack": 10,
+    "AttSpeed": 1,
+    "Speed": 1,
+    "AttDistance": 10,
+    "Money": 120.0
+  }
+]

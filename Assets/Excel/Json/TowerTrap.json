@@ -1,0 +1,112 @@
+﻿[
+  {
+    "ID": 0,
+    "Name": "基础塔",
+    "Grids": 9,
+    "Attack": 10,
+    "AttSpeed": 1,
+    "AttDistance": 20,
+    "Cost": 500,
+    "Sell": 350.0
+  },
+  {
+    "ID": 1,
+    "Name": "炮塔",
+    "Grids": 9,
+    "Attack": 35,
+    "AttSpeed": 1.2,
+    "AttDistance": 8,
+    "Cost": 600,
+    "Sell": 420.0
+  },
+  {
+    "ID": 2,
+    "Name": "狙击塔",
+    "Grids": 9,
+    "Attack": 60,
+    "AttSpeed": 1.5,
+    "AttDistance": 10,
+    "Cost": 500,
+    "Sell": 350.0
+  },
+  {
+    "ID": 3,
+    "Name": "机枪塔",
+    "Grids": 9,
+    "Attack": 10,
+    "AttSpeed": 0.2,
+    "AttDistance": 6,
+    "Cost": 300,
+    "Sell": 210.0
+  },
+  {
+    "ID": 4,
+    "Name": "麻醉塔",
+    "Grids": 9,
+    "Attack": 10,
+    "AttSpeed": 0.6,
+    "AttDistance": 5,
+    "Cost": 400,
+    "Sell": 280.0
+  },
+  {
+    "ID": 5,
+    "Name": "沥青塔",
+    "Grids": 9,
+    "Attack": 5,
+    "AttSpeed": 1,
+    "AttDistance": 5,
+    "Cost": 400,
+    "Sell": 280.0
+  },
+  {
+    "ID": 6,
+    "Name": "火焰塔",
+    "Grids": 9,
+    "Attack": 6,
+    "AttSpeed": 0.1,
+    "AttDistance": 4,
+    "Cost": 400,
+    "Sell": 280.0
+  },
+  {
+    "ID": 7,
+    "Name": "天罗地网",
+    "Grids": 9,
+    "Attack": 0,
+    "AttSpeed": 20,
+    "AttDistance": 0,
+    "Cost": 500,
+    "Sell": 350.0
+  },
+  {
+    "ID": 8,
+    "Name": "铁蒺藜",
+    "Grids": 9,
+    "Attack": 5,
+    "AttSpeed": 1,
+    "AttDistance": 0,
+    "Cost": 300,
+    "Sell": 210.0
+  },
+  {
+    "ID": 9,
+    "Name": "电网",
+    "Grids": 9,
+    "Attack": 3,
+    "AttSpeed": 1,
+    "AttDistance": 0,
+    "Cost": 600,
+    "Sell": 420.0
+  },
+  {
+    "ID": 10,
+    "Name": "浮游炮塔",
+    "Grids": 9,
+    "Attack": 4,
+    "AttSpeed": 1,
+    "AttDistance": 0,
+    "Cost": 0,
+    "Sell": 0.0
+  }
+]
