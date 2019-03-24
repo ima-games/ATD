@@ -102,7 +102,7 @@
   {
     "ID": 10,
     "Name": "浮游炮塔",
-    "Grids": 9,
+    "Grids": 1,
     "Attack": 4,
     "AttSpeed": 1,
     "AttDistance": 0,
