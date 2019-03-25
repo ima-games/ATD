@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThirdPersonLCon : MonoBehaviour {
+public class TPScontroller : MonoBehaviour {
 
     //记录--------------------------------------------------------
     Vector3 movetoPos = Vector3.zero;//当前移动方向
@@ -30,7 +30,7 @@ public class ThirdPersonLCon : MonoBehaviour {
         //speedDir = dir * speed * Time.deltaTime * 100.0f;
         //worldSpeedDir = gameObject.transform.TransformVector(speedDir);
         //controller.SimpleMove(worldSpeedDir);
-        
+
     }
     void speedUpdateSet()//在Update中设置速度
     {
@@ -268,43 +268,57 @@ public class ThirdPersonLCon : MonoBehaviour {
                          //是否在空中设置
         if (!controller.isGrounded)//人物控制器反馈不在地面
         {
-            aboveFlyCount--;
-            if (!animator.GetBool(isAboveHash) && aboveFlyCount <= 0) {
-                //射线检测离地高度过高 设定AboveFlag
+            //aboveFlyCount--;
+            //if (!animator.GetBool(isAboveHash) && aboveFlyCount <= 0) {
+            //    //射线检测离地高度过高 设定AboveFlag
 
-                if (!Physics.Raycast(gameObject.transform.position + Vector3.up * 0.5f, Vector3.down, out onrcHit, 3f, mask)) {
-                    Debug.Log(gameObject.transform.position + Vector3.up * 0.5f);
-                    animator.SetBool(isAboveHash, true);
-                }
-                //
-            }
+            //    if (!Physics.Raycast(gameObject.transform.position + Vector3.up * 0.5f, Vector3.down, out onrcHit, 3f, mask)) {
+            //        Debug.Log(gameObject.transform.position + Vector3.up * 0.5f);
+            //        animator.SetBool(isAboveHash, true);
+            //    }
+            //    //
+            //}
         }
         else//反馈在地面一定设置AboveFlag为false
         {
             aboveFlyCount = 5;
         }
-        //跳跃
-        if (Input.GetKeyDown(KeyCode.Space) && controller.isGrounded) {
-            Debug.Log("jumo");
-            //this.GetComponent<Rigidbody>().velocity=(new Vector3(0, 1, 0) * jumpforce);
 
-            var v = controller.velocity;
-            v.y = 5;
-            controller.Move(v);
+        //跳跃---------------------------------------------------------------------------
 
-            animator.SetInteger("Jumping", (int)rigidbody.velocity.y);
-            animator.SetTrigger("JumpTrigger");
+        //if (Input.GetKeyDown(KeyCode.Space)) {
+        //    Debug.Log("jump");
+        //    //this.GetComponent<Rigidbody>().velocity=(new Vector3(0, 1, 0) * jumpforce);
+
+        //    //var v = controller.velocity;
+        //    //v.y = 5;
+        //    //controller.Move(v);
+
+        //    GetComponent<Rigidbody>().velocity += new Vector3(0, 5, 0);
+        //    GetComponent<Rigidbody>().AddForce(Vector3.up * jumpforce);
+
+        //    //animator.SetInteger("Jumping",(int) v.y);
+        //    animator.SetTrigger("JumpTrigger");
+        //}
+        //else {
+        //    animator.SetInteger("Jumping", 0);
+        Vector3 moveDirection = Vector3.zero;
+        if (controller.isGrounded) {
+            moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            moveDirection = transform.TransformDirection(moveDirection);
+            moveDirection *= Speed;
+            if (Input.GetKeyDown(KeyCode.Space)) {
+                Debug.Log("jump");
+                moveDirection.y = jumpforce;
+            }
         }
-        else {
-            animator.SetInteger("Jumping", 0);
-        }
+        moveDirection.y -= 9.8f * Time.deltaTime;
+        controller.Move(moveDirection * Time.deltaTime);
     }
-
-
-
-
+    
     private void LateUpdate() {
         cmaDirUpdateSet();//摄像机位置设置
         shelterCheckUpdate();//遮挡透明化处理
     }
+
 }
