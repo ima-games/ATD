@@ -1,0 +1,47 @@
+﻿[
+  {
+    "ID": 0,
+    "Name": "基础人",
+    "HP": 200,
+    "HpReturn": 1,
+    "Attack": 10,
+    "AttSpeed": 0.2,
+    "Speed": 5.0
+  },
+  {
+    "ID": 1,
+    "Name": "战士",
+    "HP": 300,
+    "HpReturn": 2,
+    "Attack": 8,
+    "AttSpeed": 0.15,
+    "Speed": 5.0
+  },
+  {
+    "ID": 2,
+    "Name": "猎人1",
+    "HP": 160,
+    "HpReturn": 1,
+    "Attack": 8,
+    "AttSpeed": 0.15,
+    "Speed": 7.5
+  },
+  {
+    "ID": 3,
+    "Name": "猎人2",
+    "HP": 160,
+    "HpReturn": 1,
+    "Attack": 12,
+    "AttSpeed": 0.65,
+    "Speed": 7.5
+  },
+  {
+    "ID": 4,
+    "Name": "祭司",
+    "HP": 240,
+    "HpReturn": 1,
+    "Attack": 15,
+    "AttSpeed": 0.3,
+    "Speed": 6.0
+  }
+]
