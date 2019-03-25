@@ -13,6 +13,10 @@ public class TPScontroller : MonoBehaviour {
 
     [Header("跳跃力度")]
     public float jumpforce = 200;
+    [Header("重力")]
+    public float gravity = 20;
+    [Header("跳跃高度")]
+    public float jumphigh = 5;
 
     [Header("摄像机")]
     public GameObject mycamera;
@@ -25,27 +29,29 @@ public class TPScontroller : MonoBehaviour {
 
     Vector3 speedDir;
     Vector3 worldSpeedDir;
-    void setPlayerSpeed(Vector3 dir, float speed)//设置当前速度
-    {
-        //speedDir = dir * speed * Time.deltaTime * 100.0f;
-        //worldSpeedDir = gameObject.transform.TransformVector(speedDir);
-        //controller.SimpleMove(worldSpeedDir);
 
-    }
-    void speedUpdateSet()//在Update中设置速度
-    {
-        //movetoPos.x = Input.GetAxisRaw("Horizontal");
-        ////movetoPos.y = 0.0f;
-        //movetoPos.z = Input.GetAxisRaw("Vertical");
+    //void setPlayerSpeed(Vector3 dir, float speed)//设置当前速度
+    //{
+    //    speedDir = dir * speed * Time.deltaTime * 100.0f;
+    //    worldSpeedDir = gameObject.transform.TransformVector(speedDir);
+    //    controller.SimpleMove(worldSpeedDir);
+
+    //}
+    //void speedUpdateSet()//在Update中设置速度
+    //{
+    //    movetoPos.x = Input.GetAxisRaw("Horizontal");
+    //    //movetoPos.y = 0.0f;
+    //    movetoPos.z = Input.GetAxisRaw("Vertical");
 
 
-        //if (movetoPos.z < 0) {
-        //    setPlayerSpeed(movetoPos, Speed / 2.0f);
-        //}
-        //else {
-        //    setPlayerSpeed(movetoPos, Speed);
-        //}
-    }
+    //    if (movetoPos.z < 0) {
+    //        setPlayerSpeed(movetoPos, Speed / 2.0f);
+    //    }
+    //    else {
+    //        setPlayerSpeed(movetoPos, Speed);
+    //    }
+    //}
+
     Vector2 nowPos;
     Vector2 LastPos;
     float nowAngle_y;
@@ -262,27 +268,30 @@ public class TPScontroller : MonoBehaviour {
     }
 
     int aboveFlyCount = 5;
+
+    Vector3 moveDirection = Vector3.zero;
+
     // Update is called once per frame
     void Update() {
-        speedUpdateSet();//速度设置
-                         //是否在空中设置
-        if (!controller.isGrounded)//人物控制器反馈不在地面
-        {
-            //aboveFlyCount--;
-            //if (!animator.GetBool(isAboveHash) && aboveFlyCount <= 0) {
-            //    //射线检测离地高度过高 设定AboveFlag
+        //speedUpdateSet();//速度设置
+        //是否在空中设置
+        //if (!controller.isGrounded)//人物控制器反馈不在地面
+        //{
+        //    //aboveFlyCount--;
+        //    //if (!animator.GetBool(isAboveHash) && aboveFlyCount <= 0) {
+        //    //    //射线检测离地高度过高 设定AboveFlag
 
-            //    if (!Physics.Raycast(gameObject.transform.position + Vector3.up * 0.5f, Vector3.down, out onrcHit, 3f, mask)) {
-            //        Debug.Log(gameObject.transform.position + Vector3.up * 0.5f);
-            //        animator.SetBool(isAboveHash, true);
-            //    }
-            //    //
-            //}
-        }
-        else//反馈在地面一定设置AboveFlag为false
-        {
-            aboveFlyCount = 5;
-        }
+        //    //    if (!Physics.Raycast(gameObject.transform.position + Vector3.up * 0.5f, Vector3.down, out onrcHit, 3f, mask)) {
+        //    //        Debug.Log(gameObject.transform.position + Vector3.up * 0.5f);
+        //    //        animator.SetBool(isAboveHash, true);
+        //    //    }
+        //    //    //
+        //    //}
+        //}
+        //else//反馈在地面一定设置AboveFlag为false
+        //{
+        //    aboveFlyCount = 5;
+        //}
 
         //跳跃---------------------------------------------------------------------------
 
@@ -302,20 +311,40 @@ public class TPScontroller : MonoBehaviour {
         //}
         //else {
         //    animator.SetInteger("Jumping", 0);
-        Vector3 moveDirection = Vector3.zero;
+
+
         if (controller.isGrounded) {
-            moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            float x = Input.GetAxis("Horizontal");
+            float z = Input.GetAxis("Vertical");
+            animator.SetFloat("Velocity X", x);
+            animator.SetFloat("Velocity Z", z);
+            bool isMoving = x != 0f || z != 0f;
+            if (isMoving) {
+                animator.SetBool("Moving",true);
+            }
+            else {
+                animator.SetBool("Moving", false);
+            }
+
+            
+            moveDirection = new Vector3(x * Speed, 0, z * Speed);
             moveDirection = transform.TransformDirection(moveDirection);
-            moveDirection *= Speed;
-            if (Input.GetKeyDown(KeyCode.Space)) {
+            //moveDirection *= Speed;
+            if (Input.GetKey(KeyCode.Space)) {
                 Debug.Log("jump");
-                moveDirection.y = jumpforce;
+                //animator.SetTrigger("JumpTrigger");
+                //moveDirection.y = jumpforce;
+                for (float timer = 1.5f; timer >= 0; timer -= Time.deltaTime) {
+                    moveDirection.y += jumpforce * Time.deltaTime;
+                }
+
+                //animator.SetTrigger("JumpTrigger");
             }
         }
-        moveDirection.y -= 9.8f * Time.deltaTime;
+        moveDirection.y -= gravity * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
     }
-    
+
     private void LateUpdate() {
         cmaDirUpdateSet();//摄像机位置设置
         shelterCheckUpdate();//遮挡透明化处理
