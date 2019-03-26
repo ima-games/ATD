@@ -1,0 +1,38 @@
+﻿[
+  {
+    "ID": 0,
+    "Name": "圣域防甲",
+    "Colding": 600,
+    "UnlockCost": 50.0
+  },
+  {
+    "ID": 1,
+    "Name": "虚幻项链",
+    "Colding": 60,
+    "UnlockCost": 50.0
+  },
+  {
+    "ID": 2,
+    "Name": "顽石手套",
+    "Colding": 5,
+    "UnlockCost": 50.0
+  },
+  {
+    "ID": 3,
+    "Name": "圣泉指环",
+    "Colding": 0,
+    "UnlockCost": 50.0
+  },
+  {
+    "ID": 4,
+    "Name": "凝视头盔",
+    "Colding": 0,
+    "UnlockCost": 50.0
+  },
+  {
+    "ID": 5,
+    "Name": "不歇披风",
+    "Colding": 0,
+    "UnlockCost": 50.0
+  }
+]
