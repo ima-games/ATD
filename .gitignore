@@ -1,0 +1,30 @@
+Library/
+Library
+Temp/
+.vs/
+ExportedObj/*
+obj/
+*.dwlt
+*.svd
+*.userprefs
+/*.csproj
+*.pidb
+*.suo
+/*.sln
+*.user
+*.unityproj
+*.booproj
+*.asset
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+ProjectVersion.txt
+manifest.json
+*.dwlt
