@@ -6,8 +6,6 @@ public class TPScontroller : MonoBehaviour {
 
     //记录--------------------------------------------------------
     Vector3 movetoPos = Vector3.zero;//当前移动方向
-    [Header("皇牌空战")]
-    public bool DevilMayCry = false;
     [Header("移动速度")]
     public float Speed = 1.0f;
     [Header("视角灵敏度")]
@@ -262,31 +260,13 @@ public class TPScontroller : MonoBehaviour {
             animator.SetBool("Moving", false);
         }
 
-        if (DevilMayCry == true || controller.isGrounded) {
-            if (Input.GetKeyDown(KeyCode.LeftShift)) {
-                //animator.SetTrigger("RollBackwardTrigger");
-                animator.SetTrigger("RollForwardTrigger");
-                if (x > 0f) {
-                    animator.SetTrigger("RollRightTrigger");
-                }
-                else if (x < 0f) {
-                    animator.SetTrigger("RollLeftTrigger");
-                }
-                if (z < 0f) {
-                    animator.SetTrigger("RollBackwardTrigger");
-                    //animator.SetTrigger("RollForwardTrigger");
-                }
-            }
-        }
-
-
         if (controller.isGrounded) {
             animator.SetInteger("Jumping", 0);
-            moveDirection = new Vector3(x * Speed, 0, z * Speed);
+            moveDirection = new Vector3(x * Speed , 0, z * Speed );
             //moveDirection = new Vector3(0, 0, 0);
             moveDirection = transform.TransformDirection(moveDirection);
             //moveDirection *= Speed;
-
+            
             if (Input.GetKey(KeyCode.Space)) {
                 Debug.Log("jump");
                 animator.SetTrigger("JumpTrigger");
@@ -297,15 +277,11 @@ public class TPScontroller : MonoBehaviour {
                 moveDirection.x = x * Speed;
                 moveDirection.z = z * Speed;
                 moveDirection = transform.TransformDirection(moveDirection);
-
             }
-
+            
         }
         else
             animator.SetInteger("Jumping", 1);
-
-
-
 
         moveDirection.y -= gravity * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);

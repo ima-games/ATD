@@ -339,7 +339,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1001 &109612569
 PrefabInstance:
@@ -412,21 +412,6 @@ PrefabInstance:
         type: 3}
       propertyPath: roFlag
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6638180461722375724, guid: 46e674933cdf17f40a8d8ae58e6a311b,
-        type: 3}
-      propertyPath: DevilMayCry
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6638180461722375722, guid: 46e674933cdf17f40a8d8ae58e6a311b,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.98
-      objectReference: {fileID: 0}
-    - target: {fileID: 6638180461722375722, guid: 46e674933cdf17f40a8d8ae58e6a311b,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46e674933cdf17f40a8d8ae58e6a311b, type: 3}
