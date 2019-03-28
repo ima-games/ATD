@@ -14,8 +14,6 @@ public class TPScontroller : MonoBehaviour {
     public float jumpforce = 200;
     [Header("重力")]
     public float gravity = 20;
-    [Header("跳跃高度")]
-    public float jumphigh = 5;
     [Header("摄像机")]
     public GameObject mycamera;
     CharacterController controller;
