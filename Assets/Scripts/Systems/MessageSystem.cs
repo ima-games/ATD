@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class MessageSystem : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    // BroadcastMessage  朝物体和所有子物体发送消息
+    // SendMessage  朝物体下所有组件发送消息
+    // SendMessageUpwards  朝物体和上级父物体发送信息
+
+    private void Awake()
     {
-        
+        EventCenter.AddListener(EventType.Hurt, Hurt);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Hurt()
     {
-        
+        SendHurtMessage(25.0f);
     }
+    
+    private void SendHurtMessage(float Damage)
+    {
+        Debug.Log("Finding the HP ");
+        BroadcastMessage("ReduceHP",25);
+    }
+    
 }
