@@ -18,6 +18,8 @@ public class TPScontroller : MonoBehaviour
     public float gravity = 20;
     [Header("绑定摄像机")]
     public GameObject mycamera;
+    [Header("翻滚间隔")]
+    public float rollpertime = 0.5f;
 
     CharacterController controller;
     Animator animator;
@@ -268,8 +270,19 @@ public class TPScontroller : MonoBehaviour
 
     Vector3 moveDirection = Vector3.zero;
 
+    private float period = 0.5f;
+    private bool canitroll = true;
+
     void Update()
     {
+        if(canitroll == false)
+            period -= Time.deltaTime;
+        if (period <= 0)
+        {
+            period = rollpertime;
+            canitroll = true;
+        }
+        
 
         //移动
         float x = Input.GetAxis("Horizontal");
@@ -285,8 +298,9 @@ public class TPScontroller : MonoBehaviour
         //翻滚
         if (controller.isGrounded || devilMayCry)//在地上 or空战模式开启
         {
-            if (Input.GetKeyDown(KeyCode.LeftShift))//按下shift
+            if (Input.GetKeyDown(KeyCode.LeftShift) && canitroll == true)//按下shift
             {
+                canitroll = false;
                 animator.SetTrigger("RollForwardTrigger");//单按下shift向前滚
 
                 if (x > 0f)
@@ -297,6 +311,7 @@ public class TPScontroller : MonoBehaviour
                 if (z < 0f)
                     animator.SetTrigger("RollBackwardTrigger");
             }
+            
         }
 
         //跳跃
