@@ -9,11 +9,11 @@ public class TPScontroller : MonoBehaviour
     [Header("皇牌空战")]
     public bool devilMayCry = false;
     [Header("移动速度")]
-    public float speed = 1.0f;
+    public float speed = 5.0f;
     [Header("视角灵敏度")]
-    public float roFlag = 0.1f;
+    public float roFlag = 0.2f;
     [Header("跳跃力度")]
-    public float jumpforce = 200;
+    public float jumpforce = 15;
     [Header("下落速度")]
     public float gravity = 20;
     [Header("绑定摄像机")]
@@ -277,7 +277,7 @@ public class TPScontroller : MonoBehaviour
         animator.SetFloat("Velocity X", x);
         animator.SetFloat("Velocity Z", z);
         bool isMoving = (x != 0f || z != 0f);
-        if (isMoving && controller.isGrounded)//如果有输入且在地面
+        if (isMoving)//如果有输入且在地面
             animator.SetBool("Moving", true);
         else
             animator.SetBool("Moving", false);
