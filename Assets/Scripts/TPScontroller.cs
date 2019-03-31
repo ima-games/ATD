@@ -2,27 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TPScontroller : MonoBehaviour {
-
+public class TPScontroller : MonoBehaviour
+{
     //记录--------------------------------------------------------
     Vector3 movetoPos = Vector3.zero;//当前移动方向
+    [Header("皇牌空战")]
+    public bool devilMayCry = false;
     [Header("移动速度")]
-    public float Speed = 1.0f;
+    public float speed = 1.0f;
     [Header("视角灵敏度")]
     public float roFlag = 0.1f;
     [Header("跳跃力度")]
     public float jumpforce = 200;
-    [Header("重力")]
+    [Header("下落速度")]
     public float gravity = 20;
-    [Header("摄像机")]
+    [Header("绑定摄像机")]
     public GameObject mycamera;
+
     CharacterController controller;
     Animator animator;
     int isAboveHash = Animator.StringToHash("IsAbove");
 
     private new Rigidbody rigidbody;
-    //内部调用----------------------------------------------------
 
+    //内部调用----------------------------------------------------
     Vector3 speedDir;
     Vector3 worldSpeedDir;
     Vector2 nowPos;
@@ -42,7 +45,8 @@ public class TPScontroller : MonoBehaviour {
 
             //完成Player x_横向旋转
             gameObject.transform.Rotate(new Vector3(0, rotate_x, 0));
-            if ((nowAngle_y + rotate_y) > 30f || nowAngle_y + rotate_y < -90f) {
+            if ((nowAngle_y + rotate_y) > 30f || nowAngle_y + rotate_y < -90f)
+            {
                 return;
             }
             nowAngle_y += rotate_y;
@@ -51,10 +55,12 @@ public class TPScontroller : MonoBehaviour {
 
 
             //非FPS型
-            if (nowAngle_y > -30f && nowAngle_y <= 30f) {
+            if (nowAngle_y > -30f && nowAngle_y <= 30f)
+            {
                 mycamera.transform.localPosition = new Vector3(0, -0.75f + 3.75f * ((nowAngle_y + 30f) / 60f), -5f + 1f * ((nowAngle_y + 30f) / 60f));
             }
-            else {
+            else
+            {
                 mycamera.transform.localPosition = new Vector3(0, -0.75f * ((nowAngle_y + 90f) / 60f), -0.75f - 4.25f * ((nowAngle_y + 90f) / 60f));
             }
 
@@ -62,15 +68,17 @@ public class TPScontroller : MonoBehaviour {
 
             //if (nowAngle_y > -60f && nowAngle_y <= 30f)
             //{
-            //	mycamera.transform.localPosition = new Vector3(0, -2f + 5f * ((nowAngle_y + 60f) / 90f), -3f - 1f * ((nowAngle_y + 60f) / 90f));
+            //  mycamera.transform.localPosition = new Vector3(0, -2f + 5f * ((nowAngle_y + 60f) / 90f), -3f - 1f * ((nowAngle_y + 60f) / 90f));
             //}
             //else
             //{
-            //	mycamera.transform.localPosition = new Vector3(0, -2f * ((nowAngle_y + 90f) / 30f), -0.75f - 3.25f * ((nowAngle_y + 90f) / 30f));
+            //  mycamera.transform.localPosition = new Vector3(0, -2f * ((nowAngle_y + 90f) / 30f), -0.75f - 3.25f * ((nowAngle_y + 90f) / 30f));
             //}
         }
-        else {
-            if (Input.GetMouseButtonDown(0)) {
+        else
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
                 Cursor.visible = false;
                 LastPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
             }
@@ -120,38 +128,47 @@ public class TPScontroller : MonoBehaviour {
         baser5 = new Ray(cmaPos, basePos5 - cmaPos);
         baser6 = new Ray(cmaPos, basePos6 - cmaPos);
         //checkOnCmaCollision
-        for (int i = 0; i < onCmaCollision.Count; i++) {
+        for (int i = 0; i < onCmaCollision.Count; i++)
+        {
             onCmaObj = onCmaCollision[i];
-            if (null == onCmaObj) {
+            if (null == onCmaObj)
+            {
                 onRemoveCollision.Add(onCmaObj);
                 continue;
             }
             onCmaObj.layer = 11;
-            if (Physics.Raycast(baser0, out onrcHit, Vector3.Distance(cmaPos, basePos0), mask3)) {
+            if (Physics.Raycast(baser0, out onrcHit, Vector3.Distance(cmaPos, basePos0), mask3))
+            {
                 onCmaObj.layer = 10;
                 continue;
             }
-            if (Physics.Raycast(baser1, out onrcHit, Vector3.Distance(cmaPos, basePos1), mask3)) {
+            if (Physics.Raycast(baser1, out onrcHit, Vector3.Distance(cmaPos, basePos1), mask3))
+            {
                 onCmaObj.layer = 10;
                 continue;
             }
-            if (Physics.Raycast(baser2, out onrcHit, Vector3.Distance(cmaPos, basePos2), mask3)) {
+            if (Physics.Raycast(baser2, out onrcHit, Vector3.Distance(cmaPos, basePos2), mask3))
+            {
                 onCmaObj.layer = 10;
                 continue;
             }
-            if (Physics.Raycast(baser3, out onrcHit, Vector3.Distance(cmaPos, basePos3), mask3)) {
+            if (Physics.Raycast(baser3, out onrcHit, Vector3.Distance(cmaPos, basePos3), mask3))
+            {
                 onCmaObj.layer = 10;
                 continue;
             }
-            if (Physics.Raycast(baser4, out onrcHit, Vector3.Distance(cmaPos, basePos4), mask3)) {
+            if (Physics.Raycast(baser4, out onrcHit, Vector3.Distance(cmaPos, basePos4), mask3))
+            {
                 onCmaObj.layer = 10;
                 continue;
             }
-            if (Physics.Raycast(baser5, out onrcHit, Vector3.Distance(cmaPos, basePos5), mask3)) {
+            if (Physics.Raycast(baser5, out onrcHit, Vector3.Distance(cmaPos, basePos5), mask3))
+            {
                 onCmaObj.layer = 10;
                 continue;
             }
-            if (Physics.Raycast(baser6, out onrcHit, Vector3.Distance(cmaPos, basePos6), mask3)) {
+            if (Physics.Raycast(baser6, out onrcHit, Vector3.Distance(cmaPos, basePos6), mask3))
+            {
                 onCmaObj.layer = 10;
                 continue;
             }
@@ -159,9 +176,11 @@ public class TPScontroller : MonoBehaviour {
             onCmaObj.layer = 9;
             onRemoveCollision.Add(onCmaObj);
         }
-        for (int i = 0; i < onRemoveCollision.Count; i++) {
+        for (int i = 0; i < onRemoveCollision.Count; i++)
+        {
             onCmaObj = onRemoveCollision[i];
-            if (null == onCmaObj) {
+            if (null == onCmaObj)
+            {
                 onCmaCollision.Remove(onCmaObj);
                 continue;
             }
@@ -185,13 +204,16 @@ public class TPScontroller : MonoBehaviour {
     {
         for (; ; )
         {
-            if (Physics.Raycast(baser0, out onrcHit, Vector3.Distance(cmaPos, basePos0), mask)) {
-                if (onrcHit.collider.gameObject.name == "Plane") {
+            if (Physics.Raycast(baser0, out onrcHit, Vector3.Distance(cmaPos, basePos0), mask))
+            {
+                if (onrcHit.collider.gameObject.name == "Plane")
+                {
                     break;
                 }
                 objAddToOnCmaCollision(onrcHit.collider.gameObject);
             }
-            else {
+            else
+            {
                 break;
             }
         }
@@ -206,10 +228,12 @@ public class TPScontroller : MonoBehaviour {
         objm.color = new Color(lastColor.r, lastColor.g, lastColor.b, 0.3f);
         onCmaCollision.Add(obj);
     }
-    public void outPCOnDragBegin() {
+    public void outPCOnDragBegin()
+    {
         LastPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         nowAngle_y = mycamera.transform.eulerAngles.x;
-        if (nowAngle_y > 180f || nowAngle_y < -180f) {
+        if (nowAngle_y > 180f || nowAngle_y < -180f)
+        {
             for (; ; )
             {
                 if (nowAngle_y > 180f) { nowAngle_y -= 360; }
@@ -222,11 +246,13 @@ public class TPScontroller : MonoBehaviour {
     //Behaviour---------------------------------------------------
 
     //Start is called before the first frame update
-    void Start() {
+    void Start()
+    {
         controller = gameObject.GetComponent<CharacterController>();
         outPCOnDragBegin();//角色选择初始设置
         Cursor.visible = false;
-        if (!mycamera) {
+        if (!mycamera)
+        {
             mycamera = Camera.main.gameObject;
         }
 
@@ -238,54 +264,73 @@ public class TPScontroller : MonoBehaviour {
 
         animator = gameObject.GetComponentInChildren<Animator>();
 
-        rigidbody = GetComponent<Rigidbody>();
     }
 
     Vector3 moveDirection = Vector3.zero;
 
-    // Update is called once per frame
-    void Update() {
+    void Update()
+    {
 
+        //移动
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         animator.SetFloat("Velocity X", x);
         animator.SetFloat("Velocity Z", z);
-        bool isMoving = (x != 0f || z != 0f); //&& controller.isGrounded
-        if (isMoving) {
+        bool isMoving = (x != 0f || z != 0f);
+        if (isMoving && controller.isGrounded)//如果有输入且在地面
             animator.SetBool("Moving", true);
-        }
-        else {
+        else
             animator.SetBool("Moving", false);
+
+        //翻滚
+        if (controller.isGrounded || devilMayCry)//在地上 or空战模式开启
+        {
+            if (Input.GetKeyDown(KeyCode.LeftShift))//按下shift
+            {
+                animator.SetTrigger("RollForwardTrigger");//单按下shift向前滚
+
+                if (x > 0f)
+                    animator.SetTrigger("RollRightTrigger");
+                else if (x < 0f)
+                    animator.SetTrigger("RollLeftTrigger");
+
+                if (z < 0f)
+                    animator.SetTrigger("RollBackwardTrigger");
+            }
         }
 
-        if (controller.isGrounded) {
-            animator.SetInteger("Jumping", 0);
-            moveDirection = new Vector3(x * Speed , 0, z * Speed );
-            //moveDirection = new Vector3(0, 0, 0);
-            moveDirection = transform.TransformDirection(moveDirection);
-            //moveDirection *= Speed;
-            
-            if (Input.GetKey(KeyCode.Space)) {
-                Debug.Log("jump");
+        //跳跃
+
+        if (controller.isGrounded)//在地上 
+        {
+            animator.SetInteger("Jumping", 0);//滞空状态的Jumping为0
+            moveDirection = new Vector3(x * speed, 0, z * speed);
+            moveDirection = transform.TransformDirection(moveDirection);//对齐到镜头坐标系
+            if (Input.GetKey(KeyCode.Space))//按下空格
+            {
+                //Debug.Log("jump");
                 animator.SetTrigger("JumpTrigger");
-                //moveDirection.y = jumpforce;
-                for (float timer = 1.5f; timer >= 0; timer -= Time.deltaTime) {
-                    moveDirection.y += jumpforce * Time.deltaTime;
-                }
-                moveDirection.x = x * Speed;
-                moveDirection.z = z * Speed;
+                moveDirection.y = jumpforce;
+            }
+        }
+        else//滞空状态
+        {
+            animator.SetInteger("Jumping", 1);//滞空状态的Jumping为非0
+            if (isMoving && devilMayCry)//空战模式开启时，空中可控制移动
+            {
+                moveDirection.x = x * speed;
+                moveDirection.z = z * speed;
                 moveDirection = transform.TransformDirection(moveDirection);
             }
-            
         }
-        else
-            animator.SetInteger("Jumping", 1);
 
+        //下落
         moveDirection.y -= gravity * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
     }
 
-    private void LateUpdate() {
+    private void LateUpdate()
+    {
         cmaDirUpdateSet();//摄像机位置设置
         shelterCheckUpdate();//遮挡透明化处理
     }
