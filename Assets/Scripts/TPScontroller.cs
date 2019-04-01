@@ -18,12 +18,18 @@ public class TPScontroller : MonoBehaviour
     public float gravity = 20;
     [Header("绑定摄像机")]
     public GameObject mycamera;
-    [Header("翻滚间隔")]
-    public float rollpertime = 0.5f;
-    [Header("翻滚惯性加速")]
+    [Header("翻滚冷却")]
+    public float rollCD = 0.5f;
+    [Header("翻滚加速")]
     public bool rollboost = true;
     [Header("翻滚加速倍率")]
     public float rollboostrate = 1.5f;
+    [Header("闪避冷却")]
+    public float dodgeCD = 0.5f;
+    [Header("闪避加速")]
+    public bool dodgeboost = true;
+    [Header("闪避加速倍率")]
+    public float dodgeboostrate = 1.5f;
 
     CharacterController controller;
     Animator animator;
@@ -249,9 +255,8 @@ public class TPScontroller : MonoBehaviour
             }
         }
     }
-    //Behaviour---------------------------------------------------
 
-    //Start is called before the first frame update
+    //Behaviour---------------------------------------------------
     void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
@@ -274,17 +279,32 @@ public class TPScontroller : MonoBehaviour
 
     Vector3 moveDirection = Vector3.zero;
 
-    private float period = 0.5f;
+    private float rollCD2;
+    private float dodgeCD2;
     private bool canitroll = true;
+    private bool canitdodge = true;
 
     void Update()
     {
+        if (canitroll == true)
+            rollCD2 = rollCD;
         if (canitroll == false)
-            period -= Time.deltaTime;
-        if (period <= 0)
+            rollCD2 -= Time.deltaTime;
+        if (rollCD2 <= 0)
         {
-            period = rollpertime;
+            rollCD2 = rollCD;
             canitroll = true;
+        }
+
+        if (canitdodge == true)
+            dodgeCD2 = dodgeCD;
+        if (canitdodge == false)
+            dodgeCD2 -= Time.deltaTime;
+
+        if (dodgeCD2 <= 0)
+        {
+            dodgeCD2 = dodgeCD;
+            canitdodge = true;
         }
 
 
@@ -299,10 +319,11 @@ public class TPScontroller : MonoBehaviour
         else
             animator.SetBool("Moving", false);
 
-        //翻滚
+
+        //翻滚&闪避
         if (controller.isGrounded || devilMayCry)//在地上 or空战模式开启
         {
-            if (Input.GetKeyDown(KeyCode.LeftShift) && canitroll == true)//按下shift
+            if (Input.GetKeyDown(KeyCode.LeftControl) && canitroll == true)//按下shift
             {
                 canitroll = false;
                 animator.SetTrigger("RollForwardTrigger");//单按下shift向前滚
@@ -316,6 +337,14 @@ public class TPScontroller : MonoBehaviour
                     animator.SetTrigger("RollBackwardTrigger");
             }
 
+            if (Input.GetKeyDown(KeyCode.LeftShift) && canitdodge == true)//按下shift
+            {
+                canitdodge = false;
+                if (x > 0f)
+                    animator.SetTrigger("DodgeRightTrigger");
+                if (x < 0f)
+                    animator.SetTrigger("DodgeLeftTrigger");
+            }
         }
 
         //跳跃
@@ -336,17 +365,8 @@ public class TPScontroller : MonoBehaviour
             moveDirection = transform.TransformDirection(moveDirection);//对齐到镜头坐标系
             if (Input.GetKey(KeyCode.Space))//按下空格
             {
-                if (canitroll == false)
-                {
-                    animator.SetTrigger("JumpTrigger");
-                    moveDirection.y = jumpforce;
-                }
-                else
-                {
-                    animator.SetTrigger("JumpTrigger");
-                    moveDirection.y = jumpforce;
-                }
-                //Debug.Log("jump");
+                animator.SetTrigger("JumpTrigger");
+                moveDirection.y = jumpforce;
             }
         }
         else//滞空状态
@@ -354,9 +374,18 @@ public class TPScontroller : MonoBehaviour
             animator.SetInteger("Jumping", 1);//滞空状态的Jumping为非0
             if (isMoving && devilMayCry)//空战模式开启时，空中控制移动
             {
-                moveDirection.x = x * speed;
-                moveDirection.z = z * speed;
-                moveDirection = transform.TransformDirection(moveDirection);
+                if (canitroll == false && rollboost)
+                {
+                    moveDirection.x = x * speed * rollboostrate;
+                    moveDirection.z = z * speed * rollboostrate;
+                    moveDirection = transform.TransformDirection(moveDirection);
+                }
+                else
+                {
+                    moveDirection.x = x * speed;
+                    moveDirection.z = z * speed;
+                    moveDirection = transform.TransformDirection(moveDirection);
+                }
             }
         }
 
