@@ -20,6 +20,10 @@ public class TPScontroller : MonoBehaviour
     public GameObject mycamera;
     [Header("翻滚间隔")]
     public float rollpertime = 0.5f;
+    [Header("翻滚惯性加速")]
+    public bool rollboost = true;
+    [Header("翻滚加速倍率")]
+    public float rollboostrate = 1.5f;
 
     CharacterController controller;
     Animator animator;
@@ -275,14 +279,14 @@ public class TPScontroller : MonoBehaviour
 
     void Update()
     {
-        if(canitroll == false)
+        if (canitroll == false)
             period -= Time.deltaTime;
         if (period <= 0)
         {
             period = rollpertime;
             canitroll = true;
         }
-        
+
 
         //移动
         float x = Input.GetAxis("Horizontal");
@@ -311,7 +315,7 @@ public class TPScontroller : MonoBehaviour
                 if (z < 0f)
                     animator.SetTrigger("RollBackwardTrigger");
             }
-            
+
         }
 
         //跳跃
@@ -319,19 +323,36 @@ public class TPScontroller : MonoBehaviour
         if (controller.isGrounded)//在地上 
         {
             animator.SetInteger("Jumping", 0);//滞空状态的Jumping为0
-            moveDirection = new Vector3(x * speed, 0, z * speed);
+
+            //翻滚后跳更远
+            if (canitroll == false && rollboost)
+                moveDirection = new Vector3(
+                    x * speed * rollboostrate,
+                    0,
+                    z * speed * rollboostrate);
+            else
+                moveDirection = new Vector3(x * speed, 0, z * speed);
+
             moveDirection = transform.TransformDirection(moveDirection);//对齐到镜头坐标系
             if (Input.GetKey(KeyCode.Space))//按下空格
             {
+                if (canitroll == false)
+                {
+                    animator.SetTrigger("JumpTrigger");
+                    moveDirection.y = jumpforce;
+                }
+                else
+                {
+                    animator.SetTrigger("JumpTrigger");
+                    moveDirection.y = jumpforce;
+                }
                 //Debug.Log("jump");
-                animator.SetTrigger("JumpTrigger");
-                moveDirection.y = jumpforce;
             }
         }
         else//滞空状态
         {
             animator.SetInteger("Jumping", 1);//滞空状态的Jumping为非0
-            if (isMoving && devilMayCry)//空战模式开启时，空中可控制移动
+            if (isMoving && devilMayCry)//空战模式开启时，空中控制移动
             {
                 moveDirection.x = x * speed;
                 moveDirection.z = z * speed;
