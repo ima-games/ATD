@@ -26,10 +26,12 @@ public class TPScontroller : MonoBehaviour
     public float rollboostrate = 1.5f;
     [Header("闪避冷却")]
     public float dodgeCD = 0.5f;
-    [Header("闪避加速")]
-    public bool dodgeboost = true;
-    [Header("闪避加速倍率")]
-    public float dodgeboostrate = 1.5f;
+    //[Header("闪避加速")]
+    //public bool dodgeboost = true;
+    //[Header("闪避加速倍率")]
+    //public float dodgeboostrate = 1.5f;
+    [Header("左键攻击冷却")]
+    public float attk0CD = 0.5f;
 
     CharacterController controller;
     Animator animator;
@@ -280,12 +282,17 @@ public class TPScontroller : MonoBehaviour
     Vector3 moveDirection = Vector3.zero;
 
     private float rollCD2;
-    private float dodgeCD2;
     private bool canitroll = true;
+    private float dodgeCD2;
     private bool canitdodge = true;
+    private float attk0CD2;
+    private bool canitattk0 = true;
 
-    void Update()
+    private bool canitmove = true;
+
+    void cdmanager()
     {
+        //roll
         if (canitroll == true)
             rollCD2 = rollCD;
         if (canitroll == false)
@@ -296,17 +303,34 @@ public class TPScontroller : MonoBehaviour
             canitroll = true;
         }
 
+        //dodge
         if (canitdodge == true)
             dodgeCD2 = dodgeCD;
         if (canitdodge == false)
             dodgeCD2 -= Time.deltaTime;
-
         if (dodgeCD2 <= 0)
         {
             dodgeCD2 = dodgeCD;
             canitdodge = true;
         }
 
+        //attack0
+        if (canitattk0 == true)
+            attk0CD2 = attk0CD;
+        if (canitattk0 == false)
+            attk0CD2 -= Time.deltaTime;
+        if (attk0CD2 <= 0)
+        {
+            attk0CD2 = attk0CD;
+            canitattk0 = true;
+        }
+    }
+
+    void Update()
+    {
+        ///CD管理
+        cdmanager();
+        ///CD管理Eend
 
         //移动
         float x = Input.GetAxis("Horizontal");
@@ -314,7 +338,7 @@ public class TPScontroller : MonoBehaviour
         animator.SetFloat("Velocity X", x);
         animator.SetFloat("Velocity Z", z);
         bool isMoving = (x != 0f || z != 0f);
-        if (isMoving)//如果有输入且在地面
+        if (isMoving && canitmove)//如果有输入且在地面
             animator.SetBool("Moving", true);
         else
             animator.SetBool("Moving", false);
@@ -348,7 +372,6 @@ public class TPScontroller : MonoBehaviour
         }
 
         //跳跃
-
         if (controller.isGrounded)//在地上 
         {
             animator.SetInteger("Jumping", 0);//滞空状态的Jumping为0
@@ -392,6 +415,19 @@ public class TPScontroller : MonoBehaviour
         //下落
         moveDirection.y -= gravity * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
+
+        //近战攻击
+        if(Input.GetMouseButtonDown(0) && canitroll == true && canitattk0 == true)
+        {
+            //Debug.Log("Attack1");
+            canitattk0 = false;
+            animator.SetTrigger("Attack1Trigger");
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            //Debug.Log("Attack2");
+            animator.SetTrigger("Attack2Trigger");
+        }
     }
 
     private void LateUpdate()
