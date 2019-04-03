@@ -31,7 +31,7 @@ public class TPScontroller : MonoBehaviour
     //[Header("闪避加速倍率")]
     //public float dodgeboostrate = 1.5f;
     [Header("左键攻击冷却")]
-    public float attk0CD = 0.5f;
+    public float attack0CD = 0.5f;
 
     CharacterController controller;
     Animator animator;
@@ -281,49 +281,74 @@ public class TPScontroller : MonoBehaviour
 
     Vector3 moveDirection = Vector3.zero;
 
-    private float rollCD2;
     private bool canitroll = true;
-    private float dodgeCD2;
     private bool canitdodge = true;
-    private float attk0CD2;
-    private bool canitattk0 = true;
+    private bool canitattack0 = true;
 
     private bool canitmove = true;
 
+    //IEnumerator countDownCD(float waittime, bool canitsample)
+    //{
+    //    Debug.Log("开始执行");
+    //    canitsample = false;
+    //    yield return new WaitForSeconds(waittime);
+    //    Debug.Log("执行结束");
+    //    canitsample = true;
+    //}
+
+    IEnumerator rollCor()
+    {
+        canitroll = false;
+        yield return new WaitForSeconds(rollCD);
+        canitroll = true;
+    }
+    IEnumerator dodgeCor()
+    {
+        canitdodge = false;
+        yield return new WaitForSeconds(dodgeCD);
+        canitdodge = true;
+    }
+    IEnumerator attack0()
+    {
+        canitattack0 = false;
+        yield return new WaitForSeconds(attack0CD);
+        canitattack0 = true;
+    }
+
     void cdmanager()
     {
-        //roll
-        if (canitroll == true)
-            rollCD2 = rollCD;
-        if (canitroll == false)
-            rollCD2 -= Time.deltaTime;
-        if (rollCD2 <= 0)
-        {
-            rollCD2 = rollCD;
-            canitroll = true;
-        }
+        ////roll
+        //if (canitroll == true)
+        //    rollCD2 = rollCD;
+        //if (canitroll == false)
+        //rollCD2 -= Time.deltaTime;
+        //if (rollCD2 <= 0)
+        //{
+        //    rollCD2 = rollCD;
+        //    canitroll = true;
+        //}
 
         //dodge
-        if (canitdodge == true)
-            dodgeCD2 = dodgeCD;
-        if (canitdodge == false)
-            dodgeCD2 -= Time.deltaTime;
-        if (dodgeCD2 <= 0)
-        {
-            dodgeCD2 = dodgeCD;
-            canitdodge = true;
-        }
+        //if (canitdodge == true)
+        //    dodgeCD2 = dodgeCD;
+        //if (canitdodge == false)
+        //    dodgeCD2 -= Time.deltaTime;
+        //if (dodgeCD2 <= 0)
+        //{
+        //    dodgeCD2 = dodgeCD;
+        //    canitdodge = true;
+        //}
 
         //attack0
-        if (canitattk0 == true)
-            attk0CD2 = attk0CD;
-        if (canitattk0 == false)
-            attk0CD2 -= Time.deltaTime;
-        if (attk0CD2 <= 0)
-        {
-            attk0CD2 = attk0CD;
-            canitattk0 = true;
-        }
+        //if (canitattack0 == true)
+        //    attk0CD2 = attk0CD;
+        //if (canitattack0 == false)
+        //    attk0CD2 -= Time.deltaTime;
+        //if (attk0CD2 <= 0)
+        //{
+        //    attk0CD2 = attk0CD;
+        //    canitattack0 = true;
+        //}
     }
 
     void Update()
@@ -349,7 +374,7 @@ public class TPScontroller : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.LeftControl) && canitroll == true)//按下shift
             {
-                canitroll = false;
+                StartCoroutine(rollCor());
                 animator.SetTrigger("RollForwardTrigger");//单按下shift向前滚
 
                 if (x > 0f)
@@ -363,6 +388,7 @@ public class TPScontroller : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.LeftShift) && canitdodge == true)//按下shift
             {
+                StartCoroutine(dodgeCor());
                 canitdodge = false;
                 if (x > 0f)
                     animator.SetTrigger("DodgeRightTrigger");
@@ -417,10 +443,10 @@ public class TPScontroller : MonoBehaviour
         controller.Move(moveDirection * Time.deltaTime);
 
         //近战攻击
-        if(Input.GetMouseButtonDown(0) && canitroll == true && canitattk0 == true)
+        if (Input.GetMouseButtonDown(0) && canitroll == true && canitattack0 == true)
         {
             //Debug.Log("Attack1");
-            canitattk0 = false;
+            StartCoroutine(attack0());
             animator.SetTrigger("Attack1Trigger");
         }
         if (Input.GetMouseButtonDown(1))
