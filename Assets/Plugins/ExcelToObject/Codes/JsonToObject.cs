@@ -4,8 +4,6 @@ using System.IO;
 using LitJson;
 using UnityEngine;
 
-/* by：xudawang
-   sukiup@163.com*/
 public static class JsonToObject {
 
     /// <summary>
