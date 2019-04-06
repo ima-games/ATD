@@ -9,15 +9,29 @@ public class TPScontroller : MonoBehaviour
     [Header("皇牌空战")]
     public bool devilMayCry = false;
     [Header("移动速度")]
-    public float speed = 1.0f;
+    public float speed = 5.0f;
     [Header("视角灵敏度")]
-    public float roFlag = 0.1f;
+    public float roFlag = 0.2f;
     [Header("跳跃力度")]
-    public float jumpforce = 200;
+    public float jumpforce = 15;
     [Header("下落速度")]
     public float gravity = 20;
     [Header("绑定摄像机")]
     public GameObject mycamera;
+    [Header("翻滚冷却")]
+    public float rollCD = 0.5f;
+    [Header("翻滚加速")]
+    public bool rollboost = true;
+    [Header("翻滚加速倍率")]
+    public float rollboostrate = 1.5f;
+    [Header("闪避冷却")]
+    public float dodgeCD = 0.5f;
+    //[Header("闪避加速")]
+    //public bool dodgeboost = true;
+    //[Header("闪避加速倍率")]
+    //public float dodgeboostrate = 1.5f;
+    [Header("左键攻击冷却")]
+    public float attack0CD = 0.5f;
 
     CharacterController controller;
     Animator animator;
@@ -243,9 +257,8 @@ public class TPScontroller : MonoBehaviour
             }
         }
     }
-    //Behaviour---------------------------------------------------
 
-    //Start is called before the first frame update
+    //Behaviour---------------------------------------------------
     void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
@@ -268,8 +281,81 @@ public class TPScontroller : MonoBehaviour
 
     Vector3 moveDirection = Vector3.zero;
 
+    private bool canitroll = true;
+    private bool canitdodge = true;
+    private bool canitattack0 = true;
+
+    private bool canitmove = true;
+
+    //IEnumerator countDownCD(float waittime, bool canitsample)
+    //{
+    //    Debug.Log("开始执行");
+    //    canitsample = false;
+    //    yield return new WaitForSeconds(waittime);
+    //    Debug.Log("执行结束");
+    //    canitsample = true;
+    //}
+
+    IEnumerator rollCor()
+    {
+        canitroll = false;
+        yield return new WaitForSeconds(rollCD);
+        canitroll = true;
+    }
+    IEnumerator dodgeCor()
+    {
+        canitdodge = false;
+        yield return new WaitForSeconds(dodgeCD);
+        canitdodge = true;
+    }
+    IEnumerator attack0()
+    {
+        canitattack0 = false;
+        yield return new WaitForSeconds(attack0CD);
+        canitattack0 = true;
+    }
+
+    void cdmanager()
+    {
+        ////roll
+        //if (canitroll == true)
+        //    rollCD2 = rollCD;
+        //if (canitroll == false)
+        //rollCD2 -= Time.deltaTime;
+        //if (rollCD2 <= 0)
+        //{
+        //    rollCD2 = rollCD;
+        //    canitroll = true;
+        //}
+
+        //dodge
+        //if (canitdodge == true)
+        //    dodgeCD2 = dodgeCD;
+        //if (canitdodge == false)
+        //    dodgeCD2 -= Time.deltaTime;
+        //if (dodgeCD2 <= 0)
+        //{
+        //    dodgeCD2 = dodgeCD;
+        //    canitdodge = true;
+        //}
+
+        //attack0
+        //if (canitattack0 == true)
+        //    attk0CD2 = attk0CD;
+        //if (canitattack0 == false)
+        //    attk0CD2 -= Time.deltaTime;
+        //if (attk0CD2 <= 0)
+        //{
+        //    attk0CD2 = attk0CD;
+        //    canitattack0 = true;
+        //}
+    }
+
     void Update()
     {
+        ///CD管理
+        cdmanager();
+        ///CD管理Eend
 
         //移动
         float x = Input.GetAxis("Horizontal");
@@ -277,16 +363,18 @@ public class TPScontroller : MonoBehaviour
         animator.SetFloat("Velocity X", x);
         animator.SetFloat("Velocity Z", z);
         bool isMoving = (x != 0f || z != 0f);
-        if (isMoving && controller.isGrounded)//如果有输入且在地面
+        if (isMoving && canitmove)//如果有输入且在地面
             animator.SetBool("Moving", true);
         else
             animator.SetBool("Moving", false);
 
-        //翻滚
+
+        //翻滚&闪避
         if (controller.isGrounded || devilMayCry)//在地上 or空战模式开启
         {
-            if (Input.GetKeyDown(KeyCode.LeftShift))//按下shift
+            if (Input.GetKeyDown(KeyCode.LeftControl) && canitroll == true)//按下shift
             {
+                StartCoroutine(rollCor());
                 animator.SetTrigger("RollForwardTrigger");//单按下shift向前滚
 
                 if (x > 0f)
@@ -297,18 +385,35 @@ public class TPScontroller : MonoBehaviour
                 if (z < 0f)
                     animator.SetTrigger("RollBackwardTrigger");
             }
+
+            if (Input.GetKeyDown(KeyCode.LeftShift) && canitdodge == true)//按下shift
+            {
+                StartCoroutine(dodgeCor());
+                canitdodge = false;
+                if (x > 0f)
+                    animator.SetTrigger("DodgeRightTrigger");
+                if (x < 0f)
+                    animator.SetTrigger("DodgeLeftTrigger");
+            }
         }
 
         //跳跃
-
         if (controller.isGrounded)//在地上 
         {
             animator.SetInteger("Jumping", 0);//滞空状态的Jumping为0
-            moveDirection = new Vector3(x * speed, 0, z * speed);
+
+            //翻滚后跳更远
+            if (canitroll == false && rollboost)
+                moveDirection = new Vector3(
+                    x * speed * rollboostrate,
+                    0,
+                    z * speed * rollboostrate);
+            else
+                moveDirection = new Vector3(x * speed, 0, z * speed);
+
             moveDirection = transform.TransformDirection(moveDirection);//对齐到镜头坐标系
             if (Input.GetKey(KeyCode.Space))//按下空格
             {
-                //Debug.Log("jump");
                 animator.SetTrigger("JumpTrigger");
                 moveDirection.y = jumpforce;
             }
@@ -316,17 +421,39 @@ public class TPScontroller : MonoBehaviour
         else//滞空状态
         {
             animator.SetInteger("Jumping", 1);//滞空状态的Jumping为非0
-            if (isMoving && devilMayCry)//空战模式开启时，空中可控制移动
+            if (isMoving && devilMayCry)//空战模式开启时，空中控制移动
             {
-                moveDirection.x = x * speed;
-                moveDirection.z = z * speed;
-                moveDirection = transform.TransformDirection(moveDirection);
+                if (canitroll == false && rollboost)
+                {
+                    moveDirection.x = x * speed * rollboostrate;
+                    moveDirection.z = z * speed * rollboostrate;
+                    moveDirection = transform.TransformDirection(moveDirection);
+                }
+                else
+                {
+                    moveDirection.x = x * speed;
+                    moveDirection.z = z * speed;
+                    moveDirection = transform.TransformDirection(moveDirection);
+                }
             }
         }
 
         //下落
         moveDirection.y -= gravity * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
+
+        //近战攻击
+        if (Input.GetMouseButtonDown(0) && canitroll == true && canitattack0 == true)
+        {
+            //Debug.Log("Attack1");
+            StartCoroutine(attack0());
+            animator.SetTrigger("Attack1Trigger");
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            //Debug.Log("Attack2");
+            animator.SetTrigger("Attack2Trigger");
+        }
     }
 
     private void LateUpdate()
