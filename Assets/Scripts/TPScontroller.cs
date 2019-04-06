@@ -36,6 +36,7 @@ public class TPScontroller : MonoBehaviour
 
     CharacterController controller;
     Animator animator;
+    MessageSystem MS;
     int isAboveHash = Animator.StringToHash("IsAbove");
 
     private new Rigidbody rigidbody;
@@ -262,7 +263,7 @@ public class TPScontroller : MonoBehaviour
     //Behaviour---------------------------------------------------
     void Start()
     {
-
+        MS = GetComponent<MessageSystem>();
         controller = gameObject.GetComponent<CharacterController>();
         outPCOnDragBegin();//角色选择初始设置
         Cursor.visible = false;
@@ -460,6 +461,7 @@ public class TPScontroller : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && canitroll == true && canitattack0 == true)
         {
             //Debug.Log("Attack0");
+            MS.SendMessage(1, 5, 50);
             StartCoroutine(attack0());
             animator.SetTrigger("Attack1Trigger");
         }
