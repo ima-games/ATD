@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class MessageSystemTest_2 : MonoBehaviour
@@ -17,14 +18,9 @@ public class MessageSystemTest_2 : MonoBehaviour
 
     IEnumerator OutputPlay()
     {
-        float timer = 0.2f;
-        transform.localScale = new Vector3(2, 2, 2);
+        transform.localScale = new Vector3(3, 3, 3);
 
-        while(timer>=0)
-        {
-            timer -= Time.deltaTime;
-            yield return 0;
-        }
+        yield return new WaitForSeconds(0.5f);
 
         transform.localScale = new Vector3(1, 1, 1);
         
