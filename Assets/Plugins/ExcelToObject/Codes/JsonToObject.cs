@@ -4,8 +4,8 @@ using System.IO;
 using LitJson;
 using UnityEngine;
 
-public static class JsonToObject {
-
+public static class JsonToObject
+{
     /// <summary>
     /// 把一个Json文本文件，转成一个对象(Object)
     /// </summary>
@@ -19,13 +19,8 @@ public static class JsonToObject {
         string json = File.ReadAllText(filePath);
         //解析Json文本中的内容 -(解析成数组或者List列表都可以)
         List<T> datas = JsonToObject_ByJsonContent<T>(json);
-
         return datas;
     }
-
-
-
-
 
     /// <summary>
     /// 把一个Json格式的文本，转成一个对象(Object)
@@ -45,8 +40,6 @@ public static class JsonToObject {
         {
             dataList.Add(datas[i]);
         }
-
         return dataList;
     }
-
 }
