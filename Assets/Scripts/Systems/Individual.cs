@@ -15,8 +15,8 @@ public class Individual : MonoBehaviour
 
     public int hatredValue = 10;       //攻击时造成的仇恨值,先默认设定为10
 
-    public enum Power {Monster,Human,Netural}
-    public Power power = Power.Netural; //所属势力
+    public enum Power {Monster, Human, Natural}
+    public Power power = Power.Natural; //所属势力
 
     public bool movable = true;         //是否可移动
     public bool attackable = true;      //是否可攻击
@@ -32,7 +32,7 @@ public class Individual : MonoBehaviour
     public int maxReviveCount = 0;      //最大复活次数
 
     void Start()
-    {
+	{
         
     }
 }
