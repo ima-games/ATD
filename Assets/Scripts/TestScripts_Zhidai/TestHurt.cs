@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//这个类的实现应该写在个体组件里面
 public class TestHurt : MonoBehaviour
 {
     [SerializeField]
@@ -10,18 +11,6 @@ public class TestHurt : MonoBehaviour
     {
         HealthPoint = 100;
     }
-    
-    public float SetHP
-    {
-        get { return HealthPoint; }
-        set { HealthPoint = value; }
-    }
-
-    public float AddHP
-    {
-        set { HealthPoint += value; }
-    }
-
     public void ReduceHP(float damage)
     {
         HealthPoint -= damage;

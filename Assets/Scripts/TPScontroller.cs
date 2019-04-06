@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,10 +27,12 @@ public class TPScontroller : MonoBehaviour
     public float rollboostrate = 1.5f;
     [Header("闪避冷却")]
     public float dodgeCD = 0.5f;
-    [Header("闪避加速")]
-    public bool dodgeboost = true;
-    [Header("闪避加速倍率")]
-    public float dodgeboostrate = 1.5f;
+    //[Header("闪避加速")]
+    //public bool dodgeboost = true;
+    //[Header("闪避加速倍率")]
+    //public float dodgeboostrate = 1.5f;
+    [Header("左键攻击冷却")]
+    public float attack0CD = 0.5f;
 
     CharacterController controller;
     Animator animator;
@@ -259,6 +262,7 @@ public class TPScontroller : MonoBehaviour
     //Behaviour---------------------------------------------------
     void Start()
     {
+
         controller = gameObject.GetComponent<CharacterController>();
         outPCOnDragBegin();//角色选择初始设置
         Cursor.visible = false;
@@ -279,34 +283,93 @@ public class TPScontroller : MonoBehaviour
 
     Vector3 moveDirection = Vector3.zero;
 
-    private float rollCD2;
-    private float dodgeCD2;
-    private bool canitroll = true;
-    private bool canitdodge = true;
+    private static bool canitroll = true;
+    private static bool canitdodge = true;
+    private static bool canitattack0 = true;
+    private static bool canitmove = true;
+
+    //IEnumerator countDownCD(float waittime, bool canitsample)
+    //{
+    //    Debug.Log("开始执行");
+    //    canitsample = false;
+    //    yield return new WaitForSeconds(waittime);
+    //    Debug.Log("执行结束");
+    //    canitsample = true;
+    //}
+
+    IEnumerator rollCor()
+    {
+        canitroll = false;
+        yield return new WaitForSeconds(rollCD);
+        canitroll = true;
+    }
+
+    IEnumerator dodgeCor()
+    {
+        canitdodge = false;
+        yield return new WaitForSeconds(dodgeCD);
+        canitdodge = true;
+    }
+    IEnumerator attack0()
+    {
+        canitattack0 = false;
+        yield return new WaitForSeconds(attack0CD);
+        canitattack0 = true;
+    }
+
+    void countcd(float CDtime, ref bool canitdo)
+    {
+        canitdo = false;
+        StartCoroutine(ieCD(CDtime));
+        canitdo = true;
+    }
+
+    IEnumerator ieCD(float CDtime)
+    {
+        yield return new WaitForSeconds(CDtime);
+    }
+
+    void cdmanager()
+    {
+        ////roll
+        //if (canitroll == true)
+        //    rollCD2 = rollCD;
+        //if (canitroll == false)
+        //rollCD2 -= Time.deltaTime;
+        //if (rollCD2 <= 0)
+        //{
+        //    rollCD2 = rollCD;
+        //    canitroll = true;
+        //}
+
+        //dodge
+        //if (canitdodge == true)
+        //    dodgeCD2 = dodgeCD;
+        //if (canitdodge == false)
+        //    dodgeCD2 -= Time.deltaTime;
+        //if (dodgeCD2 <= 0)
+        //{
+        //    dodgeCD2 = dodgeCD;
+        //    canitdodge = true;
+        //}
+
+        //attack0
+        //if (canitattack0 == true)
+        //    attk0CD2 = attk0CD;
+        //if (canitattack0 == false)
+        //    attk0CD2 -= Time.deltaTime;
+        //if (attk0CD2 <= 0)
+        //{
+        //    attk0CD2 = attk0CD;
+        //    canitattack0 = true;
+        //}
+    }
 
     void Update()
     {
-        if (canitroll == true)
-            rollCD2 = rollCD;
-        if (canitroll == false)
-            rollCD2 -= Time.deltaTime;
-        if (rollCD2 <= 0)
-        {
-            rollCD2 = rollCD;
-            canitroll = true;
-        }
-
-        if (canitdodge == true)
-            dodgeCD2 = dodgeCD;
-        if (canitdodge == false)
-            dodgeCD2 -= Time.deltaTime;
-
-        if (dodgeCD2 <= 0)
-        {
-            dodgeCD2 = dodgeCD;
-            canitdodge = true;
-        }
-
+        ///CD管理
+        ///cdmanager();
+        ///CD管理Eend
 
         //移动
         float x = Input.GetAxis("Horizontal");
@@ -314,7 +377,7 @@ public class TPScontroller : MonoBehaviour
         animator.SetFloat("Velocity X", x);
         animator.SetFloat("Velocity Z", z);
         bool isMoving = (x != 0f || z != 0f);
-        if (isMoving)//如果有输入且在地面
+        if (isMoving && canitmove)//如果有输入且在地面
             animator.SetBool("Moving", true);
         else
             animator.SetBool("Moving", false);
@@ -325,9 +388,10 @@ public class TPScontroller : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.LeftControl) && canitroll == true)//按下shift
             {
-                canitroll = false;
+                StartCoroutine(rollCor());
+                //countcd(rollCD, ref canitroll);
+                //StartCoroutine(ieCD(rollCD, canitroll));
                 animator.SetTrigger("RollForwardTrigger");//单按下shift向前滚
-
                 if (x > 0f)
                     animator.SetTrigger("RollRightTrigger");
                 else if (x < 0f)
@@ -339,7 +403,7 @@ public class TPScontroller : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.LeftShift) && canitdodge == true)//按下shift
             {
-                canitdodge = false;
+                StartCoroutine(dodgeCor());
                 if (x > 0f)
                     animator.SetTrigger("DodgeRightTrigger");
                 if (x < 0f)
@@ -348,7 +412,6 @@ public class TPScontroller : MonoBehaviour
         }
 
         //跳跃
-
         if (controller.isGrounded)//在地上 
         {
             animator.SetInteger("Jumping", 0);//滞空状态的Jumping为0
@@ -392,6 +455,19 @@ public class TPScontroller : MonoBehaviour
         //下落
         moveDirection.y -= gravity * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
+
+        //近战攻击
+        if (Input.GetMouseButtonDown(0) && canitroll == true && canitattack0 == true)
+        {
+            //Debug.Log("Attack0");
+            StartCoroutine(attack0());
+            animator.SetTrigger("Attack1Trigger");
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            //Debug.Log("Attack1");
+            animator.SetTrigger("Attack2Trigger");
+        }
     }
 
     private void LateUpdate()

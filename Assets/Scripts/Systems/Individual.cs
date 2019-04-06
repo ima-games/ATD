@@ -31,8 +31,13 @@ public class Individual : MonoBehaviour
     public int reviveCount = 0;         //复活次数
     public int maxReviveCount = 0;      //最大复活次数
 
-    void Start()
+    public void ReduceHealth(int damage)
     {
-        
+        health -= damage;
+    }
+
+    private void Update()
+    {
+        if (health <= 0) gameObject.SetActive(false);
     }
 }
