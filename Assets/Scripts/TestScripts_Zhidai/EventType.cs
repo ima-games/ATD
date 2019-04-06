@@ -1,4 +1,4 @@
 ﻿public enum EventType
 {
-    ShowText,Hurt,GetMessage,Message
+    ShowText,Hurt,GetMessage,Attack0
 }
