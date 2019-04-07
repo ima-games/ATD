@@ -2899,3 +2899,52 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46e674933cdf17f40a8d8ae58e6a311b, type: 3}
+--- !u!1 &9025710810941989454 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 820025177948344395, guid: 46e674933cdf17f40a8d8ae58e6a311b,
+    type: 3}
+  m_PrefabInstance: {fileID: 9025710810941989453}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9025710810941989455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9025710810941989454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2384236f9bd1b849ad617db65deda24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9025710810941989456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9025710810941989454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a429d47727f7dc148a694773c47ab80e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 1
+  health: 100
+  attack: 10
+  attackSpeed: 2
+  speed: 1
+  attackDistance: 1
+  recoverRate: 0
+  hatredValue: 10
+  power: 2
+  movable: 1
+  attackable: 1
+  controllable: 1
+  tauntable: 1
+  charmable: 1
+  restrictable: 1
+  speedDownAble: 1
+  dizzyAble: 1
+  reviveCount: 0
+  maxReviveCount: 0
