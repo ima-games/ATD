@@ -2932,7 +2932,7 @@ MonoBehaviour:
   ID: 1
   health: 100
   attack: 10
-  attackSpeed: 1
+  attackSpeed: 2
   speed: 1
   attackDistance: 1
   recoverRate: 0
