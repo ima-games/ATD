@@ -32,7 +32,7 @@ public class Individual : MonoBehaviour
     public int maxReviveCount = 0;      //最大复活次数
 
     void Start() {
-		LogicManager.Instance.Register(this);
+		LogicManager.Register(this);
 		//Do something
 	}
 }
