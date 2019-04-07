@@ -86,11 +86,11 @@ public class LogicManager : MonoBehaviour {
 
 	}
 
-	void Update() {
-		if (IsGameOver()) {
-			//player ID: 0
-			//基地 ID: 1
-			Debug.Log("GAME OVER");
-		}
-	}
+	//void Update() {
+	//	if (IsGameOver()) {
+	//		player ID: 0
+	//		基地 ID: 1
+	//		Debug.Log("GAME OVER");
+	//	}
+	//}
 }
