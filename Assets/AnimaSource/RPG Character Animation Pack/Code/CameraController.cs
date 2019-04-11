@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour
 		offset = new Vector3(cameraTarget.transform.position.x, cameraTarget.transform.position.y + offsetHeight, cameraTarget.transform.position.z - offsetDistance);
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
 		if(Input.GetKeyDown(KeyCode.F))
 		{
@@ -49,9 +49,9 @@ public class CameraController : MonoBehaviour
 		{
 			offset = Quaternion.AngleAxis(rotate * rotateSpeed, Vector3.up) * offset;
 			transform.position = cameraTarget.transform.position + offset; 
-			transform.position = new Vector3(Mathf.Lerp(lastPosition.x, cameraTarget.transform.position.x + offset.x, smoothing * Time.deltaTime), 
-				Mathf.Lerp(lastPosition.y, cameraTarget.transform.position.y + offset.y, smoothing * Time.deltaTime), 
-				Mathf.Lerp(lastPosition.z, cameraTarget.transform.position.z + offset.z, smoothing * Time.deltaTime));
+			transform.position = new Vector3(Mathf.Lerp(lastPosition.x, cameraTarget.transform.position.x + offset.x, smoothing * Time.fixedDeltaTime), 
+				Mathf.Lerp(lastPosition.y, cameraTarget.transform.position.y + offset.y, smoothing * Time.fixedDeltaTime), 
+				Mathf.Lerp(lastPosition.z, cameraTarget.transform.position.z + offset.z, smoothing * Time.fixedDeltaTime));
 		} 
 		else
 		{

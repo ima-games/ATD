@@ -30,12 +30,13 @@ public class PlayerInput : MonoBehaviour
     public float Jup;
     public float Jright;
 
-    //1.pressing信号
+
     public bool run;
-    //2.trigger信号
     public bool jump;
     private bool lastJump;
-    //3.double trigger
+    public bool attack;
+    private bool lastAttack;
+
 
     [Header("Other")]
     public bool inputEnabled = true; //Flag
@@ -56,7 +57,7 @@ public class PlayerInput : MonoBehaviour
     {
         Jup = (Input.GetKey(keyJUp) ? 1.0f : 0) - (Input.GetKey(keyJDown) ? 1.0f : 0);
         Jright = (Input.GetKey(keyJRight) ? 1.0f : 0) - (Input.GetKey(keyJLeft) ? 1.0f : 0);
-        print(Jright);
+        //print(Jright);
 
 
         targetDup = (Input.GetKey(keyUp) ? 1.0f : 0) - (Input.GetKey(keyDown) ? 1.0f : 0);
@@ -84,6 +85,13 @@ public class PlayerInput : MonoBehaviour
         else
             jump = false;
         lastJump = newjump;
+
+        bool newAttack = Input.GetKey(keyC);
+        if (newAttack != lastAttack && newAttack == true)
+            attack = true;
+        else
+            attack = false;
+        lastAttack = newAttack;
     }
     private Vector2 SquareToCircle(Vector2 input)
     {
