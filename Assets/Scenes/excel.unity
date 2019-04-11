@@ -157,10 +157,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PersonJ: {fileID: 4900000, guid: 152e2f4e669be0646a6141bd84e0e877, type: 3}
   Tow_TrapJ: {fileID: 4900000, guid: 60ef62295e662854d8db09a360b7208d, type: 3}
-  BuffJ: {fileID: 4900000, guid: 994da09c829e6c9449a37e9cb2f5df2e, type: 3}
   EquipmentJ: {fileID: 4900000, guid: 556e8ec5ea4267f4fb1c86e1edcb34ff, type: 3}
   MonsterJ: {fileID: 4900000, guid: c68ec90ad7d5b5543b68bc9392fea6a6, type: 3}
   HatredJ: {fileID: 4900000, guid: c07e317c23e5fd2489c7d7cf5c63290b, type: 3}
+  BuffDataJ: {fileID: 4900000, guid: ce1dd533bf7604c46a7d690ad6a8ced3, type: 3}
 --- !u!1 &1096597721
 GameObject:
   m_ObjectHideFlags: 0

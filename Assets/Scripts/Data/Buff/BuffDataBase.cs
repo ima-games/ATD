@@ -9,6 +9,7 @@ public class BuffDataBase : MonoBehaviour
     public TextAsset EquipmentJ;
     public TextAsset MonsterJ;
     public TextAsset HatredJ;
+    public TextAsset BuffDataJ;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +18,8 @@ public class BuffDataBase : MonoBehaviour
         List<EquipmentData> equipmentDatas = JsonToObject.JsonToObject_ByJsonContent<EquipmentData>(EquipmentJ.text);
         List<MonsterData> monsterDatas = JsonToObject.JsonToObject_ByJsonContent<MonsterData>(MonsterJ.text);
         List<HatredData> hatredDatas = JsonToObject.JsonToObject_ByJsonContent<HatredData>(HatredJ.text);
-        
+        List<BuffData> buffDatas = JsonToObject.JsonToObject_ByJsonContent<BuffData>(BuffDataJ.text);
+
         /*Debug.Log("ID "+perDatas[1].ID);
         Debug.Log("Name "+perDatas[1].Name);
         Debug.Log("HP "+perDatas[1].HP);
@@ -26,6 +28,9 @@ public class BuffDataBase : MonoBehaviour
         Debug.Log("AttSpeed "+perDatas[1].AttSpeed);
         Debug.Log("Speed "+perDatas[1].Speed);*/
         //Debug.Log("Name " + hatredDatas[0].State);
+        Debug.Log("ID" + buffDatas[0].ID);
+        Debug.Log("Name" + buffDatas[0].Name);
+        Debug.Log("isIncreaseAttack" + buffDatas[0].isIncreaseAttack);
     }
 
     // Update is called once per frame
