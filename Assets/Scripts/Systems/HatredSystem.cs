@@ -6,9 +6,9 @@ using UnityEngine;
 public class HatredSystem : MonoBehaviour
 {
     
-
+    //key 是仇恨来源ID ，value 是仇恨值
     Dictionary<int, int> hatredList = new Dictionary<int, int>();
-
+    //Dictionary<int, KeyValuePair<int, float>> HatredList = new Dictionary<int, KeyValuePair<int, float>>();
     private Individual individual;
     // Start is called before the first frame update
     void Start()
@@ -17,15 +17,32 @@ public class HatredSystem : MonoBehaviour
 
     }
     /// <summary>
-    /// 将HateSource添加到仇恨表中
+    /// 增加仇恨值，若仇恨目标不在仇恨列表里，则先加入列表
     /// </summary>
     /// <param name="HateSource">仇恨目标</param>
-    public void AddHatredList(Individual HateSource)
+    public void AddHateValue(Individual HateSource)
+    {
+        if (!hatredList.ContainsKey(HateSource.ID))
+        {
+            AddHatredList(HateSource);
+        }
+        else
+        {
+            hatredList[HateSource.ID] += HateSource.hatredValue;
+        }
+
+        Debug.Log(gameObject.name+"对ID为"+HateSource.ID+"的对象增加了"+hatredList[HateSource.ID]+"点仇恨值");
+    }
+
+    private void AddHatredList(Individual HateSource)
     {
         hatredList.Add(HateSource.ID, HateSource.hatredValue);
     }
-
-    public Individual GetTarget()
+    /// <summary>
+    /// 获取当前仇恨值最高的目标
+    /// </summary>
+    /// <returns>返回仇恨值最高目标的Individual组件</returns>
+    public Individual GetMostHatedTarget()
     {
         int maxValue = 0;
         int TargerID = 0;
@@ -37,12 +54,8 @@ public class HatredSystem : MonoBehaviour
                 TargerID = kvp.Key;
             }
         }
-        //知道了Individual的ID，怎么通过ID找到他的Individual
-        //方法一，广播
-        //方法二，建个全局的表来存目前存在的ID和Individual所属对象的名称和相关信息
-        //等lf的接口
-        Individual target=null;
-        return target;
+
+        return LogicManager.Instance.GetIndividual(TargerID);
     }
 }
 
