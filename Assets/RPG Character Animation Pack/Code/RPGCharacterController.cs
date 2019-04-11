@@ -2,30 +2,6 @@
 using System.Collections;
 using System.Runtime.InteropServices;
 
-public enum Weapon{
-	UNARMED = 0,
-	TWOHANDSWORD = 1,
-	TWOHANDSPEAR = 2,
-	TWOHANDAXE = 3,
-	TWOHANDBOW = 4,
-	TWOHANDCROSSBOW = 5,
-	STAFF = 6,
-	ARMED = 7,
-	RELAX = 8,
-	RIFLE = 9,
-	TWOHANDCLUB = 10,
-	SHIELD = 11,
-	ARMEDSHIELD = 12
-}
-
-public enum RPGCharacterState{
-	DEFAULT,
-	BLOCKING,
-	STRAFING,
-	CLIMBING,
-	SWIMMING
-}
-
 public class RPGCharacterController : MonoBehaviour{
 	#region Variables
 
@@ -42,7 +18,7 @@ public class RPGCharacterController : MonoBehaviour{
 	ParticleSystem FXSplash;
 	public Camera sceneCamera;
 	public Vector3 waistRotationOffset;
-	public RPGCharacterState rpgCharacterState = RPGCharacterState.DEFAULT;
+	public CharacterState rpgCharacterState = CharacterState.DEFAULT;
 
 	//jumping variables
 	public float gravity = -9.8f;
@@ -201,26 +177,26 @@ public class RPGCharacterController : MonoBehaviour{
 	#region UpdateAndInput
 
 	void Inputs(){
-		//Input abstraction for easier asset updates using outside control schemes
-		inputJump = Input.GetButtonDown("Jump");
-		inputLightHit = Input.GetButtonDown("LightHit");
-		inputDeath = Input.GetButtonDown("Death");
-		inputUnarmed = Input.GetButtonDown("Unarmed");
-		inputShield = Input.GetButtonDown("Shield");
-		inputAttackL = Input.GetButtonDown("AttackL");
-		inputAttackR = Input.GetButtonDown("AttackR");
-		inputCastL = Input.GetButtonDown("CastL");
-		inputCastR = Input.GetButtonDown("CastR");
-		inputSwitchUpDown = Input.GetAxisRaw("SwitchUpDown");
-		inputSwitchLeftRight = Input.GetAxisRaw("SwitchLeftRight");
-		inputStrafe = Input.GetKey(KeyCode.LeftShift);
-		inputTargetBlock = Input.GetAxisRaw("TargetBlock");
-		inputDashVertical = Input.GetAxisRaw("DashVertical");
-		inputDashHorizontal = Input.GetAxisRaw("DashHorizontal");
-		inputHorizontal = Input.GetAxisRaw("Horizontal");
-		inputVertical = Input.GetAxisRaw("Vertical");
-		inputAiming = Input.GetButtonDown("Aiming");
-	}
+        //Input abstraction for easier asset updates using outside control schemes
+        inputJump = Input.GetButtonDown("Jump");
+        inputLightHit = Input.GetButtonDown("LightHit");
+        inputDeath = Input.GetButtonDown("Death");
+        inputUnarmed = Input.GetButtonDown("Unarmed");
+        inputShield = Input.GetButtonDown("Shield");
+        inputAttackL = Input.GetButtonDown("Attack1");
+        inputAttackR = Input.GetButtonDown("Attack2");
+        inputCastL = Input.GetButtonDown("CastL");
+        inputCastR = Input.GetButtonDown("CastR");
+        inputSwitchUpDown = Input.GetAxis("Mouse ScrollWheel");
+        inputSwitchLeftRight = Input.GetAxisRaw("SwitchLeftRight");
+        inputStrafe = Input.GetKey(KeyCode.LeftShift);
+        inputTargetBlock = Input.GetAxisRaw("TargetBlock");
+        inputDashVertical = Input.GetAxisRaw("DashVertical");
+        inputDashHorizontal = Input.GetAxisRaw("DashHorizontal");
+        inputHorizontal = Input.GetAxisRaw("Horizontal");
+        inputVertical = Input.GetAxisRaw("Vertical");
+        inputAiming = Input.GetButtonDown("Aiming");
+    }
 
 	void Update(){
 		Inputs();
@@ -237,7 +213,7 @@ public class RPGCharacterController : MonoBehaviour{
 		else{
 			doJump = false;
 		}
-		if(rpgCharacterState != RPGCharacterState.SWIMMING){
+		if(rpgCharacterState != CharacterState.SWIMMING){
 			Rolling();
 			Jumping();
 			Blocking();
@@ -353,7 +329,7 @@ public class RPGCharacterController : MonoBehaviour{
 			}
 		}
 		//Climbing
-		if(rpgCharacterState == RPGCharacterState.CLIMBING && !isClimbing){
+		if(rpgCharacterState == CharacterState.CLIMBING && !isClimbing){
 			if(inputVertical > 0.1f){
 				animator.applyRootMotion = true;
 				animator.SetTrigger("Climb-UpTrigger");
@@ -365,7 +341,7 @@ public class RPGCharacterController : MonoBehaviour{
 				isClimbing = true;
 			}
 		}
-		if(rpgCharacterState == RPGCharacterState.CLIMBING && isClimbing){
+		if(rpgCharacterState == CharacterState.CLIMBING && isClimbing){
 			if(inputVertical == 0){
 				isClimbing = false;
 			}
@@ -406,16 +382,16 @@ public class RPGCharacterController : MonoBehaviour{
 	#region Fixed/Late Updates
 
 	void FixedUpdate(){
-		if(rpgCharacterState != RPGCharacterState.SWIMMING){
+		if(rpgCharacterState != CharacterState.SWIMMING){
 			CheckForGrounded();
 			//apply gravity force
 			rb.AddForce(0, gravity, 0, ForceMode.Acceleration);
 			//check if character can move
-			if(canMove && !isBlocking && rpgCharacterState != RPGCharacterState.CLIMBING){
+			if(canMove && !isBlocking && rpgCharacterState != CharacterState.CLIMBING){
 				AirControl();
 			}
 			//check if falling
-			if(rb.velocity.y < fallingVelocity && rpgCharacterState != RPGCharacterState.CLIMBING){
+			if(rb.velocity.y < fallingVelocity && rpgCharacterState != CharacterState.CLIMBING){
 				isFalling = true;
 				animator.SetInteger("Jumping", 2);
 				canJump = false;
@@ -465,7 +441,7 @@ public class RPGCharacterController : MonoBehaviour{
 	//Moves the character
 	float UpdateMovement(){
 		Vector3 motion = inputVec;
-		if(isGrounded && rpgCharacterState != RPGCharacterState.CLIMBING){
+		if(isGrounded && rpgCharacterState != CharacterState.CLIMBING){
 			//reduce input for diagonal movement
 			if(motion.magnitude > 1){
 				motion.Normalize();
@@ -487,7 +463,7 @@ public class RPGCharacterController : MonoBehaviour{
 			}
 		}
 		else{
-			if(rpgCharacterState != RPGCharacterState.SWIMMING){
+			if(rpgCharacterState != CharacterState.SWIMMING){
 				//if we are falling use momentum
 				newVelocity = rb.velocity;
 			}
@@ -519,7 +495,7 @@ public class RPGCharacterController : MonoBehaviour{
 
 	//rotate character towards direction moved
 	void RotateTowardsMovementDir(){
-		if(inputVec != Vector3.zero && !isStrafing && !isAiming && !isRolling && !isBlocking && rpgCharacterState != RPGCharacterState.CLIMBING){
+		if(inputVec != Vector3.zero && !isStrafing && !isAiming && !isRolling && !isBlocking && rpgCharacterState != CharacterState.CLIMBING){
 			transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(inputVec), Time.deltaTime * rotationSpeed);
 		}
 	}
@@ -650,7 +626,7 @@ public class RPGCharacterController : MonoBehaviour{
 	void OnTriggerEnter(Collider collide){
 		//If entering a water volume
 		if(collide.gameObject.layer == 4){
-			rpgCharacterState = RPGCharacterState.SWIMMING;
+			rpgCharacterState = CharacterState.SWIMMING;
 			canAction = false;
 			rb.useGravity = false;
 			animator.SetTrigger("SwimTrigger");
@@ -679,7 +655,7 @@ public class RPGCharacterController : MonoBehaviour{
 	void OnTriggerExit(Collider collide){
 		//If leaving a water volume
 		if(collide.gameObject.layer == 4){
-			rpgCharacterState = RPGCharacterState.DEFAULT;
+			rpgCharacterState = CharacterState.DEFAULT;
 			canAction = true;
 			rb.useGravity = true;
 			animator.SetInteger("Jumping", 2);
@@ -788,11 +764,11 @@ public class RPGCharacterController : MonoBehaviour{
 					animator.SetInteger("Jumping", 0);
 				}
 				//exit climbing on ground
-				if(rpgCharacterState == RPGCharacterState.CLIMBING){
+				if(rpgCharacterState == CharacterState.CLIMBING){
 					animator.SetTrigger("Climb-Off-BottomTrigger");
 					gravity = gravityTemp;
 					rb.useGravity = true;
-					rpgCharacterState = RPGCharacterState.DEFAULT;
+					rpgCharacterState = CharacterState.DEFAULT;
 				}
 			}
 			else{
@@ -886,11 +862,11 @@ public class RPGCharacterController : MonoBehaviour{
 	#region MiscMethods
 
 	public void Climbing(){
-		rpgCharacterState = RPGCharacterState.CLIMBING;
+		rpgCharacterState = CharacterState.CLIMBING;
 	}
 
 	public void EndClimbing(){
-		rpgCharacterState = RPGCharacterState.DEFAULT;
+		rpgCharacterState = CharacterState.DEFAULT;
 		gravity = gravityTemp;
 		rb.useGravity = true;
 		animator.applyRootMotion = false;

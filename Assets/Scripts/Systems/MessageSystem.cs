@@ -50,7 +50,6 @@ public class MessageSystem : MonoBehaviour
         }
     }
 
-
     //-----------------------以下为消息类型-----------------------
 
     

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44849366, g: 0.4985382, b: 0.575642, a: 1}
+  m_IndirectSpecularColor: {r: 0.44849437, g: 0.4985392, b: 0.5756428, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -503,12 +503,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1289802011}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1465708720 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6638180462985126556, guid: 46e674933cdf17f40a8d8ae58e6a311b,
-    type: 3}
-  m_PrefabInstance: {fileID: 2054065261}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1858869910
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,7 +588,7 @@ PrefabInstance:
         type: 3}
       propertyPath: mycamera
       value: 
-      objectReference: {fileID: 1465708720}
+      objectReference: {fileID: 0}
     - target: {fileID: 5493981914040647764, guid: 46e674933cdf17f40a8d8ae58e6a311b,
         type: 3}
       propertyPath: m_Name
@@ -657,79 +651,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46e674933cdf17f40a8d8ae58e6a311b, type: 3}
---- !u!1 &2054065262 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6638180461722375726, guid: 46e674933cdf17f40a8d8ae58e6a311b,
-    type: 3}
-  m_PrefabInstance: {fileID: 2054065261}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2054065263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2054065262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3722831e0f60d9846b376f5b0307741e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2054065264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2054065262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a429d47727f7dc148a694773c47ab80e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ID: 0
-  health: 100
-  attack: 10
-  attackSpeed: 1
-  speed: 1
-  attackDistance: 1
-  recoverRate: 0
-  hatredValue: 10
-  power: 2
-  movable: 1
-  attackable: 1
-  controllable: 1
-  tauntable: 1
-  charmable: 1
-  restrictable: 1
-  speedDownAble: 1
-  dizzyAble: 1
-  reviveCount: 0
-  maxReviveCount: 0
---- !u!114 &2054065265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2054065262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 510609be5040e994c9d67b85dae308e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2054065266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2054065262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2384236f9bd1b849ad617db65deda24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2091254905
 GameObject:
   m_ObjectHideFlags: 0
