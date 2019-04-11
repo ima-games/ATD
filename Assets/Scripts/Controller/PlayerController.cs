@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     public float walkSpeed = 1.0f;
     public float runMultiplier = 2.0f;
     public float jumpVelocity = 4.0f;
+    public float rollVelocity = 3.0f;
+    //public float jabVelocity = 3.0f;
 
     [Header("动画平滑系数")]
     public float rotateRatio = 0.3f;//转身
@@ -34,6 +36,12 @@ public class PlayerController : MonoBehaviour
         float targetRunMulti = ((playerInput.run) ? 2.0f : 1.0f);
         animator.SetFloat("forward", playerInput.Dmag *
             Mathf.Lerp(animator.GetFloat("forward"), targetRunMulti, runRatio));
+
+        if (rigib.velocity.magnitude > 1.0f)
+        {
+            animator.SetTrigger("roll");
+        }
+
         if (playerInput.jump)
         {
             animator.SetTrigger("jump");
@@ -70,12 +78,12 @@ public class PlayerController : MonoBehaviour
     }
     public void IsGround()
     {
-        print("IsGround");
+        //print("IsGround");
         animator.SetBool("isGround", true);
     }
     public void IsNotGround()
     {
-        print("IsNotGround");
+        //print("IsNotGround");
         animator.SetBool("isGround", false);
     }
     public void OnGroundEnter()
@@ -87,5 +95,20 @@ public class PlayerController : MonoBehaviour
     {
         playerInput.inputEnabled = false;
         lockPlane = true;
+    }
+    public void OnRollEnter()
+    {
+        thrustVec = new Vector3(0, rollVelocity, 0);
+        playerInput.inputEnabled = false;
+        lockPlane = true;
+    }
+    public void OnJabEnter()
+    {
+        playerInput.inputEnabled = false;
+        lockPlane = true;
+    }
+    public void OnJabUpdate()
+    {
+        thrustVec = model.transform.forward * animator.GetFloat("jabVelocity");
     }
 }
