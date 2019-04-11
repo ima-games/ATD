@@ -449,7 +449,6 @@ public class TpsNew : MonoBehaviour
     #region UpdateAndInput
     void Inputs()
     {
-        //Input abstraction for easier asset updates using outside control schemes
         inputJump = Input.GetButtonDown("Jump");
         inputLightHit = Input.GetButtonDown("LightHit");
         inputDeath = Input.GetButtonDown("Death");

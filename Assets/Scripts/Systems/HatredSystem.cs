@@ -55,7 +55,7 @@ public class HatredSystem : MonoBehaviour
             }
         }
 
-        return LogicManager.Instance.GetIndividual(TargerID);
+        return LogicManager.GetIndividual(TargerID);
     }
 }
 
