@@ -16,7 +16,7 @@ public class GUIControls : MonoBehaviour{
 	}
 
 	public void EndClimbing(){
-		rpgCharacterController.rpgCharacterState = RPGCharacterState.DEFAULT;
+		rpgCharacterController.rpgCharacterState = CharacterState.DEFAULT;
 		rpgCharacterController.gravity = rpgCharacterController.gravityTemp;
 		rpgCharacterController.rb.useGravity = true;
 		rpgCharacterController.animator.applyRootMotion = false;
@@ -326,7 +326,7 @@ public class GUIControls : MonoBehaviour{
 							}
 						}
 					}
-					else if(rpgCharacterController.rpgCharacterState != RPGCharacterState.CLIMBING){
+					else if(rpgCharacterController.rpgCharacterState != CharacterState.CLIMBING){
 						if(GUI.Button(new Rect(25, 165, 100, 30), "Double Jump")){
 							if(rpgCharacterController.canDoubleJump && !rpgCharacterController.isDoubleJumping){
 								StartCoroutine(rpgCharacterController._Jump());
@@ -361,7 +361,7 @@ public class GUIControls : MonoBehaviour{
 					}
 				}
 				//Climbing
-				if(!blockGui && !rpgCharacterController.isBlocking && rpgCharacterController.isGrounded && rpgCharacterController.rpgCharacterState != RPGCharacterState.CLIMBING && rpgCharacterController.isNearLadder){
+				if(!blockGui && !rpgCharacterController.isBlocking && rpgCharacterController.isGrounded && rpgCharacterController.rpgCharacterState != CharacterState.CLIMBING && rpgCharacterController.isNearLadder){
 					if(GUI.Button(new Rect(30, 410, 100, 30), "Climb")){
 						rpgCharacterController.gravityTemp = rpgCharacterController.gravity;
 						rpgCharacterController.gravity = 0;
@@ -378,7 +378,7 @@ public class GUIControls : MonoBehaviour{
 						rpgCharacterController.Invoke("Climbing", 1.05f);
 					}
 				}
-				if(rpgCharacterController.rpgCharacterState == RPGCharacterState.CLIMBING){
+				if(rpgCharacterController.rpgCharacterState == CharacterState.CLIMBING){
 					if(GUI.Button(new Rect(30, 370, 100, 30), "Climb Off Top")){
 						rpgCharacterController.animator.applyRootMotion = true;
 						rpgCharacterController.animator.SetTrigger("Climb-Off-TopTrigger");
@@ -458,7 +458,7 @@ public class GUIControls : MonoBehaviour{
 				}
 			}
 			//Climbing while Relaxed
-			if(!blockGui && !rpgCharacterController.isBlocking && rpgCharacterController.isGrounded && rpgCharacterController.rpgCharacterState != RPGCharacterState.CLIMBING && rpgCharacterController.isNearLadder){
+			if(!blockGui && !rpgCharacterController.isBlocking && rpgCharacterController.isGrounded && rpgCharacterController.rpgCharacterState != CharacterState.CLIMBING && rpgCharacterController.isNearLadder){
 				if(GUI.Button(new Rect(30, 410, 100, 30), "Climb")){
 					rpgCharacterController.gravityTemp = rpgCharacterController.gravity;
 					rpgCharacterController.gravity = 0;
@@ -468,7 +468,7 @@ public class GUIControls : MonoBehaviour{
 					Invoke("Climbing", 1.05f);
 				}
 			}
-			if(rpgCharacterController.rpgCharacterState == RPGCharacterState.CLIMBING){
+			if(rpgCharacterController.rpgCharacterState == CharacterState.CLIMBING){
 				if(GUI.Button(new Rect(30, 370, 100, 30), "Climb Off Top")){
 					rpgCharacterController.animator.applyRootMotion = true;
 					rpgCharacterController.animator.SetTrigger("Climb-Off-TopTrigger");

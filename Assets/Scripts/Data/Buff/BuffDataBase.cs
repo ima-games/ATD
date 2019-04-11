@@ -6,7 +6,6 @@ public class BuffDataBase : MonoBehaviour
 {
     public TextAsset PersonJ;
     public TextAsset Tow_TrapJ;
-    public TextAsset BuffJ;
     public TextAsset EquipmentJ;
     public TextAsset MonsterJ;
     public TextAsset HatredJ;
@@ -15,7 +14,6 @@ public class BuffDataBase : MonoBehaviour
     {
         List<PersonData> perDatas = JsonToObject.JsonToObject_ByJsonContent<PersonData>(PersonJ.text);
         List<TowerTrapData> ttDatas = JsonToObject.JsonToObject_ByJsonContent<TowerTrapData>(Tow_TrapJ.text);
-        List<BuffExcelData> buffDatas = JsonToObject.JsonToObject_ByJsonContent<BuffExcelData>(BuffJ.text);
         List<EquipmentData> equipmentDatas = JsonToObject.JsonToObject_ByJsonContent<EquipmentData>(EquipmentJ.text);
         List<MonsterData> monsterDatas = JsonToObject.JsonToObject_ByJsonContent<MonsterData>(MonsterJ.text);
         List<HatredData> hatredDatas = JsonToObject.JsonToObject_ByJsonContent<HatredData>(HatredJ.text);

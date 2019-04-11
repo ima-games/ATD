@@ -10,6 +10,7 @@ public class MessageSystem : MonoBehaviour
     // SendMessageUpwards  朝物体和上级父物体发送信息
     Individual SelfIndicidual;
     HatredSystem SelfHatredSystem;
+    SkillSystem SelfSkillSystem;
 
 
     private void Awake()
@@ -22,6 +23,7 @@ public class MessageSystem : MonoBehaviour
     {
         SelfIndicidual = GetComponent<Individual>();
         SelfHatredSystem = GetComponent<HatredSystem>();
+        SelfSkillSystem = GetComponent<SkillSystem>();
     }
 
     /// <summary>
@@ -57,7 +59,6 @@ public class MessageSystem : MonoBehaviour
         }
     }
 
-
     //-----------------------以下为消息类型-----------------------
 
     
@@ -72,5 +73,6 @@ public class MessageSystem : MonoBehaviour
     {
         SendMessage("ReduceHealth", ob);
         SelfHatredSystem.AddHateValue(LogicManager.Instance.GetIndividual(senderID));
+        SelfSkillSystem.ReceiveMessage(LogicManager.Instance.GetIndividual(senderID),(float)ob);
     }
 }
