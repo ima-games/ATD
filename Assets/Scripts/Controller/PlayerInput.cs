@@ -16,11 +16,19 @@ public class PlayerInput : MonoBehaviour
     public string keyC;
     public string keyD;
 
+    public string keyJRight = "right";
+    public string keyJLeft = "left";
+    public string keyJUp = "up";
+    public string keyJDown = "down";
+
     [Header("OutputSignals")]
     public float Dup;
     public float Dright;
     public float Dmag;//Dup，Dright向量合成
     public Vector3 Dvec;
+
+    public float Jup;
+    public float Jright;
 
     //1.pressing信号
     public bool run;
@@ -46,6 +54,11 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Jup = (Input.GetKey(keyJUp) ? 1.0f : 0) - (Input.GetKey(keyJDown) ? 1.0f : 0);
+        Jright = (Input.GetKey(keyJRight) ? 1.0f : 0) - (Input.GetKey(keyJLeft) ? 1.0f : 0);
+        print(Jright);
+
+
         targetDup = (Input.GetKey(keyUp) ? 1.0f : 0) - (Input.GetKey(keyDown) ? 1.0f : 0);
         targetDright = (Input.GetKey(keyRight) ? 1.0f : 0) - (Input.GetKey(keyLeft) ? 1.0f : 0);
         if (inputEnabled == false)
