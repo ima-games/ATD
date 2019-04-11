@@ -35,4 +35,9 @@ public class Individual : MonoBehaviour
 		LogicManager.Register(this);
 		//Do something
 	}
+
+    public void ReduceHealth(int damage)
+    {
+        health-=damage;
+    }
 }

@@ -8,13 +8,22 @@ public class MessageSystem : MonoBehaviour
     // BroadcastMessage  朝物体和所有子物体发送消息
     // SendMessage  朝物体下所有组件发送消息
     // SendMessageUpwards  朝物体和上级父物体发送信息
-    Individual self;
+    Individual SelfIndicidual;
+    HatredSystem SelfHatredSystem;
+    SkillSystem SelfSkillSystem;
+
 
     private void Awake()
     {
         //将事件类型和函数绑定
         EventCenter.AddListener<int, int, int, object>(EventType.Message, SolveMessage);
-        self = GetComponent<Individual>();
+    }
+
+    private void Start()
+    {
+        SelfIndicidual = GetComponent<Individual>();
+        SelfHatredSystem = GetComponent<HatredSystem>();
+        SelfSkillSystem = GetComponent<SkillSystem>();
     }
 
     /// <summary>
@@ -27,7 +36,7 @@ public class MessageSystem : MonoBehaviour
     public void SolveMessage(int messageID, int senderID, int receverID, object ob)
     {
         //看看自己是不是接收器的ID
-        if (receverID != self.ID) return;
+        if (receverID != SelfIndicidual.ID) return;
         //对消息来源进行选择，传参并转发，若为伤害信息，则加入到仇恨表中
         switch(messageID)
         {
@@ -45,7 +54,7 @@ public class MessageSystem : MonoBehaviour
     {
         switch (messageID)
         {
-            case 1: EventCenter.Broadcast<int, int, int, object>(EventType.Message, messageID, self.ID, receverID, ob); break;
+            case 1: EventCenter.Broadcast<int, int, int, object>(EventType.Message, messageID, SelfIndicidual.ID, receverID, ob); break;
             default: break;
         }
     }
@@ -64,5 +73,7 @@ public class MessageSystem : MonoBehaviour
     private void UnderAttack(int senderID, int receverID, object ob)
     {
         SendMessage("ReduceHealth", ob);
+        SelfHatredSystem.AddHateValue(LogicManager.Instance.GetIndividual(senderID));
+        SelfSkillSystem.ReceiveMessage(LogicManager.Instance.GetIndividual(senderID),(float)ob);
     }
 }
