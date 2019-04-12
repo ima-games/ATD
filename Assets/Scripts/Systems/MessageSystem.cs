@@ -59,7 +59,6 @@ public class MessageSystem : MonoBehaviour
         }
     }
 
-
     //-----------------------以下为消息类型-----------------------
 
     
@@ -73,7 +72,7 @@ public class MessageSystem : MonoBehaviour
     private void UnderAttack(int senderID, int receverID, object ob)
     {
         SendMessage("ReduceHealth", ob);
-        SelfHatredSystem.AddHateValue(LogicManager.Instance.GetIndividual(senderID));
-        SelfSkillSystem.ReceiveMessage(LogicManager.Instance.GetIndividual(senderID),(float)ob);
+        SelfHatredSystem.AddHateValue(LogicManager.GetIndividual(senderID));
+        SelfSkillSystem.ReceiveMessage(LogicManager.GetIndividual(senderID),(float)ob);
     }
 }
