@@ -518,5 +518,17 @@ PrefabInstance:
       propertyPath: keyC
       value: mouse 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1724234468259828688, guid: 9e8a4c3ee3dc2d84eb947a9293a64ac5,
+        type: 3}
+      propertyPath: frictionOne
+      value: 
+      objectReference: {fileID: 13400000, guid: 74e0870f3fc5fb94bbcf061376f44977,
+        type: 2}
+    - target: {fileID: 1724234468259828688, guid: 9e8a4c3ee3dc2d84eb947a9293a64ac5,
+        type: 3}
+      propertyPath: frictionZero
+      value: 
+      objectReference: {fileID: 13400000, guid: 076fc23f78a9c6848bd6058d79e9d5e5,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e8a4c3ee3dc2d84eb947a9293a64ac5, type: 3}
