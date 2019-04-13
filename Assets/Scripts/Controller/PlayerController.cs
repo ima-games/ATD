@@ -10,18 +10,21 @@ public class PlayerController : MonoBehaviour
     public float runMultiplier = 2.0f;
     public float jumpVelocity = 4.0f;
     public float rollVelocity = 3.0f;
-    //public float jabVelocity = 3.0f;
-
     [Header("动画平滑系数")]
     public float rotateRatio = 0.3f;//转身
     public float runRatio = 0.3f;//切换奔跑
 
+    [Header("FrictionSetting")]
+    public PhysicMaterial frictionOne;
+    public PhysicMaterial frictionZero;
+
     [SerializeField]
     private Animator animator;
-    private Rigidbody rigib;
+    private Rigidbody rigidbody;
     private Vector3 planeVec;
     private Vector3 thrustVec;
     private bool canAttack;
+    private CapsuleCollider capsuleCollider;
 
     private bool lockPlane = false;
 
@@ -29,7 +32,8 @@ public class PlayerController : MonoBehaviour
     {
         playerInput = GetComponent<PlayerInput>();
         animator = model.GetComponent<Animator>();
-        rigib = GetComponent<Rigidbody>();//if(rigib == null){}
+        rigidbody = GetComponent<Rigidbody>();//if(rigib == null){}
+        capsuleCollider = GetComponent<CapsuleCollider>();
     }
 
     void Update()
@@ -38,7 +42,7 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("forward", playerInput.Dmag *
             Mathf.Lerp(animator.GetFloat("forward"), targetRunMulti, runRatio));
 
-        if (rigib.velocity.magnitude > 1.0f)
+        if (rigidbody.velocity.magnitude > 1.0f)
         {
             animator.SetTrigger("roll");
         }
@@ -70,13 +74,14 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        rigib.velocity = new Vector3(planeVec.x, rigib.velocity.y, planeVec.z) + thrustVec;
+        rigidbody.velocity = new Vector3(planeVec.x, rigidbody.velocity.y, planeVec.z) + thrustVec;
         thrustVec = Vector3.zero;
     }
 
     private bool CheckState(string stateName, string layerName = "Base Layer")
     {
-        return animator.GetCurrentAnimatorStateInfo(animator.GetLayerIndex(layerName)).IsName(stateName);
+        int layerIndex = animator.GetLayerIndex(layerName);
+        return animator.GetCurrentAnimatorStateInfo(layerIndex).IsName(stateName);
     }
 
     #region 信息
@@ -101,6 +106,11 @@ public class PlayerController : MonoBehaviour
         playerInput.inputEnabled = true;
         lockPlane = false;
         canAttack = true;
+        capsuleCollider.material = frictionOne;
+    }
+    public void OnGroundExit()
+    {
+        capsuleCollider.material = frictionZero;
     }
     public void OnFallEnter()
     {
