@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 45c08939dd8d0db43ac4897f4ee4a8a5
+guid: 3ee2d6ec57fe1d14cb53926333f6ebb4
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -139,14 +139,15 @@ ModelImporter:
     400130: mixamorig:Spine1
     400132: mixamorig:Spine2
     400134: //RootNode
-    7400000: Sprinting Forward Roll
+    7400000: Stable Sword Inward Slash
     9500000: //RootNode
+    2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
-    materialLocation: 0
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -154,7 +155,14 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: 
+    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
+      copied configuration does not match position in animation file:\n\t'mixamorig:LeftUpLeg'
+      : position error = 17.374958 mm\n\t'mixamorig:LeftLeg' : position error = 37.362202
+      mm\n\t'mixamorig:LeftFoot' : position error = 24.781258 mm\n\t'mixamorig:LeftToeBase'
+      : position error = 25.515951 mm\n\t'mixamorig:RightUpLeg' : position error =
+      17.374962 mm\n\t'mixamorig:RightLeg' : position error = 37.360069 mm\n\t'mixamorig:RightFoot'
+      : position error = 24.777168 mm\n\t'mixamorig:RightToeBase' : position error
+      = 25.515947 mm\n"
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -170,10 +178,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Sprinting Forward Roll
+      name: Stable Sword Inward Slash
       takeName: mixamo.com
-      firstFrame: 0
-      lastFrame: 35
+      firstFrame: 45
+      lastFrame: 132
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -184,67 +192,22 @@ ModelImporter:
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
-      loopBlendPositionXZ: 0
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 1
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves:
-      - name: rollHeight
-        curve:
-          serializedVersion: 2
-          curve:
-          - serializedVersion: 3
-            time: 0.0012550354
-            value: 0
-            inSlope: -0.4913104
-            outSlope: -0.4913104
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.26640475
-            value: -0.46146482
-            inSlope: -4.670769
-            outSlope: -4.670769
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.4137944
-            value: -1.6425037
-            inSlope: -3.4686718
-            outSlope: -3.4686718
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.6793176
-            value: -1.7289027
-            inSlope: 1.9537139
-            outSlope: 1.9537139
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 1
-            value: 0
-            inSlope: 3.2770379
-            outSlope: 3.2770379
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          preInfinity: 3
-          postInfinity: 3
-          rotationOrder: 0
-      events: []
+      curves: []
+      events:
+      - time: 0.15689602
+        functionName: ResetTrigger
+        data: attack
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -267,7 +230,7 @@ ModelImporter:
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 0
-    indexFormat: 1
+    indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -280,7 +243,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   importAnimation: 1
