@@ -21,6 +21,11 @@ public class PlayerInput : MonoBehaviour
     public string keyJUp = "up";
     public string keyJDown = "down";
 
+    [Header("MouseSettings")]
+    public bool mouseEnable = false;
+    public float mousSensitivityX = 1.0f;
+    public float mousSensitivityY = 1.0f;
+
     [Header("OutputSignals")]
     public float Dup;
     public float Dright;
@@ -30,13 +35,12 @@ public class PlayerInput : MonoBehaviour
     public float Jup;
     public float Jright;
 
-
     public bool run;
     public bool jump;
     private bool lastJump;
     public bool attack;
     private bool lastAttack;
-
+    public bool defense;
 
     [Header("Other")]
     public bool inputEnabled = true; //Flag
@@ -55,8 +59,11 @@ public class PlayerInput : MonoBehaviour
     void Update() {
         Jup = (Input.GetKey(keyJUp) ? 1.0f : 0) - (Input.GetKey(keyJDown) ? 1.0f : 0);
         Jright = (Input.GetKey(keyJRight) ? 1.0f : 0) - (Input.GetKey(keyJLeft) ? 1.0f : 0);
-        //print(Jright);
 
+        if (mouseEnable == true) {
+            Jup += Input.GetAxis("Mouse Y") * mousSensitivityX;
+            Jright += Input.GetAxis("Mouse X") * mousSensitivityY;
+        }
 
         targetDup = (Input.GetKey(keyUp) ? 1.0f : 0) - (Input.GetKey(keyDown) ? 1.0f : 0);
         targetDright = (Input.GetKey(keyRight) ? 1.0f : 0) - (Input.GetKey(keyLeft) ? 1.0f : 0);
@@ -75,6 +82,7 @@ public class PlayerInput : MonoBehaviour
         Dvec = Dright * transform.right + Dup * transform.forward;
 
         run = Input.GetKey(keyA);
+        defense = Input.GetKey(keyD);
 
         bool newjump = Input.GetKey(keyB);
         if (newjump != lastJump && newjump == true) {

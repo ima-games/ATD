@@ -22,6 +22,8 @@ public class MainCameraController : MonoBehaviour
         tempEulerX = 20;
         model = playerHandle.GetComponent<PlayerController>().model;
         camera = Camera.main.gameObject;
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void FixedUpdate() {
@@ -37,6 +39,7 @@ public class MainCameraController : MonoBehaviour
         model.transform.eulerAngles = tempModelEuler;
 
         camera.transform.position = Vector3.SmoothDamp(camera.transform.position, transform.position, ref cameraDampVelocity, cameraDampValue);
-        camera.transform.eulerAngles = transform.eulerAngles;
+        //camera.transform.eulerAngles = transform.eulerAngles;
+        camera.transform.LookAt(cameraHandle.transform);
     }
 }
