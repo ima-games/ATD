@@ -47,14 +47,12 @@ public class PlayerInput : MonoBehaviour
     private float velocityDright;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
 
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         Jup = (Input.GetKey(keyJUp) ? 1.0f : 0) - (Input.GetKey(keyJDown) ? 1.0f : 0);
         Jright = (Input.GetKey(keyJRight) ? 1.0f : 0) - (Input.GetKey(keyJLeft) ? 1.0f : 0);
         //print(Jright);
@@ -62,8 +60,7 @@ public class PlayerInput : MonoBehaviour
 
         targetDup = (Input.GetKey(keyUp) ? 1.0f : 0) - (Input.GetKey(keyDown) ? 1.0f : 0);
         targetDright = (Input.GetKey(keyRight) ? 1.0f : 0) - (Input.GetKey(keyLeft) ? 1.0f : 0);
-        if (inputEnabled == false)
-        {
+        if (inputEnabled == false) {
             targetDup = 0;
             targetDright = 0;
         }
@@ -80,28 +77,34 @@ public class PlayerInput : MonoBehaviour
         run = Input.GetKey(keyA);
 
         bool newjump = Input.GetKey(keyB);
-        if (newjump != lastJump && newjump == true)
+        if (newjump != lastJump && newjump == true) {
             jump = true;
-        else
+        }
+
+        else {
             jump = false;
+        }
+
         lastJump = newjump;
 
         bool newAttack = Input.GetKey(keyC);
-        if (newAttack != lastAttack && newAttack == true)
+        if (newAttack != lastAttack && newAttack == true) {
             attack = true;
-        else
+        }
+
+        else {
             attack = false;
+        }
+
         lastAttack = newAttack;
     }
-    private Vector2 SquareToCircle(Vector2 input)
-    {
+    private Vector2 SquareToCircle(Vector2 input) {
         Vector2 output = Vector2.zero;
         output.x = input.x * Mathf.Sqrt(1 - (input.y * input.y) / 2.0f);
         output.y = input.y * Mathf.Sqrt(1 - (input.x * input.x) / 2.0f);
         return output;
     }
-    //private Vector2 UseNormalized(Vector2 input)
-    //{
+    //private Vector2 UseNormalized(Vector2 input) {
     //    Vector2 output = input.normalized;
     //    return output;
     //}
