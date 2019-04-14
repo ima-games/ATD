@@ -10,8 +10,8 @@ public class MyButton
     public bool isExtending = false;
     public bool isDelaying = false;
 
-    public float entendingDuration = 1f;
-    public float delayingDuration = 1.0f;//输入延时 
+    public float entendingDuration = 0.20f;
+    public float delayingDuration = 0.20f;//输入延时 
 
     private bool currentState = false;
     private bool lastState = false;

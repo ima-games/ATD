@@ -13,12 +13,13 @@ public class PlayerInput : MonoBehaviour
     public string keyJump = "space";
     public string keyAttack = "mouse 0";
     public string keyDefense = "mouse 1";
+    public string keyLock = "mouse 2";
 
     public MyButton buttonRun = new MyButton();
     public MyButton buttonJump = new MyButton();
     public MyButton buttonAttack = new MyButton();
     public MyButton buttonDefense = new MyButton();
-    public MyButton buttonE = new MyButton();
+    public MyButton buttonLock = new MyButton();
     public MyButton buttonF = new MyButton();
 
     public string keyJRight = "right";
@@ -45,6 +46,7 @@ public class PlayerInput : MonoBehaviour
     public bool attack;
     public bool defense;
     public bool roll;
+    public bool lockon;
 
     [Header("Other")]
     public bool inputEnabled = true; //Flag
@@ -64,6 +66,9 @@ public class PlayerInput : MonoBehaviour
         buttonJump.Tick(Input.GetKey(keyJump));//jump
         buttonAttack.Tick(Input.GetKey(keyAttack));//attack
         buttonDefense.Tick(Input.GetKey(keyDefense));//denfese
+        buttonLock.Tick(Input.GetKey(keyLock));//lock
+
+
         //延时
         //print(buttonRun.isExtending || buttonRun.isPressing); 
         //双击
@@ -95,11 +100,13 @@ public class PlayerInput : MonoBehaviour
 
         //Button
         run = (buttonRun.isPressing && !buttonRun.isDelaying) || buttonRun.isExtending;
-        defense = buttonDefense.isPressing;
+        jump = buttonRun.onPressed && buttonRun.isExtending;
         roll = buttonRun.onReleased && buttonRun.isDelaying;
 
-        jump = buttonRun.onPressed && buttonRun.isExtending;
+        
         attack = buttonAttack.onPressed;
+        defense = buttonDefense.isPressing;
+        lockon = buttonLock.onPressed;
     }
     private Vector2 SquareToCircle(Vector2 input) {
         Vector2 output = Vector2.zero;
