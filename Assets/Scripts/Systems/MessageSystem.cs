@@ -11,7 +11,7 @@ public class MessageSystem : MonoBehaviour
     Individual SelfIndicidual;
     HatredSystem SelfHatredSystem;
     SkillSystem SelfSkillSystem;
-
+    BuffSystem SelfBuffSystem;
 
     private void Awake()
     {
@@ -24,7 +24,10 @@ public class MessageSystem : MonoBehaviour
         SelfIndicidual = GetComponent<Individual>();
         SelfHatredSystem = GetComponent<HatredSystem>();
         SelfSkillSystem = GetComponent<SkillSystem>();
+        SelfBuffSystem = GetComponent<BuffSystem>();
     }
+
+    //-----------------------接受消息选择器-----------------------
 
     /// <summary>
     /// 处理消息的函数，消息类型对消息进行转发，将参数传入消息，伤害消息的来源将会被加入到仇恨表
@@ -44,6 +47,10 @@ public class MessageSystem : MonoBehaviour
             default: break;
         }
     }
+
+
+    //-----------------------发出消息转发器-----------------------
+
     /// <summary>
     /// 消息类型 1 普通攻击 2...
     /// </summary>
@@ -59,20 +66,21 @@ public class MessageSystem : MonoBehaviour
         }
     }
 
+
+
     //-----------------------以下为消息类型-----------------------
-
     
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="senderID">攻击者ID</param>
-    /// <param name="receverID">受害者ID</param>
-    /// <param name="ob">伤害量</param>
+    //被攻击调用，发送器ID，接收器ID，伤害量
     private void UnderAttack(int senderID, int receverID, object ob)
     {
         SendMessage("ReduceHealth", ob);
         SelfHatredSystem.AddHateValue(LogicManager.GetIndividual(senderID));
         SelfSkillSystem.ReceiveMessage(LogicManager.GetIndividual(senderID),(float)ob);
+    }
+
+    //获得一个buff，
+    private void GainBuff(int senderID,int receverID,int buffID)
+    {
+        SelfBuffSystem.StickBuff(buffID);
     }
 }
