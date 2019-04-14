@@ -11,23 +11,22 @@ public class MainCameraController : MonoBehaviour
 
     private GameObject playerHandle;
     private GameObject cameraHandle;
-    private float tempEulerX;
     private GameObject model;
     private GameObject camera;
-
+    private float tempEulerX;
     private Vector3 cameraDampVelocity;
 
-    void Awake()
-    {
+    void Awake() {
         cameraHandle = transform.parent.gameObject;
         playerHandle = cameraHandle.transform.parent.gameObject;
         tempEulerX = 20;
         model = playerHandle.GetComponent<PlayerController>().model;
         camera = Camera.main.gameObject;
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void FixedUpdate()
-    {
+    void FixedUpdate() {
         Vector3 tempModelEuler = model.transform.eulerAngles;
 
         playerHandle.transform.Rotate(Vector3.up, playerInput.Jright * horizontalSpeed * Time.fixedDeltaTime);
@@ -40,6 +39,7 @@ public class MainCameraController : MonoBehaviour
         model.transform.eulerAngles = tempModelEuler;
 
         camera.transform.position = Vector3.SmoothDamp(camera.transform.position, transform.position, ref cameraDampVelocity, cameraDampValue);
-        camera.transform.eulerAngles = transform.eulerAngles;
+        //camera.transform.eulerAngles = transform.eulerAngles;
+        camera.transform.LookAt(cameraHandle.transform);
     }
 }
