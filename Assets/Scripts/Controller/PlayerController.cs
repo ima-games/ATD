@@ -45,8 +45,9 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("forward", playerInput.Dmag *
             Mathf.Lerp(animator.GetFloat("forward"), targetRunMulti, runRatio));
 
-        if (rigidbody.velocity.magnitude > 1.0f) {
+        if (playerInput.roll) {
             animator.SetTrigger("roll");
+            canAttack = false;      
         }
 
         if (playerInput.jump) {
