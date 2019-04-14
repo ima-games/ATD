@@ -20,7 +20,8 @@ public class BuffDataBase : MonoBehaviour
     private List<HatredData> hatredDatas;
 
     private static BuffDataBase instance;
-    
+    private Dictionary<int, BuffData> buffDataDictionary = new Dictionary<int, BuffData>();
+
     //禁止外界通过new获取该类的实例
     private BuffDataBase() { }
 
@@ -48,16 +49,21 @@ public class BuffDataBase : MonoBehaviour
         hatredDatas = JsonToObject.JsonToObject_ByJsonContent<HatredData>(HatredJ.text);
         buffDatas = JsonToObject.JsonToObject_ByJsonContent<BuffData>(BuffDataJ.text);
 
-        
+        foreach (var a in buffDatas)
+        {
+            buffDataDictionary.Add(a.ID, a);
+        }
+
+
     }
     public BuffData GetBuffData(int ID)
     {
-        if (ID < 0 || ID >= buffDatas.Count)
+        if (!buffDataDictionary.ContainsKey(ID))
         {
-            Debug.Log("buffDatas列表越界");
+            Debug.Log("buffData中不存在" + ID);
             return null;
         }
-        return buffDatas[ID];
+        return buffDataDictionary[ID];
     }
 
     // Update is called once per frame
