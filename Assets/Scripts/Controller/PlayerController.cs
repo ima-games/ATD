@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public float walkSpeed = 1.6f;
     public float runMultiplier = 2.4f;
     public float jumpVelocity = 5.0f;
-    public float rollHorizontalVelocity = 0f;
+    public float rollVeticalVelocity = 0f;
     [Header("动画平滑系数")]
     public float rotateRatio = 0.3f;//转身
     public float runRatio = 0.3f;//切换奔跑
@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour
     }
 
     void Update() {
+        animator.SetBool("defense", playerInput.defense);
+
         float targetRunMulti = ((playerInput.run) ? 2.0f : 1.0f);
         animator.SetFloat("forward", playerInput.Dmag *
             Mathf.Lerp(animator.GetFloat("forward"), targetRunMulti, runRatio));
@@ -89,8 +91,9 @@ public class PlayerController : MonoBehaviour
 
     #region AnimationEvent
     public void OnUpdateRM(object _deltaPos) {
-        if(CheckState("attack1hC","attack")) {
-            deltaPos += (Vector3)_deltaPos;
+        if (CheckState("attack1hC", "attack")) {
+            //deltaPos += (Vector3)_deltaPos;
+            deltaPos += (0.8f * deltaPos + 0.2f * (Vector3)_deltaPos) / 1.0f;
         }
     }
     #endregion
@@ -123,7 +126,7 @@ public class PlayerController : MonoBehaviour
         lockPlane = true;
     }
     public void OnRollEnter() {
-        thrustVec = new Vector3(0, rollHorizontalVelocity, 0);
+        thrustVec = new Vector3(0, rollVeticalVelocity, 0);
         playerInput.inputEnabled = false;
         lockPlane = true;
     }
