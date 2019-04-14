@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 690734754}
   - component: {fileID: 690734755}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: BuffDataBaseObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
