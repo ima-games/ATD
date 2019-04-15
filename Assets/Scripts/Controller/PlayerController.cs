@@ -72,24 +72,26 @@ public class PlayerController : MonoBehaviour {
         if ((playerInput.lHand || playerInput.rHand) && (CheckState ("ground") || CheckStateTag ("attack")) && canAttack) {
             if (playerInput.rHand) {
                 animator.SetBool ("R0L1", false);
+                animator.SetTrigger ("attack");
             } else if (playerInput.lHand && !leftIsShield) {
                 animator.SetBool ("R0L1", true);
+                animator.SetTrigger ("attack");
             }
-            animator.SetTrigger ("attack");
         }
 
         // if(leftIsShield){
         //     if(CheckState("ground"))
         // }
 
-        // if (CheckState ("ground") && leftIsShield) {
-        //     if (playerInput.defense) {
-        //         animator.SetLayerWeight (animator.GetLayerIndex ("defence"), 1);
-        //     } else {
-        //         animator.SetLayerWeight (animator.GetLayerIndex ("defence"), 0);
-        //     }
-        // }
-        // animator.SetLayerWeight (animator.GetLayerIndex ("defence"), 0);
+        if (CheckState ("ground") && leftIsShield) {
+            animator.SetBool("defense",playerInput.defense);
+            if (playerInput.defense) {
+                animator.SetLayerWeight (animator.GetLayerIndex ("defence"), 1);
+            } else {
+                animator.SetLayerWeight (animator.GetLayerIndex ("defence"), 0);
+            }
+        }
+        animator.SetLayerWeight (animator.GetLayerIndex ("defence"), 0);
 
         if (cameraController.lockState == false) {
             if (playerInput.Dmag > 0.1f) //转身硬直
