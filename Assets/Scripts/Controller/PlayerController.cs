@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public GameObject model;
     public PlayerInput playerInput;
+    public MainCameraController cameraController;
     public float walkSpeed = 1.6f;
     public float runMultiplier = 2.4f;
     public float jumpVelocity = 5.0f;
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 thrustVec;
     private bool canAttack;
     private bool lockPlane = false;
+    private bool trackDirection = false;
     private float lerpTarget;
     private Vector3 deltaPos;
 
@@ -39,14 +41,28 @@ public class PlayerController : MonoBehaviour
     }
 
     void Update() {
+
+        if (playerInput.lockon) {
+            cameraController.LockSwitch();
+        }
+
+        if(cameraController.lockState == false) {
+            float targetRunMulti = ((playerInput.run) ? 2.0f : 1.0f);
+            animator.SetFloat("forward", playerInput.Dmag *
+                Mathf.Lerp(animator.GetFloat("forward"), targetRunMulti, runRatio));
+        }
+        else {
+            Vector3 localDevc = transform.InverseTransformVector(playerInput.Dvec);
+            animator.SetFloat("forward", localDevc.z * ((playerInput.run) ? 2.0f : 1.0f));
+            animator.SetFloat("right", localDevc.x * ((playerInput.run) ? 2.0f : 1.0f));
+        }
+
+
         animator.SetBool("defense", playerInput.defense);
 
-        float targetRunMulti = ((playerInput.run) ? 2.0f : 1.0f);
-        animator.SetFloat("forward", playerInput.Dmag *
-            Mathf.Lerp(animator.GetFloat("forward"), targetRunMulti, runRatio));
-
-        if (rigidbody.velocity.magnitude > 1.0f) {
+        if (playerInput.roll || rigidbody.velocity.magnitude > 7f) {
             animator.SetTrigger("roll");
+            canAttack = false;
         }
 
         if (playerInput.jump) {
@@ -58,17 +74,30 @@ public class PlayerController : MonoBehaviour
             animator.SetTrigger("attack");
         }
 
-        if (playerInput.Dmag > 0.01f)//转身硬直
-        {
-            Vector3 targetForward = Vector3.Slerp(model.transform.forward, playerInput.Dvec, rotateRatio);
-            model.transform.forward = targetForward;
-        }
+        if (cameraController.lockState == false) {
+            if (playerInput.Dmag > 0.1f)//转身硬直
+            {
+                Vector3 targetForward = Vector3.Slerp(model.transform.forward, playerInput.Dvec, rotateRatio);
+                model.transform.forward = targetForward;
+            }
 
-        if (lockPlane == false) {
-            planeVec = playerInput.Dmag * model.transform.forward * walkSpeed *
-              ((playerInput.run) ? runMultiplier : 1.0f);
+            if (lockPlane == false) {
+                planeVec = playerInput.Dmag * model.transform.forward * walkSpeed *
+                  ((playerInput.run) ? runMultiplier : 1.0f);
+            }
         }
-        //print(CheckState("idle", "attack"));
+        else {
+            if(trackDirection == false) {
+                model.transform.forward = transform.forward;
+            }
+            else {
+                model.transform.forward = planeVec.normalized;
+            }
+            if (lockPlane == false) {
+                planeVec = playerInput.Dvec * ((playerInput.run) ? runMultiplier : 1.0f);
+
+            }
+        }
     }
 
     void FixedUpdate() {
@@ -103,6 +132,7 @@ public class PlayerController : MonoBehaviour
         thrustVec = new Vector3(0, jumpVelocity, 0);
         playerInput.inputEnabled = false;
         lockPlane = true;
+        trackDirection = true;
     }
     public void IsGround() {
         //print("IsGround");
@@ -117,6 +147,7 @@ public class PlayerController : MonoBehaviour
         lockPlane = false;
         canAttack = true;
         capsuleCollider.material = frictionOne;
+        trackDirection = false;
     }
     public void OnGroundExit() {
         capsuleCollider.material = frictionZero;
@@ -129,6 +160,7 @@ public class PlayerController : MonoBehaviour
         thrustVec = new Vector3(0, rollVeticalVelocity, 0);
         playerInput.inputEnabled = false;
         lockPlane = true;
+        trackDirection = true;
     }
     public void OnJabEnter() {
         playerInput.inputEnabled = false;

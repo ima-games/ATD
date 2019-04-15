@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -11,10 +9,18 @@ public class PlayerInput : MonoBehaviour
     public string keyLeft = "a";
     public string keyRight = "d";
 
-    public string keyA;
-    public string keyB;
-    public string keyC;
-    public string keyD;
+    public string keyRun = "left shift";
+    public string keyJump = "space";
+    public string keyAttack = "mouse 0";
+    public string keyDefense = "mouse 1";
+    public string keyLock = "mouse 2";
+
+    public MyButton buttonRun = new MyButton();
+    public MyButton buttonJump = new MyButton();
+    public MyButton buttonAttack = new MyButton();
+    public MyButton buttonDefense = new MyButton();
+    public MyButton buttonLock = new MyButton();
+    public MyButton buttonF = new MyButton();
 
     public string keyJRight = "right";
     public string keyJLeft = "left";
@@ -29,7 +35,7 @@ public class PlayerInput : MonoBehaviour
     [Header("OutputSignals")]
     public float Dup;
     public float Dright;
-    public float Dmag;//Dup，Dright向量合成
+    public float Dmag; //Dup，Dright向量合成
     public Vector3 Dvec;
 
     public float Jup;
@@ -37,10 +43,10 @@ public class PlayerInput : MonoBehaviour
 
     public bool run;
     public bool jump;
-    private bool lastJump;
     public bool attack;
-    private bool lastAttack;
     public bool defense;
+    public bool roll;
+    public bool lockon;
 
     [Header("Other")]
     public bool inputEnabled = true; //Flag
@@ -50,13 +56,24 @@ public class PlayerInput : MonoBehaviour
     private float velocityDup;
     private float velocityDright;
 
-    // Start is called before the first frame update
     void Start() {
 
     }
 
-    // Update is called once per frame
     void Update() {
+
+        buttonRun.Tick(Input.GetKey(keyRun));//run
+        buttonJump.Tick(Input.GetKey(keyJump));//jump
+        buttonAttack.Tick(Input.GetKey(keyAttack));//attack
+        buttonDefense.Tick(Input.GetKey(keyDefense));//denfese
+        buttonLock.Tick(Input.GetKey(keyLock));//lock
+
+
+        //延时
+        //print(buttonRun.isExtending || buttonRun.isPressing); 
+        //双击
+        //print(buttonRun.isExtending && buttonRun.onPress);
+
         Jup = (Input.GetKey(keyJUp) ? 1.0f : 0) - (Input.GetKey(keyJDown) ? 1.0f : 0);
         Jright = (Input.GetKey(keyJRight) ? 1.0f : 0) - (Input.GetKey(keyJLeft) ? 1.0f : 0);
 
@@ -81,30 +98,15 @@ public class PlayerInput : MonoBehaviour
         Dmag = new Vector2(Dright2, Dup2).magnitude;
         Dvec = Dright * transform.right + Dup * transform.forward;
 
-        run = Input.GetKey(keyA);
-        defense = Input.GetKey(keyD);
+        //Button
+        run = (buttonRun.isPressing && !buttonRun.isDelaying) || buttonRun.isExtending;
+        jump = buttonRun.onPressed && buttonRun.isExtending;
+        roll = buttonRun.onReleased && buttonRun.isDelaying;
 
-        bool newjump = Input.GetKey(keyB);
-        if (newjump != lastJump && newjump == true) {
-            jump = true;
-        }
-
-        else {
-            jump = false;
-        }
-
-        lastJump = newjump;
-
-        bool newAttack = Input.GetKey(keyC);
-        if (newAttack != lastAttack && newAttack == true) {
-            attack = true;
-        }
-
-        else {
-            attack = false;
-        }
-
-        lastAttack = newAttack;
+        
+        attack = buttonAttack.onPressed;
+        defense = buttonDefense.isPressing;
+        lockon = buttonLock.onPressed;
     }
     private Vector2 SquareToCircle(Vector2 input) {
         Vector2 output = Vector2.zero;
