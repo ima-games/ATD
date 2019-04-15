@@ -29,8 +29,10 @@ public class PlayerController : MonoBehaviour {
     private bool canAttack;
     private bool lockPlane = false;
     private bool trackDirection = false;
-    private float lerpTarget;
+    //private float lerpTarget;
     private Vector3 deltaPos;
+    [SerializeField]
+    private bool leftIsShield = true;
 
     void Awake () {
         playerInput = GetComponent<PlayerInput> ();
@@ -55,7 +57,7 @@ public class PlayerController : MonoBehaviour {
             animator.SetFloat ("right", localDevc.x * ((playerInput.run) ? 2.0f : 1.0f));
         }
 
-        animator.SetBool ("defense", playerInput.defense);
+        //animator.SetBool ("defense", playerInput.defense);
 
         if (playerInput.roll || rigidbody.velocity.magnitude > 7f) {
             animator.SetTrigger ("roll");
@@ -67,9 +69,27 @@ public class PlayerController : MonoBehaviour {
             canAttack = false;
         }
 
-        if (playerInput.attack && ( CheckState ("ground") || CheckStateTag("attack") ) && canAttack) {
+        if ((playerInput.lHand || playerInput.rHand) && (CheckState ("ground") || CheckStateTag ("attack")) && canAttack) {
+            if (playerInput.rHand) {
+                animator.SetBool ("R0L1", false);
+            } else if (playerInput.lHand && !leftIsShield) {
+                animator.SetBool ("R0L1", true);
+            }
             animator.SetTrigger ("attack");
         }
+
+        // if(leftIsShield){
+        //     if(CheckState("ground"))
+        // }
+
+        // if (CheckState ("ground") && leftIsShield) {
+        //     if (playerInput.defense) {
+        //         animator.SetLayerWeight (animator.GetLayerIndex ("defence"), 1);
+        //     } else {
+        //         animator.SetLayerWeight (animator.GetLayerIndex ("defence"), 0);
+        //     }
+        // }
+        // animator.SetLayerWeight (animator.GetLayerIndex ("defence"), 0);
 
         if (cameraController.lockState == false) {
             if (playerInput.Dmag > 0.1f) //转身硬直
@@ -115,15 +135,6 @@ public class PlayerController : MonoBehaviour {
         return animator.GetCurrentAnimatorStateInfo (animator.GetLayerIndex (layerName)).IsTag (tagName);
     }
 
-    #region AnimationEvent
-    public void OnUpdateRM (object _deltaPos) {
-        //if (CheckState("attack1hC", "attack")) {
-        //    //deltaPos += (Vector3)_deltaPos;
-        //    deltaPos += (0.8f * deltaPos + 0.2f * (Vector3)_deltaPos) / 1.0f;
-        //}
-    }
-    #endregion
-
     #region 动画事件信息
     public void OnJumpEnter () {
         thrustVec = new Vector3 (0, jumpVelocity, 0);
@@ -168,23 +179,35 @@ public class PlayerController : MonoBehaviour {
     }
     public void OnAttack1hAEnter () {
         playerInput.inputEnabled = false;
-        lerpTarget = 1.0f;
+        // lockPlane = true;
+        // lerpTarget = 1.0f;
     }
     public void OnAttack1hAUpdate () {
         thrustVec = model.transform.forward * animator.GetFloat ("attack1aAVelocity");
-        float currentweight = animator.GetLayerWeight (animator.GetLayerIndex ("attack"));
-        currentweight = Mathf.Lerp (currentweight, lerpTarget, 0.1f); //idle切换到攻击1hA
-        animator.SetLayerWeight (animator.GetLayerIndex ("attack"), currentweight);
+        // float currentweight = animator.GetLayerWeight (animator.GetLayerIndex ("attack"));
+        // currentweight = Mathf.Lerp (currentweight, lerpTarget, 0.1f); //idle切换到攻击1hA
+        // animator.SetLayerWeight (animator.GetLayerIndex ("attack"), currentweight);
     }
-    public void OnAttackIdleEnter () {
-        playerInput.inputEnabled = true;
-        //animator.SetLayerWeight(animator.GetLayerIndex("attack"), 0f);
-        lerpTarget = 0f;
-    }
-    public void OnAttackIdleUpdate () {
-        float currentweight = animator.GetLayerWeight (animator.GetLayerIndex ("attack"));
-        currentweight = Mathf.Lerp (currentweight, lerpTarget, 0.1f); //攻击完切换到idle
-        animator.SetLayerWeight (animator.GetLayerIndex ("attack"), currentweight);
+    // public void OnAttackIdleEnter () {
+    //     playerInput.inputEnabled = true;
+    //     // lockPlane = false;
+    //     // animator.SetLayerWeight(animator.GetLayerIndex("attack"), 0f);
+    //     // lerpTarget = 0f;
+    // }
+
+    // public void OnAttackIdleUpdate () {
+    //     // float currentweight = animator.GetLayerWeight (animator.GetLayerIndex ("attack"));
+    //     // currentweight = Mathf.Lerp (currentweight, lerpTarget, 0.1f); //攻击完切换到idle
+    //     // animator.SetLayerWeight (animator.GetLayerIndex ("attack"), currentweight);
+    // }
+    #endregion
+
+    #region AnimationEvent
+    public void OnUpdateRM (object _deltaPos) {
+        if (CheckState ("attack1hC")) {
+            //deltaPos += (Vector3)_deltaPos;
+            deltaPos += (0.8f * deltaPos + 0.2f * (Vector3) _deltaPos) / 1.0f;
+        }
     }
     #endregion
 }
