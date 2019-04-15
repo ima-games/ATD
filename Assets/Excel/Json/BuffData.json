@@ -1,5 +1,6 @@
 ﻿[
   {
+    "ID": 0,
     "Name": "治疗怪",
     "HpChange": 0,
     "HpChange_p": 0,
@@ -29,6 +30,7 @@
     "isIncreaseAttack": false
   },
   {
+    "ID": 1,
     "Name": "光环怪",
     "HpChange": 0,
     "HpChange_p": 0,
@@ -58,6 +60,7 @@
     "isIncreaseAttack": false
   },
   {
+    "ID": 2,
     "Name": "复仇怪",
     "HpChange": -40,
     "HpChange_p": 0,
@@ -87,6 +90,7 @@
     "isIncreaseAttack": false
   },
   {
+    "ID": 3,
     "Name": "坚韧怪",
     "HpChange": 0,
     "HpChange_p": 0,
@@ -116,6 +120,7 @@
     "isIncreaseAttack": false
   },
   {
+    "ID": 4,
     "Name": "瘟疫鸟",
     "HpChange": 0,
     "HpChange_p": 0,
@@ -145,6 +150,7 @@
     "isIncreaseAttack": false
   },
   {
+    "ID": 5,
     "Name": "魅惑",
     "HpChange": 0,
     "HpChange_p": 0,
@@ -174,6 +180,7 @@
     "isIncreaseAttack": false
   },
   {
+    "ID": 6,
     "Name": "嘲讽",
     "HpChange": 0,
     "HpChange_p": 0,
@@ -203,6 +210,7 @@
     "isIncreaseAttack": false
   },
   {
+    "ID": 7,
     "Name": "天罗地网",
     "HpChange": 0,
     "HpChange_p": 0,
@@ -232,6 +240,7 @@
     "isIncreaseAttack": false
   },
   {
+    "ID": 8,
     "Name": "电网",
     "HpChange": 0,
     "HpChange_p": 0,
@@ -261,6 +270,7 @@
     "isIncreaseAttack": false
   },
   {
+    "ID": 9,
     "Name": "沥青",
     "HpChange": 0,
     "HpChange_p": 0,
@@ -290,6 +300,7 @@
     "isIncreaseAttack": false
   },
   {
+    "ID": 10,
     "Name": "点燃",
     "HpChange": -4,
     "HpChange_p": 0,
@@ -319,6 +330,7 @@
     "isIncreaseAttack": false
   },
   {
+    "ID": 11,
     "Name": "麻痹",
     "HpChange": 0,
     "HpChange_p": 0,
@@ -348,6 +360,7 @@
     "isIncreaseAttack": false
   },
   {
+    "ID": 12,
     "Name": "祭司攻速",
     "HpChange": 0,
     "HpChange_p": 0,
@@ -377,6 +390,7 @@
     "isIncreaseAttack": false
   },
   {
+    "ID": 13,
     "Name": "复活甲",
     "HpChange": 0,
     "HpChange_p": 0,
@@ -406,6 +420,7 @@
     "isIncreaseAttack": false
   },
   {
+    "ID": 14,
     "Name": "攻速戒指",
     "HpChange": 0,
     "HpChange_p": 0,
@@ -435,6 +450,7 @@
     "isIncreaseAttack": false
   },
   {
+    "ID": 15,
     "Name": "维吉尔头盔1",
     "HpChange": 0,
     "HpChange_p": 0,
@@ -464,6 +480,7 @@
     "isIncreaseAttack": true
   },
   {
+    "ID": 16,
     "Name": "维吉尔头盔2",
     "HpChange": 0,
     "HpChange_p": 0,
@@ -493,6 +510,7 @@
     "isIncreaseAttack": true
   },
   {
+    "ID": 17,
     "Name": "维吉尔头盔3",
     "HpChange": 0,
     "HpChange_p": 0,
@@ -522,6 +540,7 @@
     "isIncreaseAttack": true
   },
   {
+    "ID": 18,
     "Name": "猎人捕兽夹",
     "HpChange": 0,
     "HpChange_p": 0,
@@ -551,6 +570,7 @@
     "isIncreaseAttack": false
   },
   {
+    "ID": 19,
     "Name": "麻醉",
     "HpChange": 0,
     "HpChange_p": 0,

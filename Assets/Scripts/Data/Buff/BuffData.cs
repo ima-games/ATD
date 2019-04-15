@@ -1,4 +1,5 @@
-﻿public struct BuffData
+﻿
+public class BuffData
 {
     public int ID;
     public string Name;
