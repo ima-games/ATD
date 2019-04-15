@@ -71,7 +71,7 @@ public class MainCameraController : MonoBehaviour {
         Vector3 modelOrigin1 = model.transform.position;
         Vector3 modelOrigin2 = modelOrigin1 + new Vector3 (0, 1, 0);
         Vector3 boxCenter = modelOrigin2 + model.transform.forward * 5.0f;
-        Collider[] cols = Physics.OverlapBox (boxCenter, new Vector3 (0.5f, 0.5f, 5f), model.transform.rotation, LayerMask.GetMask ("Enemy"));
+        Collider[] cols = Physics.OverlapBox (boxCenter, new Vector3 (0.5f, 0.5f, 5f), model.transform.rotation, LayerMask.GetMask ("Individual"));
         if (cols.Length == 0) {
             lockTarget = null;
             lockDot.enabled = false;

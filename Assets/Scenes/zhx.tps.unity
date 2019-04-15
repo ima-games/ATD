@@ -122,6 +122,9 @@ GameObject:
   m_Component:
   - component: {fileID: 113310182}
   - component: {fileID: 113310183}
+  - component: {fileID: 113310186}
+  - component: {fileID: 113310185}
+  - component: {fileID: 113310184}
   m_Layer: 10
   m_Name: Handle (1)
   m_TagString: Untagged
@@ -158,6 +161,147 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &113310184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113310181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12943db6a11de7f40866721651242f4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &113310185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113310181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2384236f9bd1b849ad617db65deda24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &113310186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113310181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a429d47727f7dc148a694773c47ab80e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 3
+  health: 100
+  maxHealth: 100
+  attack: 10
+  attackSpeed: 1
+  speed: 1
+  attackDistance: 1
+  recoverRate: 0
+  hatredValue: 10
+  power: 2
+  movable: 1
+  attackable: 1
+  controllable: 1
+  tauntable: 1
+  charmable: 1
+  restrictable: 1
+  speedDownAble: 1
+  dizzyAble: 1
+  reviveCount: 0
+  maxReviveCount: 0
+--- !u!1 &468883896 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1140448099251030807, guid: 9e8a4c3ee3dc2d84eb947a9293a64ac5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1140448099721369024}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &468883897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468883896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2384236f9bd1b849ad617db65deda24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &468883898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468883896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a429d47727f7dc148a694773c47ab80e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 1
+  health: 100
+  maxHealth: 100
+  attack: 10
+  attackSpeed: 1
+  speed: 1
+  attackDistance: 1
+  recoverRate: 0
+  hatredValue: 10
+  power: 2
+  movable: 1
+  attackable: 1
+  controllable: 1
+  tauntable: 1
+  charmable: 1
+  restrictable: 1
+  speedDownAble: 1
+  dizzyAble: 1
+  reviveCount: 0
+  maxReviveCount: 0
+--- !u!1 &976000096 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1140448099959069919, guid: 9e8a4c3ee3dc2d84eb947a9293a64ac5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1140448099721369024}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &976000101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976000096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bfb25d5c80b9534f9e3e17ec9a84fb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  master: {fileID: 468883898}
+--- !u!54 &976000102
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976000096}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 3
 --- !u!1 &987550778
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,6 +403,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1385245967}
   - component: {fileID: 1385245968}
+  - component: {fileID: 1385245971}
+  - component: {fileID: 1385245970}
+  - component: {fileID: 1385245969}
   m_Layer: 10
   m_Name: Handle
   m_TagString: Untagged
@@ -295,6 +442,62 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &1385245969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385245966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12943db6a11de7f40866721651242f4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1385245970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385245966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2384236f9bd1b849ad617db65deda24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1385245971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385245966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a429d47727f7dc148a694773c47ab80e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 2
+  health: 100
+  maxHealth: 100
+  attack: 10
+  attackSpeed: 1
+  speed: 1
+  attackDistance: 1
+  recoverRate: 0
+  hatredValue: 10
+  power: 2
+  movable: 1
+  attackable: 1
+  controllable: 1
+  tauntable: 1
+  charmable: 1
+  restrictable: 1
+  speedDownAble: 1
+  dizzyAble: 1
+  reviveCount: 0
+  maxReviveCount: 0
 --- !u!1 &1411275079
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,6 +973,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerHandle
       objectReference: {fileID: 0}
+    - target: {fileID: 1140448099251030807, guid: 9e8a4c3ee3dc2d84eb947a9293a64ac5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1140448099251030811, guid: 9e8a4c3ee3dc2d84eb947a9293a64ac5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -829,6 +1037,11 @@ PrefabInstance:
         type: 3}
       propertyPath: leftIsShield
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1140448099959069921, guid: 9e8a4c3ee3dc2d84eb947a9293a64ac5,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e8a4c3ee3dc2d84eb947a9293a64ac5, type: 3}

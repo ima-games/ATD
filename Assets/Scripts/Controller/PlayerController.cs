@@ -31,8 +31,7 @@ public class PlayerController : MonoBehaviour {
     private bool trackDirection = false;
     //private float lerpTarget;
     private Vector3 deltaPos;
-    [SerializeField]
-    private bool leftIsShield = true;
+    public bool leftIsShield = true;
 
     void Awake () {
         playerInput = GetComponent<PlayerInput> ();
@@ -79,19 +78,17 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        // if(leftIsShield){
-        //     if(CheckState("ground"))
-        // }
-
-        if (CheckState ("ground") && leftIsShield) {
-            animator.SetBool("defense",playerInput.defense);
-            if (playerInput.defense) {
-                animator.SetLayerWeight (animator.GetLayerIndex ("defence"), 1);
+        if (leftIsShield) {
+            if (CheckState ("ground")) {
+                animator.SetBool ("defense", playerInput.defense);
+                animator.SetLayerWeight (animator.GetLayerIndex ("defense"), 1);
             } else {
-                animator.SetLayerWeight (animator.GetLayerIndex ("defence"), 0);
+                animator.SetBool("defense",false);
+                //animator.SetLayerWeight (animator.GetLayerIndex ("defense"), 0);
             }
+        } else {
+            animator.SetLayerWeight (animator.GetLayerIndex ("defense"), 0);
         }
-        animator.SetLayerWeight (animator.GetLayerIndex ("defence"), 0);
 
         if (cameraController.lockState == false) {
             if (playerInput.Dmag > 0.1f) //转身硬直
