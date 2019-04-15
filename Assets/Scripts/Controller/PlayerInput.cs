@@ -14,13 +14,17 @@ public class PlayerInput : MonoBehaviour
     public string keyAttack = "mouse 0";
     public string keyDefense = "mouse 1";
     public string keyLock = "mouse 2";
+    public string keyLHand = "q";
+    public string keyRHand = "e";
+    
 
     public MyButton buttonRun = new MyButton();
     public MyButton buttonJump = new MyButton();
     public MyButton buttonAttack = new MyButton();
     public MyButton buttonDefense = new MyButton();
     public MyButton buttonLock = new MyButton();
-    public MyButton buttonF = new MyButton();
+    public MyButton buttonLHand = new MyButton();
+    public MyButton buttonRHand = new MyButton();
 
     public string keyJRight = "right";
     public string keyJLeft = "left";
@@ -43,10 +47,12 @@ public class PlayerInput : MonoBehaviour
 
     public bool run;
     public bool jump;
-    public bool attack;
+    //public bool attack;
     public bool defense;
     public bool roll;
     public bool lockon;
+    public bool lHand;
+    public bool rHand;
 
     [Header("Other")]
     public bool inputEnabled = true; //Flag
@@ -67,7 +73,8 @@ public class PlayerInput : MonoBehaviour
         buttonAttack.Tick(Input.GetKey(keyAttack));//attack
         buttonDefense.Tick(Input.GetKey(keyDefense));//denfese
         buttonLock.Tick(Input.GetKey(keyLock));//lock
-
+        buttonLHand.Tick(Input.GetKey(keyLHand));//leftHand
+        buttonRHand.Tick(Input.GetKey(keyRHand));//rightHand
 
         //延时
         //print(buttonRun.isExtending || buttonRun.isPressing); 
@@ -96,15 +103,15 @@ public class PlayerInput : MonoBehaviour
         float Dright2 = tmpDAxis.x;
         float Dup2 = tmpDAxis.y;
         Dmag = new Vector2(Dright2, Dup2).magnitude;
-        Dvec = Dright * transform.right + Dup * transform.forward;
+        Dvec = Dright2 * transform.right + Dup2 * transform.forward;
 
         //Button
+        //attack = buttonAttack.onPressed;
         run = (buttonRun.isPressing && !buttonRun.isDelaying) || buttonRun.isExtending;
         jump = buttonRun.onPressed && buttonRun.isExtending;
         roll = buttonRun.onReleased && buttonRun.isDelaying;
-
-        
-        attack = buttonAttack.onPressed;
+        lHand = buttonLHand.onPressed;
+        rHand = buttonRHand.onPressed;
         defense = buttonDefense.isPressing;
         lockon = buttonLock.onPressed;
     }
