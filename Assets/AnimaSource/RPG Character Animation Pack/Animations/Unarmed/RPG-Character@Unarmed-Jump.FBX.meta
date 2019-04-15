@@ -261,17 +261,17 @@ ModelImporter:
       average position error 0.2 mm and maximum position error 1.1 mm at time 1: 1
       (91.2%) Frame 31\n\tRightLowerLeg average position error 0.2 mm and maximum
       position error 1.1 mm at time 0: 3 (8.8%) Frame 3\n\tLeftUpperArm average position
-      error 6.4 mm and maximum position error 16.1 mm at time 1: 4 (100.0%) Frame
-      34\n\tLeftLowerArm average position error 5.8 mm and maximum position error
-      17.3 mm at time 1: 4 (100.0%) Frame 34\n\tLeftHand average position error 6.2
-      mm and maximum position error 16.0 mm at time 1: 4 (100.0%) Frame 34\n\tRightUpperArm
-      average position error 5.2 mm and maximum position error 14.9 mm at time 1:
-      4 (100.0%) Frame 34\n\tRightLowerArm average position error 3.4 mm and maximum
-      position error 5.7 mm at time 0:21 (61.8%) Frame 21\n\tRightHand average position
-      error 4.7 mm and maximum position error 11.4 mm at time 1: 4 (100.0%) Frame
-      34\n\tHead average position error 15.3 mm and maximum position error 41.7 mm
-      at time 0: 0 (0.0%) Frame 0\n\tRightFoot average orientation error 0.1 deg and
-      maximum orientation error 0.5 deg at time 0: 1 (2.9%) Frame 1\n"
+      error 6.4 mm and maximum position error 16.1 mm at time 0: 0 (0.0%) Frame 0\n\tLeftLowerArm
+      average position error 5.8 mm and maximum position error 17.3 mm at time 1:
+      4 (100.0%) Frame 34\n\tLeftHand average position error 6.2 mm and maximum position
+      error 16.0 mm at time 1: 4 (100.0%) Frame 34\n\tRightUpperArm average position
+      error 5.2 mm and maximum position error 14.9 mm at time 0: 0 (0.0%) Frame 0\n\tRightLowerArm
+      average position error 3.4 mm and maximum position error 5.7 mm at time 0:21
+      (61.8%) Frame 21\n\tRightHand average position error 4.7 mm and maximum position
+      error 11.4 mm at time 1: 4 (100.0%) Frame 34\n\tHead average position error
+      15.3 mm and maximum position error 41.7 mm at time 0: 0 (0.0%) Frame 0\n\tRightFoot
+      average orientation error 0.1 deg and maximum orientation error 0.5 deg at time
+      0: 1 (2.9%) Frame 1\n"
     animationDoRetargetingWarnings: 1
     importAnimatedCustomProperties: 0
     importConstraints: 0
@@ -300,9 +300,9 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 1
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []

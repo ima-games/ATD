@@ -2,139 +2,189 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
-{
+public class PlayerController : MonoBehaviour {
     public GameObject model;
     public PlayerInput playerInput;
-    public float walkSpeed = 1.0f;
-    public float runMultiplier = 2.0f;
-    public float jumpVelocity = 4.0f;
-    public float rollVelocity = 3.0f;
-    //public float jabVelocity = 3.0f;
+    public MainCameraController cameraController;
+    public float walkSpeed = 1.6f;
+    public float runMultiplier = 2.4f;
+    public float jumpVelocity = 5.0f;
+    public float rollVeticalVelocity = 0f;
+    [Header ("动画平滑系数")]
+    public float rotateRatio = 0.3f; //转身
+    public float runRatio = 0.3f; //切换奔跑
 
-    [Header("动画平滑系数")]
-    public float rotateRatio = 0.3f;//转身
-    public float runRatio = 0.3f;//切换奔跑
+    [Space (10)]
+    [Header ("摩擦力设定")]
+    public PhysicMaterial frictionOne;
+    public PhysicMaterial frictionZero;
 
     [SerializeField]
     private Animator animator;
-    private Rigidbody rigib;
+
+    private Rigidbody rigidbody;
+    private CapsuleCollider capsuleCollider;
     private Vector3 planeVec;
     private Vector3 thrustVec;
     private bool canAttack;
-
     private bool lockPlane = false;
+    private bool trackDirection = false;
+    private float lerpTarget;
+    private Vector3 deltaPos;
 
-    void Awake()
-    {
-        playerInput = GetComponent<PlayerInput>();
-        animator = model.GetComponent<Animator>();
-        rigib = GetComponent<Rigidbody>();//if(rigib == null){}
+    void Awake () {
+        playerInput = GetComponent<PlayerInput> ();
+        animator = model.GetComponent<Animator> ();
+        rigidbody = GetComponent<Rigidbody> (); //if(rigib == null){}
+        capsuleCollider = GetComponent<CapsuleCollider> ();
     }
 
-    void Update()
-    {
-        float targetRunMulti = ((playerInput.run) ? 2.0f : 1.0f);
-        animator.SetFloat("forward", playerInput.Dmag *
-            Mathf.Lerp(animator.GetFloat("forward"), targetRunMulti, runRatio));
+    void Update () {
 
-        if (rigib.velocity.magnitude > 1.0f)
-        {
-            animator.SetTrigger("roll");
+        if (playerInput.lockon) {
+            cameraController.LockSwitch ();
         }
 
-        if (playerInput.jump)
-        {
-            animator.SetTrigger("jump");
+        if (cameraController.lockState == false) {
+            float targetRunMulti = ((playerInput.run) ? 2.0f : 1.0f);
+            animator.SetFloat ("forward", playerInput.Dmag *
+                Mathf.Lerp (animator.GetFloat ("forward"), targetRunMulti, runRatio));
+        } else {
+            Vector3 localDevc = transform.InverseTransformVector (playerInput.Dvec);
+            animator.SetFloat ("forward", localDevc.z * ((playerInput.run) ? 2.0f : 1.0f));
+            animator.SetFloat ("right", localDevc.x * ((playerInput.run) ? 2.0f : 1.0f));
+        }
+
+        animator.SetBool ("defense", playerInput.defense);
+
+        if (playerInput.roll || rigidbody.velocity.magnitude > 7f) {
+            animator.SetTrigger ("roll");
             canAttack = false;
         }
 
-        if (playerInput.attack && CheckState("ground") && canAttack)
-        {
-            animator.SetTrigger("attack");
+        if (playerInput.jump) {
+            animator.SetTrigger ("jump");
+            canAttack = false;
         }
 
-        if (playerInput.Dmag > 0.01f)//转身硬直
-        {
-            Vector3 targetForward = Vector3.Slerp(model.transform.forward, playerInput.Dvec, rotateRatio);
-            model.transform.forward = targetForward;
+        if (playerInput.attack && ( CheckState ("ground") || CheckStateTag("attack") ) && canAttack) {
+            animator.SetTrigger ("attack");
         }
 
-        if (lockPlane == false)
-        {
-            planeVec = playerInput.Dmag * model.transform.forward * walkSpeed *
-              ((playerInput.run) ? runMultiplier : 1.0f);
+        if (cameraController.lockState == false) {
+            if (playerInput.Dmag > 0.1f) //转身硬直
+            {
+                Vector3 targetForward = Vector3.Slerp (model.transform.forward, playerInput.Dvec, rotateRatio);
+                model.transform.forward = targetForward;
+            }
+
+            if (lockPlane == false) {
+                planeVec = playerInput.Dmag * model.transform.forward * walkSpeed *
+                    ((playerInput.run) ? runMultiplier : 1.0f);
+            }
+        } else {
+            if (trackDirection == false) {
+                model.transform.forward = transform.forward;
+            } else {
+                model.transform.forward = planeVec.normalized;
+            }
+            if (lockPlane == false) {
+                planeVec = playerInput.Dvec * walkSpeed * ((playerInput.run) ? runMultiplier : 1.0f);
+            }
         }
-        //print(CheckState("idle", "attack"));
     }
 
-    void FixedUpdate()
-    {
-        rigib.velocity = new Vector3(planeVec.x, rigib.velocity.y, planeVec.z) + thrustVec;
+    void FixedUpdate () {
+        rigidbody.position += deltaPos;
+        rigidbody.velocity = new Vector3 (planeVec.x, rigidbody.velocity.y, planeVec.z) + thrustVec;
         thrustVec = Vector3.zero;
+        deltaPos = Vector3.zero;
     }
 
-    private bool CheckState(string stateName, string layerName = "Base Layer")
-    {
-        return animator.GetCurrentAnimatorStateInfo(animator.GetLayerIndex(layerName)).IsName(stateName);
+    /// <summary>
+    /// 询问当前是否为此层级中的此状态
+    /// </summary>
+    /// <param name="stateName">所查询状态名</param>
+    /// <param name="layerName">所查询层级名</param>
+    /// <returns></returns>
+    private bool CheckState (string stateName, string layerName = "Base Layer") {
+        return animator.GetCurrentAnimatorStateInfo (animator.GetLayerIndex (layerName)).IsName (stateName);
     }
 
-    #region 信息
-    public void OnJumpEnter()
-    {
-        thrustVec = new Vector3(0, jumpVelocity, 0);
+    private bool CheckStateTag (string tagName, string layerName = "Base Layer") {
+        return animator.GetCurrentAnimatorStateInfo (animator.GetLayerIndex (layerName)).IsTag (tagName);
+    }
+
+    #region AnimationEvent
+    public void OnUpdateRM (object _deltaPos) {
+        //if (CheckState("attack1hC", "attack")) {
+        //    //deltaPos += (Vector3)_deltaPos;
+        //    deltaPos += (0.8f * deltaPos + 0.2f * (Vector3)_deltaPos) / 1.0f;
+        //}
+    }
+    #endregion
+
+    #region 动画事件信息
+    public void OnJumpEnter () {
+        thrustVec = new Vector3 (0, jumpVelocity, 0);
         playerInput.inputEnabled = false;
         lockPlane = true;
+        trackDirection = true;
     }
-    public void IsGround()
-    {
+    public void IsGround () {
         //print("IsGround");
-        animator.SetBool("isGround", true);
+        animator.SetBool ("isGround", true);
     }
-    public void IsNotGround()
-    {
+    public void IsNotGround () {
         //print("IsNotGround");
-        animator.SetBool("isGround", false);
+        animator.SetBool ("isGround", false);
     }
-    public void OnGroundEnter()
-    {
+    public void OnGroundEnter () {
         playerInput.inputEnabled = true;
         lockPlane = false;
         canAttack = true;
+        capsuleCollider.material = frictionOne;
+        trackDirection = false;
     }
-    public void OnFallEnter()
-    {
+    public void OnGroundExit () {
+        capsuleCollider.material = frictionZero;
+    }
+    public void OnFallEnter () {
         playerInput.inputEnabled = false;
         lockPlane = true;
     }
-    public void OnRollEnter()
-    {
-        thrustVec = new Vector3(0, rollVelocity, 0);
+    public void OnRollEnter () {
+        thrustVec = new Vector3 (0, rollVeticalVelocity, 0);
+        playerInput.inputEnabled = false;
+        lockPlane = true;
+        trackDirection = true;
+    }
+    public void OnJabEnter () {
         playerInput.inputEnabled = false;
         lockPlane = true;
     }
-    public void OnJabEnter()
-    {
+    public void OnJabUpdate () {
+        thrustVec = model.transform.forward * animator.GetFloat ("jabVelocity");
+    }
+    public void OnAttack1hAEnter () {
         playerInput.inputEnabled = false;
-        lockPlane = true;
+        lerpTarget = 1.0f;
     }
-    public void OnJabUpdate()
-    {
-        thrustVec = model.transform.forward * animator.GetFloat("jabVelocity");
+    public void OnAttack1hAUpdate () {
+        thrustVec = model.transform.forward * animator.GetFloat ("attack1aAVelocity");
+        float currentweight = animator.GetLayerWeight (animator.GetLayerIndex ("attack"));
+        currentweight = Mathf.Lerp (currentweight, lerpTarget, 0.1f); //idle切换到攻击1hA
+        animator.SetLayerWeight (animator.GetLayerIndex ("attack"), currentweight);
     }
-    public void OnAttack1hAEnter()
-    {
-        playerInput.inputEnabled = false;
-        animator.SetLayerWeight(animator.GetLayerIndex("attack"), 1.0f);
-    }
-    public void OnAttack1hAUpdate()
-    {
-        thrustVec = model.transform.forward * animator.GetFloat("attack1aAVelocity");
-    }
-    public void OnAttackIdle()
-    {
+    public void OnAttackIdleEnter () {
         playerInput.inputEnabled = true;
-        animator.SetLayerWeight(animator.GetLayerIndex("attack"), 0.0f);
+        //animator.SetLayerWeight(animator.GetLayerIndex("attack"), 0f);
+        lerpTarget = 0f;
+    }
+    public void OnAttackIdleUpdate () {
+        float currentweight = animator.GetLayerWeight (animator.GetLayerIndex ("attack"));
+        currentweight = Mathf.Lerp (currentweight, lerpTarget, 0.1f); //攻击完切换到idle
+        animator.SetLayerWeight (animator.GetLayerIndex ("attack"), currentweight);
     }
     #endregion
 }
