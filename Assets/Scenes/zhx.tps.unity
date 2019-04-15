@@ -168,8 +168,8 @@ GameObject:
   m_Component:
   - component: {fileID: 470408923}
   - component: {fileID: 470408920}
-  - component: {fileID: 470408921}
   - component: {fileID: 470408922}
+  - component: {fileID: 470408921}
   - component: {fileID: 470408924}
   m_Layer: 0
   m_Name: PlayerHandle

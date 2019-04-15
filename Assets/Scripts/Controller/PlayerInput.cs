@@ -96,14 +96,12 @@ public class PlayerInput : MonoBehaviour
         float Dright2 = tmpDAxis.x;
         float Dup2 = tmpDAxis.y;
         Dmag = new Vector2(Dright2, Dup2).magnitude;
-        Dvec = Dright * transform.right + Dup * transform.forward;
+        Dvec = Dright2 * transform.right + Dup2 * transform.forward;
 
         //Button
         run = (buttonRun.isPressing && !buttonRun.isDelaying) || buttonRun.isExtending;
         jump = buttonRun.onPressed && buttonRun.isExtending;
         roll = buttonRun.onReleased && buttonRun.isDelaying;
-
-        
         attack = buttonAttack.onPressed;
         defense = buttonDefense.isPressing;
         lockon = buttonLock.onPressed;
