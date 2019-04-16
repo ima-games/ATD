@@ -11,7 +11,7 @@ public class LogicManager : MonoBehaviour {
 
 	/// <summary>
 	/// 在生成新的Individual时注册ID
-	/// </summary>
+	/// </summary>   
 	/// <param name="ind">待注册的Individual</param>
 	/// <returns>成功注册返回true；否则为false</returns>
 	public static bool Register(Individual ind) {
