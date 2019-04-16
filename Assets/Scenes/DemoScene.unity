@@ -373,7 +373,7 @@ GameObject:
   m_Component:
   - component: {fileID: 192486296}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -629,6 +629,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestTower
       objectReference: {fileID: 0}
+    - target: {fileID: 7557625432286847382, guid: 71e2b4aa4aafd91448981377033e1af4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7557625432287083958, guid: 71e2b4aa4aafd91448981377033e1af4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -745,6 +750,18 @@ MonoBehaviour:
   dizzyAble: 1
   reviveCount: 0
   maxReviveCount: 0
+--- !u!114 &523550446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523550441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2384236f9bd1b849ad617db65deda24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &708791893
 GameObject:
   m_ObjectHideFlags: 0
@@ -1208,6 +1225,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1198825098}
+  - component: {fileID: 1198825100}
+  - component: {fileID: 1198825099}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -1229,6 +1248,30 @@ Transform:
   m_Father: {fileID: 1849756338}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1198825099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198825097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd8876446a9905418c03c7216b5b7bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1198825100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198825097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0da63148853400f47800d615fa27ac79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1278692773
 GameObject:
   m_ObjectHideFlags: 0
@@ -1823,7 +1866,11 @@ GameObject:
   - component: {fileID: 1443317595}
   - component: {fileID: 1443317594}
   - component: {fileID: 1443317592}
-  m_Layer: 0
+  - component: {fileID: 1443317601}
+  - component: {fileID: 1443317600}
+  - component: {fileID: 1443317593}
+  - component: {fileID: 1443317602}
+  m_Layer: 10
   m_Name: enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1846,6 +1893,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1443317593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443317591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12943db6a11de7f40866721651242f4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!195 &1443317594
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1888,7 +1947,7 @@ MonoBehaviour:
   resetValuesOnRestart: 0
   externalBehavior: {fileID: 0}
   mBehaviorSource:
-    behaviorName: Behavior
+    behaviorName: Monster
     behaviorDescription: 
     mTaskData:
       types:
@@ -1984,6 +2043,93 @@ Transform:
   m_Father: {fileID: 1715111485}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1443317600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443317591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2384236f9bd1b849ad617db65deda24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1443317601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443317591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a429d47727f7dc148a694773c47ab80e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 3
+  health: 100
+  maxHealth: 100
+  attack: 10
+  attackSpeed: 1
+  speed: 1
+  attackDistance: 1
+  recoverRate: 0
+  hatredValue: 10
+  power: 2
+  movable: 1
+  attackable: 1
+  controllable: 1
+  tauntable: 1
+  charmable: 1
+  restrictable: 1
+  speedDownAble: 1
+  dizzyAble: 1
+  reviveCount: 0
+  maxReviveCount: 0
+--- !u!114 &1443317602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443317591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d7b55c7ecdb49a4a89fa5e6f9022861, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startWhenEnabled: 1
+  pauseWhenDisabled: 0
+  restartWhenComplete: 0
+  logTaskChanges: 0
+  group: 0
+  resetValuesOnRestart: 0
+  externalBehavior: {fileID: 0}
+  mBehaviorSource:
+    behaviorName: Monster_Normal
+    behaviorDescription: 2333
+    mTaskData:
+      types:
+      - BehaviorDesigner.Runtime.Tasks.EntryTask
+      - BehaviorDesigner.Runtime.Tasks.Repeater
+      - BehaviorDesigner.Runtime.Tasks.Sequence
+      - BehaviorDesigner.Runtime.Tasks.GetPropertyValue
+      - BehaviorDesigner.Runtime.Tasks.SetPropertyValue
+      - BehaviorDesigner.Runtime.Tasks.Movement.Pursue
+      parentIndex: ffffffff0000000001000000020000000200000002000000
+      startIndex: 030000000d000000230000002e0000004200000055000000
+      variableStartIndex: 00000000
+      JSONSerialization: 
+      fieldSerializationData:
+        typeName: []
+        fieldNameHash: 7ae1b0d0ad905f9c72aeef987d6ed74f587d82e1cda3fdf0ab643ccee0f0d2677230fc9344a34c197c55199df179fb1af835a4a97d6ed74f587d82e1cda3fdf0ab643ccee0f0d2677230fc9344a34c197c55199df179fb1af835a4a94e11b7a1c8f26772fba1163e88bb4e7771c73619eba8e7e91e5896b56e6b88322348858d9d29365ed0d8e42920ecd6a67d6ed74f587d82e1cda3fdf0ab643ccee0f0d2677230fc9344a34c197c55199df179fb1af835a4a90a1684897d6ed74f587d82e1cda3fdf0ab643ccee0f0d2677230fc9344a34c197c55199df179fb1af835a4a918a802c19289b391c538625dc2e29e1c3cc44fed6f73feb8450d381fa972f8ee2354a9bf5603588b7d6ed74f587d82e1cda3fdf0ab643ccee0f0d2677230fc9344a34c197c55199df179fb1af835a4a918a802c19289b391c538625dc2e29e1c3cc44fed6f73feb8a972f8ee2354a9bf5603588b7d6ed74f587d82e1cda3fdf0ab643ccee0f0d2677230fc9344a34c197c55199df179fb1af835a4a91b2296b99503478ac8b2f5553e6879cb1959e99b933a9a6cc6e948383c9fccad3ee8c3dcb8c974adeb782379612ea7ee4187bdb8bb686e89ee171d5564cda0cac3271f463d09d01670b87ee2e66d025835a8eedfaf899fb0e2384e7c
+        startIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000140000001500000016000000170000001700000018000000190000001a0000001a0000001b0000001c0000001d0000001d0000001e0000001f000000200000002100000022000000230000002400000025000000260000002700000028000000290000002a0000002b0000002c0000002d0000002e0000002f0000003000000031000000320000003300000034000000350000003500000036000000370000003700000038000000390000003a0000003a0000003b0000003c0000003d0000003e0000003f0000004000000041000000420000004300000044000000450000004600000046000000470000004800000048000000490000004a0000004a0000004b0000004c0000004d0000004e0000004f0000005000000051000000520000005300000054000000550000005600000056000000570000005800000059000000590000005a0000005b0000005c0000005c0000005d0000005e0000005f0000005f000000600000006100000062000000620000006300000064000000650000006500000066000000
+        dataPosition: 00000000290000002f0000003000000034000000390000003a0000003b00000043000000430000004400000045000000490000004d00000051000000590000005a0000005b00000063000000630000006400000065000000690000006d0000008f0000008f00000093000000b6000000b6000000b7000000da000000da000000db000000df000000e7000000e8000000e9000000f1000000f1000000f2000000f3000000f7000000fb000000ff000000030100001501000016010000170100001f0100001f010000200100002101000025010000290100005201000052010000770100007701000083010000a8010000a8010000ac010000be010000bf010000c0010000c8010000c8010000c9010000ca010000ce010000d2010000fb010000fb01000020020000200200004502000045020000490200004f020000500200005102000059020000590200005a0200005b0200005f0200006302000087020000870200008b020000af020000af020000b3020000d7020000d7020000db020000ff020000ff0200000303000027030000270300002b03000053030000
+        unityObjects: []
+        byteData: 4265686176696f7244657369676e65722e52756e74696d652e53686172656447616d654f626a6563745461726765740100000000456e7472790100000000000000a0c1000000000000000000000100000052657065617465720100806a9dc03ac50543000000000000000000004265686176696f7244657369676e65722e52756e74696d652e536861726564496e74000000004265686176696f7244657369676e65722e52756e74696d652e536861726564426f6f6c014265686176696f7244657369676e65722e52756e74696d652e536861726564426f6f6c000200000053657175656e63650100002b4540748aef420000000000000000000000000000030000004765742050726f70657274792056616c7565010054eb69c33ac55d43000000000000000000004265686176696f7244657369676e65722e52756e74696d652e53686172656447616d654f626a6563744265686176696f7244657369676e65722e52756e74696d652e536861726564537472696e6748617472656453797374656d4265686176696f7244657369676e65722e52756e74696d652e536861726564537472696e67040000005365742050726f70657274792056616c7565010050ad13c23ac55f43000000000000000000004265686176696f7244657369676e65722e52756e74696d652e53686172656447616d654f626a6563744265686176696f7244657369676e65722e52756e74696d652e536861726564537472696e674265686176696f7244657369676e65722e52756e74696d652e536861726564537472696e670500000050757273756501000000f04200005c43000000000000000000004265686176696f7244657369676e65722e52756e74696d652e536861726564466c6f6174000000004265686176696f7244657369676e65722e52756e74696d652e536861726564466c6f6174000000004265686176696f7244657369676e65722e52756e74696d652e536861726564466c6f6174cdcccc3d4265686176696f7244657369676e65722e52756e74696d652e536861726564466c6f61740000a0414265686176696f7244657369676e65722e52756e74696d652e536861726564466c6f61740000a0414265686176696f7244657369676e65722e52756e74696d652e5368617265645472616e73666f726d
+        byteDataArray: 
+      Version: 1.5.9
 --- !u!1 &1456979384
 GameObject:
   m_ObjectHideFlags: 0
@@ -2242,7 +2388,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1715111485
 Transform:
   m_ObjectHideFlags: 0
@@ -2878,6 +3024,7 @@ MonoBehaviour:
   lockDot: {fileID: 0}
   lockState: 0
   lockLength: 10
+  isAI: 0
 --- !u!1 &1140448099466299862
 GameObject:
   m_ObjectHideFlags: 0
@@ -3075,7 +3222,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1140448100159809913}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.4, y: 0.35, z: 40.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1140448101267480696}
@@ -3157,7 +3304,7 @@ GameObject:
   - component: {fileID: 1140448100159809906}
   - component: {fileID: 913039985}
   - component: {fileID: 913039986}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
