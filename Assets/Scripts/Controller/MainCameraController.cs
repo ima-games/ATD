@@ -11,6 +11,7 @@ public class MainCameraController : MonoBehaviour {
     public Image lockDot;
     public bool lockState;
     public float lockLength = 10f;
+    public bool isAI = false;
 
     private GameObject playerHandle;
     private GameObject cameraHandle;
