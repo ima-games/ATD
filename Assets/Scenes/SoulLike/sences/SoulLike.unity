@@ -135,11 +135,13 @@ MonoBehaviour:
   oh_attacks:
   - oh_attack_1
   - oh_attack_2
-  - oh_attack_3
   th_attacks:
   - th_attack_1
   - th_attack_2
   twoHanded: 0
+  enableRM: 0
+  useItem: 0
+  interacting: 0
 --- !u!1 &206917674
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,8 +286,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 642888756}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.058499843, y: -0.9098268, z: 0.13751172, w: 0.387148}
+  m_LocalPosition: {x: 5.3278685, y: 3.0948503, z: 7.4736347}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
