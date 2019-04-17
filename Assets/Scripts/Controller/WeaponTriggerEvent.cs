@@ -10,11 +10,11 @@ public class WeaponTriggerEvent : MonoBehaviour {
     private void OnTriggerEnter (Collider other) {
         var otherGo = other.gameObject;
 
-        Debug.Log ("Weapon Trigger Enter！");
-
         //正在攻击,武器打到的是自己,武器打到的是非个体单位
         if (attacking || otherGo == master.gameObject || LayerMask.LayerToName(otherGo.layer) != "Individual" )
             return;
+
+        Debug.Log("Weapon Trigger Enter！");
 
         MessageSystem messageSystem = master.GetComponent<MessageSystem> ();
         Individual otherIndividual = otherGo.GetComponent<Individual> ();
