@@ -1,0 +1,65 @@
+## See details below for proper attribution and FAQ ##
+
+                                             ##    Start of License   ##
+------------------------------------------------------------------------------------------------------------------------
+
+For use in a compiled format, you are free to :
+------------------------------------------------------------------------------------------------------------------------
+Adapt - remix, transform and build upon the material for any purpose, even commercially as long as it has proper attribution. 
+
+Share — copy and redistribute the material in any medium in a compiled format as long as it has proper attribution.  
+------------------------------------------------------------------------------------------------------------------------
+
+
+For use in an uncompiled format, you are free to:
+------------------------------------------------------------------------------------------------------------------------
+Adapt - remix, transform and build upon the material for any purpose Excluding commercially, as long as it has proper attribution.
+
+Share - copy and redistribute the material in any medium or format, non-commercially as long as it has proper attribution.
+
+
+Attribution
+------------------------------------------------------------------------------------------------------------------------
+You must give appropriate credit, provide a link to the license or creator, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+
+
+The licensor cannot revoke these freedoms as long as you follow the license terms.
+
+------------------------------------------------------------------------------------------------------------------------
+                                             ##     End of License    ##
+
+If your project doesn't fall into any of the above categories, contact me at unityguru23@gmail.com
+
+
+How to give attribution:
+---------------------------------------------------------------
+In the credits area or something equivalant include the following link:
+
+www.sharpaccent.com 
+
+It's up to you to also include how much of the resources you used etc. but this is not needed.
+For example, let's say you used 10 animations. 
+Simply include:
+
+Additional resources by www.sharpaccent.com
+
+
+
+FAQ:
+----------------------------------------------------------------------------------------------------
+Q: Uncompiled format?
+A: You CANNOT sell them as assets or as part of another asset, if the asset is free you can include them but with proper attribution. (See below)
+
+Q: Can I use them in my game and then sell the game?
+A: Yes you can but please provide attribution in the credits.
+
+Q: Do they require attribution?
+A: Yes! It's part of the license. 
+
+Q: What happened to the old License?
+A: For any resources that you downloaded before 12/7/2017 the license is the same as it was before provided you have saved the .txt 
+
+
+-----------------------------------------------------------------------------------------------------
+
+For any more questions, please contact me at unityguru23@gmail.com
