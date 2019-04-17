@@ -20,15 +20,15 @@ public class SkillSystem : MonoBehaviour
     {
         
     }
-    public void ReceiveMessage(Individual attacker,float de)
+    public void ReceiveMessage(Individual attacker,float damage)
     {
         foreach (var skill in HeroSkill)
         {
-            skill.DealAttackMessage(attacker, de);
+            skill.DealAttackMessage(attacker, damage);
         }
         foreach (var skill in EquipmentSkill)
         {
-            skill.DealAttackMessage(attacker, de);
+            skill.DealAttackMessage(attacker, damage);
         }
     }
 }
