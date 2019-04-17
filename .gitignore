@@ -2,7 +2,11 @@ Library/
 Library
 Temp/
 .vs
+.vs/
 .vscode
+.vscode/
+.idea
+.idea/
 ExportedObj/*
 obj/
 *.dwlt
