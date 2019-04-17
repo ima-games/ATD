@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SA
-{
-    public class Helper : MonoBehaviour
-    {
-        [Range(-1, 1)]
+namespace SA {
+    public class Helper : MonoBehaviour {
+        [Range (-1, 1)]
         public float vertical;
-        [Range(-1, 1)]
+        [Range (-1, 1)]
         public float horizontal;
 
         public bool playAnim;
@@ -21,27 +19,27 @@ namespace SA
         public bool interacting;
         public bool lockon;
 
-        Animator anim;
+        Animator animator;
 
         // Start is called before the first frame update
-        void Start() {
-            anim = GetComponent<Animator>();
+        void Start () {
+            animator = GetComponent<Animator> ();
         }
 
         // Update is called once per frame
-        void Update() {
+        void Update () {
 
-            enableRM = !anim.GetBool("canMove");
-            anim.applyRootMotion = enableRM;
+            enableRM = !animator.GetBool ("canMove");
+            animator.applyRootMotion = enableRM;
 
-            interacting = anim.GetBool("interacting");
+            interacting = animator.GetBool ("interacting");
 
-            if(lockon == false) {
+            if (lockon == false) {
                 horizontal = 0;
-                vertical = Mathf.Clamp01(vertical);
+                vertical = Mathf.Clamp01 (vertical);
             }
 
-            anim.SetBool("lockon", lockon);
+            animator.SetBool ("lockon", lockon);
 
             if (enableRM) {
                 return;
@@ -49,30 +47,29 @@ namespace SA
 
             if (useItem) {
 
-                anim.Play("use_item");
+                animator.Play ("use_item");
                 useItem = false;
             }
 
             if (interacting) {
                 playAnim = false;
-                vertical = Mathf.Clamp(vertical, 0, 0.5f);
+                vertical = Mathf.Clamp (vertical, 0, 0.5f);
             }
 
-            anim.SetBool("twoHanded", twoHanded);
+            animator.SetBool ("twoHanded", twoHanded);
 
             if (playAnim) {
 
                 string targetAnim;
 
                 if (!twoHanded) {
-                    int r = Random.Range(0, oh_attacks.Length);
+                    int r = Random.Range (0, oh_attacks.Length);
                     targetAnim = oh_attacks[r];
 
                     if (vertical > 0.5f)
                         targetAnim = "oh_attack_3";
-                }
-                else {
-                    int r = Random.Range(0, th_attacks.Length);
+                } else {
+                    int r = Random.Range (0, th_attacks.Length);
                     targetAnim = th_attacks[r];
                 }
 
@@ -81,13 +78,13 @@ namespace SA
 
                 vertical = 0;
 
-                anim.CrossFade(targetAnim, 0.2f);
+                animator.CrossFade (targetAnim, 0.2f);
                 //anim.SetBool("canMove",false);
                 //enableRM = true;
                 playAnim = false;
             }
-            anim.SetFloat("vertical", vertical);
-            anim.SetFloat("horizontal", horizontal);
+            animator.SetFloat ("vertical", vertical);
+            animator.SetFloat ("horizontal", horizontal);
         }
     }
 }
