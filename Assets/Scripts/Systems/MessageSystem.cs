@@ -15,17 +15,15 @@ public class MessageSystem : MonoBehaviour
 
     private void Awake()
     {
-        //将事件类型和函数绑定
-        EventCenter.AddListener<int, int, int, object>(EventType.Message, SolveMessage);
-    }
-
-    private void Start()
-    {
         SelfIndicidual = GetComponent<Individual>();
         SelfHatredSystem = GetComponent<HatredSystem>();
         SelfSkillSystem = GetComponent<SkillSystem>();
         SelfBuffSystem = GetComponent<BuffSystem>();
+
+        //将事件类型和函数绑定
+        EventCenter.AddListener<int, int, int, object>(EventType.Message, SolveMessage);
     }
+
 
     //-----------------------接受消息选择器-----------------------
 
@@ -41,9 +39,10 @@ public class MessageSystem : MonoBehaviour
         //看看自己是不是接收器的ID
         if (receverID != SelfIndicidual.ID) return;
         //对消息来源进行选择，传参并转发，若为伤害信息，则加入到仇恨表中
-        switch(messageID)
+        switch (messageID)
         {
-            case 1:UnderAttack(senderID, receverID, ob);break;
+            case 1: UnderAttack(senderID, receverID, ob); break;
+            case 2: GainBuff(senderID, receverID, ob); break;
             default: break;
         }
     }
@@ -52,16 +51,17 @@ public class MessageSystem : MonoBehaviour
     //-----------------------发出消息转发器-----------------------
 
     /// <summary>
-    /// 消息类型 1 普通攻击 2...
+    /// 消息类型 1 普通攻击 :自身对ID为receverID的个体发起攻击，伤害量为ob
     /// </summary>
     /// <param name="messageID">消息类型</param>
     /// <param name="receverID">接收器</param>
     /// <param name="ob">消息参数</param>
-    public void SendMessage(int messageID,  int receverID, object ob)
+    public void SendMessage(int messageID, int receverID, object ob)
     {
         switch (messageID)
         {
             case 1: EventCenter.Broadcast<int, int, int, object>(EventType.Message, messageID, SelfIndicidual.ID, receverID, ob); break;
+            case 2: EventCenter.Broadcast<int, int, int, object>(EventType.Message, messageID, SelfIndicidual.ID, receverID, ob); break;
             default: break;
         }
     }
@@ -69,18 +69,18 @@ public class MessageSystem : MonoBehaviour
 
 
     //-----------------------以下为消息类型-----------------------
-    
+
     //被攻击调用，发送器ID，接收器ID，伤害量
-    private void UnderAttack(int senderID, int receverID, object ob)
+    private void UnderAttack(int senderID, int receverID, object damage)
     {
-        SendMessage("ReduceHealth", ob);
-        SelfHatredSystem.AddHateValue(LogicManager.GetIndividual(senderID));
-        SelfSkillSystem.ReceiveMessage(LogicManager.GetIndividual(senderID),(float)ob);
+        SelfIndicidual.HealthChange((int)damage);
+        SelfHatredSystem.AddHateValue(senderID);
+        SelfSkillSystem.ReceiveMessage(LogicManager.GetIndividual(senderID), (float)damage);
     }
 
-    //获得一个buff，
-    private void GainBuff(int senderID,int receverID,int buffID)
+    //获得一个buff，发送者ID，接受者ID，buffID
+    private void GainBuff(int senderID, int receverID, object buffID)
     {
-        SelfBuffSystem.StickBuff(buffID);
+        SelfBuffSystem.StickBuff((int)buffID);
     }
 }
