@@ -16,7 +16,7 @@ public class MessageTest_3 : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.J))
         {
-            MS.SendMessage(1,5,50);
+            MS.SendMessage(1,5,-25);
         }
     }
 }

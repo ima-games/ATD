@@ -13,7 +13,7 @@ public class MessageSystemTest_2 : MonoBehaviour
     void Output()
     {
         StartCoroutine("OutputPlay");
-        Debug.Log("I have got your message!");
+        //Debug.Log("I have got your message!");
     }
 
     IEnumerator OutputPlay()

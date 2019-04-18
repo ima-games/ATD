@@ -52,6 +52,7 @@ public class MessageSystem : MonoBehaviour
 
     /// <summary>
     /// 消息类型 1 普通攻击 :自身对ID为receverID的个体发起攻击，伤害量为ob
+    ///          2 加buff   :自身对ID为receverID的个体添加一个ID为ob的buff
     /// </summary>
     /// <param name="messageID">消息类型</param>
     /// <param name="receverID">接收器</param>
