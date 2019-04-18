@@ -73,7 +73,7 @@ public class MessageSystem : MonoBehaviour
     //被攻击调用，发送器ID，接收器ID，伤害量
     private void UnderAttack(int senderID, int receverID, object damage)
     {
-        SelfIndicidual.HealthChange((int)damage);
+        SelfIndicidual.HealthChange(-(int)damage);
         SelfHatredSystem.AddHateValue(senderID);
         SelfSkillSystem.ReceiveMessage(LogicManager.GetIndividual(senderID), (float)damage);
     }

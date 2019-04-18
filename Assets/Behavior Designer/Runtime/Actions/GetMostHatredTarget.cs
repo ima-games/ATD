@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 
+
 namespace BehaviorDesigner.Runtime.Tasks
 {
+    [TaskDescription("获取最大仇恨值的非基地目标")]
     public class GetMostHatredTarget : Action
     {
         [Tooltip("AI的寄主")]
@@ -13,6 +15,7 @@ namespace BehaviorDesigner.Runtime.Tasks
         public override TaskStatus OnUpdate()
         {
             var ts = master.Value.GetComponent<HatredSystem>().GetMostHatedTarget().transform;
+            
             targetTransform.SetValue(ts);
             return TaskStatus.Success;
         }
