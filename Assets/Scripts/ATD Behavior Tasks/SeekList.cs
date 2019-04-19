@@ -32,14 +32,16 @@ namespace BehaviorDesigner.Runtime.Tasks
 
         public override void OnStart()
         {
+            Debug.Log("seeklist end start");
             // initially move towards the closest waypoint
-            float distance = Mathf.Infinity;
             float localDistance;
+            float minDistance = 1000f;
             for (int i = 0; i < waypoints.Value.Count; ++i)
             {
-                if ((localDistance = Vector3.Magnitude(transform.position - waypoints.Value[i].position)) < distance)
+                localDistance = Vector3.Magnitude(transform.position - waypoints.Value[i].position);
+                if (localDistance < minDistance)
                 {
-                    distance = localDistance;
+                    minDistance = localDistance;
                     waypointIndex = i;
                 }
             }
@@ -94,11 +96,7 @@ namespace BehaviorDesigner.Runtime.Tasks
             arriveDistance = 0.1f;
             waypoints = null;
         }
-
-        public override void OnPause(bool paused)
-        {
-            Debug.Log("seek list restart");
-        }
+        
 
     }
 

@@ -6,8 +6,8 @@ using UnityEngine;
 public class HatredSystem : MonoBehaviour
 {
     private Individual individual;
-    private int hateValueDecrement=20;         //每秒仇恨值减少量
-    private int HateDecrementTime = 1;         //仇恨值减少间隔
+    public int hateValueDecrement = 0;         //每秒仇恨值减少量
+    public int HateDecrementTime = 1;         //仇恨值减少间隔
 
     //key 是仇恨来源ID ，value 是仇恨值
     Dictionary<int, int> hatredList = new Dictionary<int, int>();
