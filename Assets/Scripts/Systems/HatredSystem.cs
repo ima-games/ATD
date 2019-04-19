@@ -5,9 +5,12 @@ using UnityEngine;
 
 public class HatredSystem : MonoBehaviour
 {
+
+    public int hateValueDecrement = 5;         //每秒仇恨值减少量
+
+    public int hateDecrementTime = 1;         //仇恨值减少间隔
+
     private Individual individual;
-    private int hateValueDecrement=20;         //每秒仇恨值减少量
-    private int HateDecrementTime = 1;         //仇恨值减少间隔
 
     //key 是仇恨来源ID ，value 是仇恨值
     Dictionary<int, int> hatredList = new Dictionary<int, int>();
@@ -120,7 +123,7 @@ public class HatredSystem : MonoBehaviour
     //仇恨值每秒减少固定值，死循环
     IEnumerator HateDecrementTimer()
     {
-        yield return new WaitForSeconds(HateDecrementTime);
+        yield return new WaitForSeconds(hateDecrementTime);
         HateDecrement();
     }
 }

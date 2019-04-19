@@ -246,6 +246,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12943db6a11de7f40866721651242f4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hateValueDecrement: 5
+  hateDecrementTime: 1
 --- !u!114 &16276262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -887,6 +889,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12943db6a11de7f40866721651242f4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hateValueDecrement: 5
+  hateDecrementTime: 1
 --- !u!114 &1050970134
 MonoBehaviour:
   m_ObjectHideFlags: 0
