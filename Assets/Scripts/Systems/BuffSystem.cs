@@ -11,11 +11,19 @@ public class BuffSystem : MonoBehaviour
 
     //buff栏显示
     [SerializeField] private List<int> buffShow = new List<int>();
-    
+
+    //初始化状态栏
+    [SerializeField] private List<int> initBuff = new List<int>();
+
 
     private void Awake()
     {
         myIndividual = GetComponent<Individual>();
+    }
+
+    private void Start()
+    {
+        InitializeBuffList();
     }
 
     private void FixedUpdate()
@@ -100,5 +108,17 @@ public class BuffSystem : MonoBehaviour
                 buffShow.Remove(temp.ID);
             }
         }
+    }
+
+    private void InitializeBuffList()
+    {
+        if (initBuff.Count == 0) return;
+        //将初始化buff表里的ID依次加入到buff表里
+        for(int i=0;i< initBuff.Count; i++)
+        {
+            AddBuff(initBuff[i]);
+        }
+
+        initBuff.Clear();
     }
 }
