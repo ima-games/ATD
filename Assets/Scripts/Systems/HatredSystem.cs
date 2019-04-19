@@ -6,9 +6,9 @@ using UnityEngine;
 public class HatredSystem : MonoBehaviour
 {
 
-    public int hateValueDecrement = 5;         //每秒仇恨值减少量
+    //public int hateValueDecrement = 5;         //每秒仇恨值减少量
 
-    public int hateDecrementTime = 1;         //仇恨值减少间隔
+    //public int hateDecrementTime = 1;         //仇恨值减少间隔
 
     private Individual individual;
 
@@ -22,8 +22,8 @@ public class HatredSystem : MonoBehaviour
 
     private void Start()
     {
-        //实例化时调用
-        StartCoroutine(HateDecrementTimer());
+        ////实例化时调用
+        //StartCoroutine(HateDecrementTimer());
     }
 
 
@@ -83,48 +83,48 @@ public class HatredSystem : MonoBehaviour
         hatredList.Add(HateSource.ID, HateSource.hatredValue);
     }
 
-    //随时间流逝仇恨减少
-    private void HateDecrement()
-    {
-        Dictionary<int, int>.KeyCollection HLkeys = hatredList.Keys;
-        if(HLkeys.Count==0) 
-        {
-            StartCoroutine(HateDecrementTimer());
-            return;
-        }
-        int[] keyArray = new int[HLkeys.Count];
+    ////随时间流逝仇恨减少
+    //private void HateDecrement()
+    //{
+    //    Dictionary<int, int>.KeyCollection HLkeys = hatredList.Keys;
+    //    if(HLkeys.Count==0) 
+    //    {
+    //        StartCoroutine(HateDecrementTimer());
+    //        return;
+    //    }
+    //    int[] keyArray = new int[HLkeys.Count];
 
-        int index = 0;
-        foreach (int key in HLkeys)
-        {
-            keyArray[index] = key;
-        }
+    //    int index = 0;
+    //    foreach (int key in HLkeys)
+    //    {
+    //        keyArray[index] = key;
+    //    }
 
 
-        for(int i=0;i<HLkeys.Count;i++)
-        {
-            //对基地的仇恨不用减少
-            //if (pair.Key == 0) continue;
+    //    for(int i=0;i<HLkeys.Count;i++)
+    //    {
+    //        //对基地的仇恨不用减少
+    //        //if (pair.Key == 0) continue;
 
-            //减少固定
-            hatredList[keyArray[i]] -= hateValueDecrement;
-            Debug.Log("减少了对" + LogicManager.GetIndividual(keyArray[i]).gameObject.name + "的" + hateValueDecrement + "点仇恨值，当前仇恨值是："+ hatredList[keyArray[i]]);
+    //        //减少固定
+    //        hatredList[keyArray[i]] -= hateValueDecrement;
+    //        Debug.Log("减少了对" + LogicManager.GetIndividual(keyArray[i]).gameObject.name + "的" + hateValueDecrement + "点仇恨值，当前仇恨值是："+ hatredList[keyArray[i]]);
 
-            //仇恨值小于0移除出仇恨表
-            if (hatredList[keyArray[i]] <= 0)
-            {
-                hatredList.Remove(keyArray[i]);
-            }
-        }
+    //        //仇恨值小于0移除出仇恨表
+    //        if (hatredList[keyArray[i]] <= 0)
+    //        {
+    //            hatredList.Remove(keyArray[i]);
+    //        }
+    //    }
 
-        StartCoroutine(HateDecrementTimer());
-    }
+    //    StartCoroutine(HateDecrementTimer());
+    //}
 
-    //仇恨值每秒减少固定值，死循环
-    IEnumerator HateDecrementTimer()
-    {
-        yield return new WaitForSeconds(hateDecrementTime);
-        HateDecrement();
-    }
+    ////仇恨值每秒减少固定值，死循环
+    //IEnumerator HateDecrementTimer()
+    //{
+    //    yield return new WaitForSeconds(hateDecrementTime);
+    //    HateDecrement();
+    //}
 }
 
