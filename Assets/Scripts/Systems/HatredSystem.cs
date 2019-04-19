@@ -12,6 +12,9 @@ public class HatredSystem : MonoBehaviour
 
     private Individual individual;
 
+    //仇恨列表可视化
+    [SerializeField] private List<string> hatredListShow = new List<string>();
+
     //key 是仇恨来源ID ，value 是仇恨值
     Dictionary<int, int> hatredList = new Dictionary<int, int>();
 
@@ -48,6 +51,8 @@ public class HatredSystem : MonoBehaviour
         if (!hatredList.ContainsKey(HateSource.ID))
         {
             AddHatredList(HateSource);
+            //把仇恨目标的名字加入到仇恨列表可视化
+            hatredListShow.Add(HateSource.name);
         }
         else
         {
