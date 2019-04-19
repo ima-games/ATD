@@ -32,6 +32,8 @@ public class Individual : MonoBehaviour
     public int reviveCount = 0;         //复活次数
     public int maxReviveCount = 0;      //最大复活次数
 
+    public GameObject bulletPrefab;     //子弹对象（远程攻击用）
+
     void Start() {
 		LogicManager.Register(this);
 		//Do something
@@ -40,6 +42,15 @@ public class Individual : MonoBehaviour
     public void ReduceHealth(int damage)
     {
         health-=damage;
+    }
+
+    /// <summary>
+    /// 远程/近战攻击接口
+    /// </summary>
+    /// <param name="target"></param>
+    public void Attack(GameObject target)
+    {
+        //TODO:远程攻击应往目标方向发射子弹对象，近战攻击应当播放近战动画
     }
 
     //--------------------以下属性更改方法--------------------
