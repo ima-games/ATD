@@ -9,6 +9,10 @@ public class BuffSystem : MonoBehaviour
     List<Buff> myBuffs = new List<Buff>();
     Individual myIndividual;
 
+    //buff栏显示
+    [SerializeField] private List<int> buffShow = new List<int>();
+    
+
     private void Awake()
     {
         myIndividual = GetComponent<Individual>();
@@ -34,14 +38,19 @@ public class BuffSystem : MonoBehaviour
     //添加buff
     private void AddBuff(int buffID)
     {
-        Buff buff = new Buff
-        {
-            ID = buffID,
-            time = BuffDataBase.Instance.GetBuffData(buffID).Time
-        };
+        Buff buff = new Buff();
+        buff.ID = buffID;
+        //test
+        buff.time = 10;
         
         myBuffs.Add(buff);
-        BuffSync(buffID);
+        //BuffSync(buffID);
+
+        //把buffID加入到buff栏中显示在面板里
+        buffShow.Add(buffID);
+
+        Debug.Log("ID为 "+buffID+" 已加入到列表");
+
     }
     
     //属性同步，添加buff
@@ -86,7 +95,9 @@ public class BuffSystem : MonoBehaviour
             if (temp.time <= 0)
             {
                 myBuffs.Remove(temp);
-                BuffRemove(temp.ID);
+                //BuffRemove(temp.ID);
+
+                buffShow.Remove(temp.ID);
             }
         }
     }

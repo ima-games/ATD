@@ -76,7 +76,7 @@ public class MessageSystem : MonoBehaviour
     {
         SelfIndicidual.HealthChange((int)damage);
         SelfHatredSystem.AddHateValue(senderID);
-        SelfSkillSystem.ReceiveMessage(LogicManager.GetIndividual(senderID), (float)damage);
+        //SelfSkillSystem.ReceiveMessage(LogicManager.GetIndividual(senderID), (float)damage);
     }
 
     //获得一个buff，发送者ID，接受者ID，buffID
