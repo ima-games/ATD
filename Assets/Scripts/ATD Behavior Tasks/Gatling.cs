@@ -19,9 +19,9 @@ namespace BehaviorDesigner.Runtime.Tasks
         {
             GameObject bulletObj = GameObject.Instantiate(bullet, 
                 bulletPoint.transform.position, Quaternion.identity);
-            Vector3 
+            Vector3 fireDirection = bulletPoint.transform.position - target.Value.position;
             bulletObj.GetComponent<Rigidbody>().velocity = transform.TransformDirection
-                (Vector3.forward * bulletSpeed);
+                (fireDirection * bulletSpeed);
             yield return new WaitForSeconds(attackRate);
         }
         public override void OnStart()
