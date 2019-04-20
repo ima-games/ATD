@@ -31,7 +31,6 @@ public class LogicManager : MonoBehaviour {
 	/// <returns>找到则返回该ID对应的Individual；否则返回null</returns>
 	public static Individual GetIndividual(int ID) {
 		if (individualList.ContainsKey(ID)) {
-			Debug.Log("Individual " + ID + " is found.");
 			return individualList[ID];
 		}
 		Debug.LogWarning("Individual " + ID + " is NOT found.");

@@ -32,6 +32,8 @@ public class Individual : MonoBehaviour
     public int reviveCount = 0;         //复活次数
     public int maxReviveCount = 0;      //最大复活次数
 
+    public GameObject bulletPrefab;     //子弹对象（远程攻击用）
+
     void Start() {
 		LogicManager.Register(this);
 		//Do something
