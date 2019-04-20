@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// 挂在空物体上才能用
+/// </summary>
 public class BuffDataBase : MonoBehaviour
 {
     //读取excel插件生成的json文件
