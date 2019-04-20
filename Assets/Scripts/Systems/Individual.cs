@@ -44,15 +44,6 @@ public class Individual : MonoBehaviour
         health-=damage;
     }
 
-    /// <summary>
-    /// 远程/近战攻击接口
-    /// </summary>
-    /// <param name="target"></param>
-    public void Attack(GameObject target)
-    {
-        //TODO:远程攻击应往目标方向发射子弹对象，近战攻击应当播放近战动画
-    }
-
     //--------------------以下属性更改方法--------------------
 
     //改变固定数值的生命值
