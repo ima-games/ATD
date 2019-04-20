@@ -52,6 +52,7 @@ public class MessageSystem : MonoBehaviour
 
     /// <summary>
     /// 消息类型 1 普通攻击 :自身对ID为receverID的个体发起攻击，伤害量为ob
+    ///          2 加buff   :自身对ID为receverID的个体添加一个ID为ob的buff
     /// </summary>
     /// <param name="messageID">消息类型</param>
     /// <param name="receverID">接收器</param>
@@ -73,9 +74,9 @@ public class MessageSystem : MonoBehaviour
     //被攻击调用，发送器ID，接收器ID，伤害量
     private void UnderAttack(int senderID, int receverID, object damage)
     {
-        SelfIndicidual.HealthChange((int)damage);
+        SelfIndicidual.HealthChange(-(int)damage);
         SelfHatredSystem.AddHateValue(senderID);
-        SelfSkillSystem.ReceiveMessage(LogicManager.GetIndividual(senderID), (float)damage);
+        //SelfSkillSystem.ReceiveMessage(LogicManager.GetIndividual(senderID), (float)damage);
     }
 
     //获得一个buff，发送者ID，接受者ID，buffID
