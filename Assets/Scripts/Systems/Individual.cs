@@ -31,8 +31,7 @@ public class Individual : MonoBehaviour
 
     public int reviveCount = 0;         //复活次数
     public int maxReviveCount = 0;      //最大复活次数
-
-    public GameObject bulletPrefab;     //子弹对象（远程攻击用）
+ 
 
     void Start() {
 		LogicManager.Register(this);
@@ -44,6 +43,15 @@ public class Individual : MonoBehaviour
         health-=damage;
     }
 
+    /// <summary>
+    /// 个体对象死亡时调用的死亡函数
+    /// </summary>
+    public void Dead()
+    {
+        //TODO:目前来说是直接destory对象，以后需加入死亡动画等效果
+        Destroy(gameObject);
+    }
+
     //--------------------以下属性更改方法--------------------
 
     //改变固定数值的生命值
@@ -51,6 +59,10 @@ public class Individual : MonoBehaviour
     {
         health += increment;
         health = Mathf.Min(health, maxHealth);
+        if (health < 0)
+        {
+            Dead();
+        }
     }
 
     //改变百分比生命值
@@ -58,6 +70,10 @@ public class Individual : MonoBehaviour
     {
         health = (int)(1.0f + increment_p) * health;
         health = Mathf.Min(health, maxHealth);
+        if (health < 0)
+        {
+            Dead();
+        }
     }
     
     //改变固定数值的攻击力
