@@ -4097,6 +4097,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5112189873296688818, guid: 26a0c36b025c6b349bb0736c3dd945d5,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.8108101
+      objectReference: {fileID: 0}
+    - target: {fileID: 8014679144065862689, guid: 26a0c36b025c6b349bb0736c3dd945d5,
+        type: 3}
+      propertyPath: tower
+      value: 
+      objectReference: {fileID: 523550442}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26a0c36b025c6b349bb0736c3dd945d5, type: 3}
 --- !u!136 &7557625431417826195
