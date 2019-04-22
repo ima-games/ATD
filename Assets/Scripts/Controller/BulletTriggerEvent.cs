@@ -23,10 +23,11 @@ public class BulletTriggerEvent : MonoBehaviour
         //子弹打到玩家、非个体单位
         if (isCollideTower || collison.name == "PlayerHandle" || LayerMask.LayerToName(collisonObject.layer) != "Individual")
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
             return;
         }
-        MessageSystem messageSystem = GetComponent<MessageSystem>();
+        //此处应该使用tower的消息系统来发消息
+        MessageSystem messageSystem = tower.GetComponent<MessageSystem>();
         Individual otherIndividual = collisonObject.GetComponent<Individual>();
 
         messageSystem.SendMessage(1, otherIndividual.ID, tower.attack);

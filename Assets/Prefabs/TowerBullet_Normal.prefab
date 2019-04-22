@@ -15,8 +15,7 @@ GameObject:
   - component: {fileID: 362286003499720663}
   - component: {fileID: 5112189873296688818}
   - component: {fileID: 8014679144065862689}
-  - component: {fileID: 8333233696845395213}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TowerBullet_Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +161,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.8108101
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -223,15 +222,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tower: {fileID: 0}
---- !u!114 &8333233696845395213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 362286003499720650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2384236f9bd1b849ad617db65deda24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
