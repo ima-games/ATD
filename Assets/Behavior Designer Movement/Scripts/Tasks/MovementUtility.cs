@@ -28,8 +28,17 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
             return objectFound;
         }
 
-        //新添加 检测函数
-        public static Transform WithinSight(Transform transform, Vector3 positionOffset, float fieldOfViewAngle, float viewDistance, LayerMask objectLayerMask, string tag)
+        /// <summary>
+        ///  检测对应layer且对应势力的对象
+        /// </summary>
+        /// <param name="transform"></param>
+        /// <param name="positionOffset"></param>
+        /// <param name="fieldOfViewAngle"></param>
+        /// <param name="viewDistance"></param>
+        /// <param name="objectLayerMask"></param>
+        /// <param name="势力"></param>
+        /// <returns></returns>
+        public static Transform WithinSight(Transform transform, Vector3 positionOffset, float fieldOfViewAngle, float viewDistance, LayerMask objectLayerMask, Individual.Power power)
         {
             Transform objectFound = null;
             var hitColliders = Physics.OverlapSphere(transform.position, viewDistance, objectLayerMask);
@@ -40,7 +49,8 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
                 {
                     float angle;
                     Transform obj;
-                    if(hitColliders[i].transform.tag != tag)
+                    //检测势力是否一致
+                    if (hitColliders[i].gameObject.GetComponent<Individual>().power != power)
                     {
                         continue;
                     }
@@ -85,7 +95,17 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
         }
 #endif
 
-        public static Transform WithinSight2D(Transform transform, Vector3 positionOffset, float fieldOfViewAngle, float viewDistance, LayerMask objectLayerMask, string tag)
+        /// <summary>
+        /// 检测对应layer且对应势力的对象
+        /// </summary>
+        /// <param name="transform"></param>
+        /// <param name="positionOffset"></param>
+        /// <param name="fieldOfViewAngle"></param>
+        /// <param name="viewDistance"></param>
+        /// <param name="objectLayerMask"></param>
+        /// <param name="势力"></param>
+        /// <returns></returns>
+        public static Transform WithinSight2D(Transform transform, Vector3 positionOffset, float fieldOfViewAngle, float viewDistance, LayerMask objectLayerMask, Individual.Power power)
         {
             Transform objectFound = null;
             var hitColliders = Physics2D.OverlapCircleAll(transform.position, viewDistance, objectLayerMask);
@@ -96,7 +116,8 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
                 {
                     float angle;
                     Transform obj;
-                    if (hitColliders[i].transform.tag != tag)
+                    //检测势力是否一致
+                    if (hitColliders[i].gameObject.GetComponent<Individual>().power != power)
                     {
                         continue;
                     }
