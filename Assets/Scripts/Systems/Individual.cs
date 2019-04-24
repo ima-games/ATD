@@ -35,7 +35,7 @@ public class Individual : MonoBehaviour
     public GameObject bulletPrefab;     //子弹对象（远程攻击用）
 
     void Start() {
-		LogicManager.Register(this);
+		LogicManager.RegisterIndividual(this);
 		//Do something
 	}
     //测试消息系统
