@@ -50,7 +50,7 @@ namespace BehaviorDesigner.Runtime.Tasks
             {
                 return TaskStatus.Failure;
             }
-            if (target.Value.tag == "Enemy")
+            else if (target.Value.tag == "Enemy")
             {
                 //若没在进行攻击，则可以进行一次攻击行为
                 if (!attacking)
