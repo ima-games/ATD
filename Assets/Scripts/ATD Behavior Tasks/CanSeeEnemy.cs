@@ -29,13 +29,24 @@ namespace BehaviorDesigner.Runtime.Tasks
         // Returns success if an object was found otherwise failure
         public override TaskStatus OnUpdate()
         {
+            //寄主势力
+            Individual.Power masterPower = gameObject.GetComponent<Individual>().power;
+            //计算出对应的敌对势力
+            Individual.Power enemyPower = Individual.Power.Neutral;
+            switch (masterPower)
+            {
+                case Individual.Power.Monster:enemyPower = Individual.Power.Human; break;
+                case Individual.Power.Human: enemyPower = Individual.Power.Monster; break;
+            }
+
+            //根据个体层+敌对势力来筛选敌对目标
             if (usePhysics2D)
             {
-                objectInSight.Value = MovementUtility.WithinSight2D(transform, offset.Value, fieldOfViewAngle.Value, viewDistance.Value, objectLayerMask,Individual.Power.Monster);
+                objectInSight.Value = MovementUtility.WithinSight2D(transform, offset.Value, fieldOfViewAngle.Value, viewDistance.Value, objectLayerMask, enemyPower);
             }
             else
             {
-                objectInSight.Value = MovementUtility.WithinSight(transform, offset.Value, fieldOfViewAngle.Value, viewDistance.Value, objectLayerMask, Individual.Power.Monster);
+                objectInSight.Value = MovementUtility.WithinSight(transform, offset.Value, fieldOfViewAngle.Value, viewDistance.Value, objectLayerMask, enemyPower);
             }
 
             if (objectInSight.Value != null)
