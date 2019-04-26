@@ -53,7 +53,9 @@ public class LogicManager : MonoBehaviour {
 	/// </summary>   
 	/// <param name="ind">待注册的Individual</param>
 	public static void RegisterIndividual(Individual ind) {
-		_IDToIndividualDictionary.Add(_IDQueue.Dequeue(), ind);
+        int key = _IDQueue.Dequeue();
+        ind.ID = key;
+        _IDToIndividualDictionary.Add(key, ind);
 		_aliveIndividualList.Add(ind);
 		Log($"Individual { ind.ID } has successfully registered.");
 	}
