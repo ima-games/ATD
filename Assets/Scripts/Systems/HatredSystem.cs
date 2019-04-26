@@ -39,8 +39,11 @@ public class HatredSystem : MonoBehaviour
 
         Individual HateSource = LogicManager.GetIndividual(HateID);
 
-        if (HateSource == null) Debug.Log("HateSource is null");
-
+        if (HateSource == null)
+        {
+            Debug.Log("HateSource is null");
+            return;
+        }
         //如果目标的势力和自己相同则不列入仇恨列表
         //if (HateSource.power == individual.power) 
         //{
@@ -85,7 +88,7 @@ public class HatredSystem : MonoBehaviour
     //添加仇恨列表
     private void AddHatredList(Individual HateSource)
     {
-        hatredList.Add(HateSource.ID, HateSource.hatredValue);
+        hatredList.Add(HateSource.ID, HateSource.hatredValue); 
     }
 
     ////随时间流逝仇恨减少
