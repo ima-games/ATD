@@ -63,7 +63,7 @@ namespace BehaviorDesigner.Runtime.Tasks
             // child task is interrupted. Ignore the status for both of these. 
             if (childStatus != TaskStatus.Inactive && childStatus != TaskStatus.Running) {
                 executionStatus = childStatus;
-                // If the execution status is failure then a new task needs to be selected. Remove the current task from the available children
+                // If the execution status is failure then a new task needs to be selected. RemoveIndividual the current task from the available children
                 // and select the next highest utility child. 
                 if (executionStatus == TaskStatus.Failure) {
                     availableChildren.Remove(childIndex);

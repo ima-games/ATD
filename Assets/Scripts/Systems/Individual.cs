@@ -34,7 +34,7 @@ public class Individual : MonoBehaviour
  
 
     void Start() {
-		LogicManager.Register(this);
+		LogicManager.RegisterIndividual(this);
 		//Do something
 	}
     //测试消息系统

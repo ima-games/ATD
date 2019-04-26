@@ -118,7 +118,7 @@ public class HatredSystem : MonoBehaviour
     //        //仇恨值小于0移除出仇恨表
     //        if (hatredList[keyArray[i]] <= 0)
     //        {
-    //            hatredList.Remove(keyArray[i]);
+    //            hatredList.RemoveIndividual(keyArray[i]);
     //        }
     //    }
 
