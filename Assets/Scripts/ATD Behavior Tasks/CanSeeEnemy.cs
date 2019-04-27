@@ -5,29 +5,49 @@ using UnityEngine;
 
 namespace BehaviorDesigner.Runtime.Tasks
 {
-    [TaskDescription("看到视野范围内的敌人")]
+    [TaskDescription("看到视野范围内的怪物")]
     [TaskCategory("Movement")]
     [TaskIcon("Assets/Behavior Designer Movement/Editor/Icons/{SkinColor}CanSeeObjectIcon.png")]
-    public class canSeeEnemy : Conditional
+    public class CanSeeEnemy : Conditional
     {
-        public SharedTransform targetObject;
-        public SharedFloat fieldOfViewAngle = 90;
-        public SharedFloat viewDistance = 10;
 
+        [Tooltip("Should the 2D version be used?")]
+        public bool usePhysics2D;
+        [Tooltip("The object that we are searching for. If this value is null then the objectLayerMask will be used")]
+        public SharedTransform targetObject;
+        [Tooltip("The LayerMask of the objects that we are searching for")]
+        public LayerMask objectLayerMask;
+        [Tooltip("The field of view angle of the agent (in degrees)")]
+        public SharedFloat fieldOfViewAngle = 90;
+        [Tooltip("The distance that the agent can see ")]
+        public SharedFloat viewDistance = 1000;
+        [Tooltip("The offset relative to the pivot position")]
+        public SharedVector3 offset;
+        [Tooltip("The object that is within sight")]
         public SharedTransform objectInSight;
 
-
+        // Returns success if an object was found otherwise failure
         public override TaskStatus OnUpdate()
         {
-                // If the target object is null then determine if there are any objects within sight based on the layer mask
-                if (targetObject.Value == null)
-                {
-                    objectInSight.Value = MovementUtility.WithinSight(transform, Vector3.zero, fieldOfViewAngle.Value, viewDistance.Value, 0);
-                }
-                else
-                { // If the target is not null then determine if that object is within sight
-                    objectInSight.Value = MovementUtility.WithinSight(transform, Vector3.zero, fieldOfViewAngle.Value, viewDistance.Value, targetObject.Value);
-                }
+            //寄主势力
+            Individual.Power masterPower = gameObject.GetComponent<Individual>().power;
+            //计算出对应的敌对势力
+            Individual.Power enemyPower = Individual.Power.Neutral;
+            switch (masterPower)
+            {
+                case Individual.Power.Monster:enemyPower = Individual.Power.Human; break;
+                case Individual.Power.Human: enemyPower = Individual.Power.Monster; break;
+            }
+
+            //根据个体层+敌对势力来筛选敌对目标
+            if (usePhysics2D)
+            {
+                objectInSight.Value = MovementUtility.WithinSight2D(transform, offset.Value, fieldOfViewAngle.Value, viewDistance.Value, objectLayerMask, enemyPower);
+            }
+            else
+            {
+                objectInSight.Value = MovementUtility.WithinSight(transform, offset.Value, fieldOfViewAngle.Value, viewDistance.Value, objectLayerMask, enemyPower);
+            }
 
             if (objectInSight.Value != null)
             {
@@ -38,25 +58,14 @@ namespace BehaviorDesigner.Runtime.Tasks
             return TaskStatus.Failure;
         }
 
-        //public override TaskStatus OnUpdate()
-        //{
-        //    if (objectInSight.Value != null)
-        //    {
-        //        return TaskStatus.Success;
-        //    }
-        //    foreach (var target_v in targetObject)
-        //    {
-        //        float distance = (target_v.Value.position - transform.position).magnitude;
-        //        float angle = Vector3.Angle(transform.forward, target_v.Value.position - transform.position);
-        //        if (distance < viewDistance.Value && angle < fieldOfViewAngle.Value * 0.5f)
-        //        {
-        //            objectInSight = target_v;
-        //            return TaskStatus.Success;
-        //        }
-        //    }
+        // Reset the public variables
+        public override void OnReset()
+        {
+            fieldOfViewAngle = 90;
+            viewDistance = 1000;
+            offset = Vector3.zero;
+        }
 
-        //    return TaskStatus.Failure;
-        //}
         // Draw the line of sight representation within the scene window
         public override void OnDrawGizmos()
         {
@@ -64,8 +73,11 @@ namespace BehaviorDesigner.Runtime.Tasks
             {
                 return;
             }
-            
-            MovementUtility.DrawLineOfSight(Owner.transform, Vector3.zero, fieldOfViewAngle.Value, viewDistance.Value, false);
+
+            bool is2D = false;
+            is2D = usePhysics2D;
+
+            MovementUtility.DrawLineOfSight(Owner.transform, offset.Value, fieldOfViewAngle.Value, viewDistance.Value, is2D);
         }
     }
 }
