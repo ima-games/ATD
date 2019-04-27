@@ -28,11 +28,6 @@ public class MonsterDataBase : MonoBehaviour
     void Awake()
     {
         instance = this;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
         //用列表读取MonsterData的数据
         monsterDatas = JsonToObject.JsonToObject_ByJsonContent<MonsterData>(MonsterDataJ.text);
         //列表数据读入字典
@@ -40,6 +35,12 @@ public class MonsterDataBase : MonoBehaviour
         {
             monsterDataDictionary.Add(a.ID, a);
         }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
     }
     /// <summary>
     /// 根据ID获取相应的MonsterData对象的方法
