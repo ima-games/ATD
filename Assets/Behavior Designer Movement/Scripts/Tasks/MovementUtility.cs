@@ -28,6 +28,8 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
             return objectFound;
         }
 
+
+
 #if !(UNITY_4_0 || UNITY_4_0_1 || UNITY_4_1 || UNITY_4_2)
         // Cast a circle with the desired distance. Check each collider hit to see if it is within the field of view. Set objectFound
         // to the object that is most directly in front of the agent
