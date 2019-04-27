@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using BehaviorDesigner.Runtime;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,9 +19,12 @@ public class HatredSystem : MonoBehaviour
     //key 是仇恨来源ID ，value 是仇恨值
     Dictionary<int, int> hatredList = new Dictionary<int, int>();
 
+    private BehaviorTree behaviorTree;
+
     private void Awake()
     {
         individual = GetComponent<Individual>();
+        behaviorTree = GetComponent<BehaviorTree>();
     }
 
     private void Start()
@@ -62,6 +66,9 @@ public class HatredSystem : MonoBehaviour
             hatredList[HateSource.ID] += HateSource.hatredValue;
         }
 
+        //此处更新行为树的最新目标
+        behaviorTree.SetVariableValue("MostHatredTarget", GetMostHatedTarget());
+
         Debug.Log(gameObject.name+"对ID为"+HateSource.gameObject.name+"的对象增加了"+hatredList[HateSource.ID]+"点仇恨值");
     }
 
@@ -69,11 +76,11 @@ public class HatredSystem : MonoBehaviour
     /// 获取当前仇恨值最高的目标
     /// </summary>
     /// <returns>返回仇恨值最高目标的Individual组件</returns>
-    public Individual GetMostHatedTarget()
+    public Transform GetMostHatedTarget()
     {
         int maxValue = 0;
-        int TargerID = 0;
-        foreach(KeyValuePair<int, int> kvp in hatredList)
+        int TargerID = -1;
+        foreach (KeyValuePair<int, int> kvp in hatredList)
         {
             if (kvp.Value > maxValue)
             {
@@ -82,7 +89,11 @@ public class HatredSystem : MonoBehaviour
             }
         }
 
-        return LogicManager.GetIndividual(TargerID);
+        //若找不到则返还null
+        if (TargerID == -1)
+            return null;
+
+        return LogicManager.GetIndividual(TargerID).transform;
     }
 
     //添加仇恨列表
