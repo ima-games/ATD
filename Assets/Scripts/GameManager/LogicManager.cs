@@ -29,6 +29,11 @@ public class LogicManager : MonoBehaviour {
 	/// ID-Individual查找表
 	/// </summary>
 	private static Dictionary<int, Individual> _IDToIndividualDictionary;
+
+	/// <summary>
+	/// 游戏中的金币数量字段
+	/// </summary>
+	private static int _cash;
 	#endregion
 
 	#region Properties
@@ -36,6 +41,11 @@ public class LogicManager : MonoBehaviour {
 	/// 存活个体的ID列表
 	/// </summary>
 	public static List<Individual> AliveIndividualList { get { return _aliveIndividualList; } }
+
+	/// <summary>
+	/// 游戏中的金币数量
+	/// </summary>
+	public static int Cash { get { return _cash; } }
 	#endregion
 
 	#region Public Methods
@@ -96,10 +106,32 @@ public class LogicManager : MonoBehaviour {
 		Log($"Individual { ID } is NOT found.");
 		return null;
 	}
+
+	/// <summary>
+	/// 增加游戏中的金币数量
+	/// </summary>
+	/// <param name="cash">增加的值</param>
+	public static void AddCash(int cash) {
+		_cash += cash;
+	}
+
+	/// <summary>
+	/// 减少游戏中的金币数量
+	/// </summary>
+	/// <param name="cash">减少的值</param>
+	/// <returns>减少值大于现有量时返回false且金币不会发生变化；否则金币数量减少并返回true</returns>
+	public static bool ReduceCash(int cash) {
+		if (_cash - cash < 0) {
+			Log($"Poor Guy.");
+			return false;
+		}
+		_cash -= cash;
+		return true;
+	}
 	#endregion
 
 	#region Private Methods
-	bool IsPlayerDead() {
+	private bool IsPlayerDead() {
 		Individual player = GetIndividual(0);
 		if (player) {
 			if (player.health <= 0) {
@@ -112,7 +144,7 @@ public class LogicManager : MonoBehaviour {
 		}
 	}
 
-	bool IsBaseDestroyed() {
+	private bool IsBaseDestroyed() {
 		Individual iBase = GetIndividual(1);
 		if (iBase) {
 			if (iBase.health <= 0) {
@@ -125,7 +157,7 @@ public class LogicManager : MonoBehaviour {
 		}
 	}
 
-	bool IsGameOver() {
+	private bool IsGameOver() {
 		return IsPlayerDead() || IsBaseDestroyed();
 	}
 	#endregion
@@ -135,6 +167,7 @@ public class LogicManager : MonoBehaviour {
 		_IDQueue = new Queue<int>(_MAX_IDQUEUE_SIZE);
 		_aliveIndividualList = new List<Individual>();
 		_IDToIndividualDictionary = new Dictionary<int, Individual>();
+		_cash = 0;
 
 		for (int id = 2; id < _MAX_IDQUEUE_SIZE; id++) {
 			_IDQueue.Enqueue(id);
