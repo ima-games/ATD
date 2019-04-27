@@ -28,46 +28,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
             return objectFound;
         }
 
-        /// <summary>
-        ///  检测对应layer且对应势力的对象
-        /// </summary>
-        /// <param name="transform"></param>
-        /// <param name="positionOffset"></param>
-        /// <param name="fieldOfViewAngle"></param>
-        /// <param name="viewDistance"></param>
-        /// <param name="objectLayerMask"></param>
-        /// <param name="势力"></param>
-        /// <returns></returns>
-        public static Transform WithinSight(Transform transform, Vector3 positionOffset, float fieldOfViewAngle, float viewDistance, LayerMask objectLayerMask, Individual.Power power)
-        {
-            Transform objectFound = null;
-            var hitColliders = Physics.OverlapSphere(transform.position, viewDistance, objectLayerMask);
-            if (hitColliders != null)
-            {
-                float minAngle = Mathf.Infinity;
-                for (int i = 0; i < hitColliders.Length; ++i)
-                {
-                    float angle;
-                    Transform obj;
-                    //检测势力是否一致
-                    if (hitColliders[i].gameObject.GetComponent<Individual>().power != power)
-                    {
-                        continue;
-                    }
-                    // Call the WithinSight function to determine if this specific object is within sight
-                    if ((obj = WithinSight(transform, positionOffset, fieldOfViewAngle, viewDistance, hitColliders[i].transform, false, out angle)) != null)
-                    {
-                        // This object is within sight. Set it to the objectFound GameObject if the angle is less than any of the other objects
-                        if (angle < minAngle)
-                        {
-                            minAngle = angle;
-                            objectFound = obj;
-                        }
-                    }
-                }
-            }
-            return objectFound;
-        }
+
 
 #if !(UNITY_4_0 || UNITY_4_0_1 || UNITY_4_1 || UNITY_4_2)
         // Cast a circle with the desired distance. Check each collider hit to see if it is within the field of view. Set objectFound
@@ -94,47 +55,6 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
             return objectFound;
         }
 #endif
-
-        /// <summary>
-        /// 检测对应layer且对应势力的对象
-        /// </summary>
-        /// <param name="transform"></param>
-        /// <param name="positionOffset"></param>
-        /// <param name="fieldOfViewAngle"></param>
-        /// <param name="viewDistance"></param>
-        /// <param name="objectLayerMask"></param>
-        /// <param name="势力"></param>
-        /// <returns></returns>
-        public static Transform WithinSight2D(Transform transform, Vector3 positionOffset, float fieldOfViewAngle, float viewDistance, LayerMask objectLayerMask, Individual.Power power)
-        {
-            Transform objectFound = null;
-            var hitColliders = Physics2D.OverlapCircleAll(transform.position, viewDistance, objectLayerMask);
-            if (hitColliders != null)
-            {
-                float minAngle = Mathf.Infinity;
-                for (int i = 0; i < hitColliders.Length; ++i)
-                {
-                    float angle;
-                    Transform obj;
-                    //检测势力是否一致
-                    if (hitColliders[i].gameObject.GetComponent<Individual>().power != power)
-                    {
-                        continue;
-                    }
-                    // Call the 2D WithinSight function to determine if this specific object is within sight
-                    if ((obj = WithinSight(transform, positionOffset, fieldOfViewAngle, viewDistance, hitColliders[i].transform, true, out angle)) != null)
-                    {
-                        // This object is within sight. Set it to the objectFound GameObject if the angle is less than any of the other objects
-                        if (angle < minAngle)
-                        {
-                            minAngle = angle;
-                            objectFound = obj;
-                        }
-                    }
-                }
-            }
-            return objectFound;
-        }
 
         // Public helper function that will automatically create an angle variable that is not used. This function is useful if the calling call doesn't
         // care about the angle between transform and targetObject

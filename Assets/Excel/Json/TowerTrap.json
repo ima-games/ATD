@@ -1,28 +1,18 @@
 ﻿[
   {
     "ID": 0,
-    "Name": "基础塔",
-    "Grids": 9,
-    "Attack": 10,
-    "AttSpeed": 1,
-    "AttDistance": 20,
-    "Cost": 500,
-    "Sell": 350.0
-  },
-  {
-    "ID": 1,
     "Name": "炮塔",
-    "Grids": 9,
-    "Attack": 35,
-    "AttSpeed": 1.2,
+    "Grids": "3*3",
+    "Attack": 28,
+    "AttSpeed": 1,
     "AttDistance": 8,
     "Cost": 600,
     "Sell": 420.0
   },
   {
-    "ID": 2,
+    "ID": 1,
     "Name": "狙击塔",
-    "Grids": 9,
+    "Grids": "3*3",
     "Attack": 60,
     "AttSpeed": 1.5,
     "AttDistance": 10,
@@ -30,9 +20,9 @@
     "Sell": 350.0
   },
   {
-    "ID": 3,
+    "ID": 2,
     "Name": "机枪塔",
-    "Grids": 9,
+    "Grids": "3*3",
     "Attack": 10,
     "AttSpeed": 0.2,
     "AttDistance": 6,
@@ -40,9 +30,9 @@
     "Sell": 210.0
   },
   {
-    "ID": 4,
+    "ID": 3,
     "Name": "麻醉塔",
-    "Grids": 9,
+    "Grids": "3*3",
     "Attack": 10,
     "AttSpeed": 0.6,
     "AttDistance": 5,
@@ -50,9 +40,9 @@
     "Sell": 280.0
   },
   {
-    "ID": 5,
+    "ID": 4,
     "Name": "沥青塔",
-    "Grids": 9,
+    "Grids": "3*3",
     "Attack": 5,
     "AttSpeed": 1,
     "AttDistance": 5,
@@ -60,19 +50,19 @@
     "Sell": 280.0
   },
   {
-    "ID": 6,
+    "ID": 5,
     "Name": "火焰塔",
-    "Grids": 9,
-    "Attack": 6,
-    "AttSpeed": 0.1,
+    "Grids": "3*3",
+    "Attack": 30,
+    "AttSpeed": 1,
     "AttDistance": 4,
     "Cost": 400,
     "Sell": 280.0
   },
   {
-    "ID": 7,
+    "ID": 6,
     "Name": "天罗地网",
-    "Grids": 9,
+    "Grids": "3*3",
     "Attack": 0,
     "AttSpeed": 20,
     "AttDistance": 0,
@@ -80,9 +70,9 @@
     "Sell": 350.0
   },
   {
-    "ID": 8,
+    "ID": 7,
     "Name": "铁蒺藜",
-    "Grids": 9,
+    "Grids": "3*3",
     "Attack": 5,
     "AttSpeed": 1,
     "AttDistance": 0,
@@ -90,9 +80,9 @@
     "Sell": 210.0
   },
   {
-    "ID": 9,
+    "ID": 8,
     "Name": "电网",
-    "Grids": 9,
+    "Grids": "3*3",
     "Attack": 3,
     "AttSpeed": 1,
     "AttDistance": 0,
@@ -100,11 +90,11 @@
     "Sell": 420.0
   },
   {
-    "ID": 10,
-    "Name": "浮游炮塔",
-    "Grids": 1,
-    "Attack": 4,
-    "AttSpeed": 1,
+    "ID": 9,
+    "Name": "浮游炮",
+    "Grids": 0,
+    "Attack": 0,
+    "AttSpeed": 0,
     "AttDistance": 0,
     "Cost": 0,
     "Sell": 0.0
