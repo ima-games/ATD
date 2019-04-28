@@ -39,14 +39,37 @@ namespace BehaviorDesigner.Runtime.Tasks
                 case Individual.Power.Human: enemyPower = Individual.Power.Monster; break;
             }
 
-            //根据个体层+敌对势力来筛选敌对目标
             if (usePhysics2D)
             {
-                objectInSight.Value = MovementUtility.WithinSight2D(transform, offset.Value, fieldOfViewAngle.Value, viewDistance.Value, objectLayerMask, enemyPower);
+                //单个目标对象来筛选敌对目标
+                if (targetObject.IsShared)
+                {
+                    if (targetObject.Value)
+                    {
+                        objectInSight.Value = MovementUtility.WithinSight2D(transform, offset.Value, fieldOfViewAngle.Value, viewDistance.Value, targetObject.Value);
+                    }
+                }
+                //个体层+敌对势力来筛选敌对目标
+                else
+                {
+                    objectInSight.Value = ExtendedMovementUtility.WithinSight2D(transform, offset.Value, fieldOfViewAngle.Value, viewDistance.Value, objectLayerMask, enemyPower);
+                }
             }
             else
             {
-                objectInSight.Value = MovementUtility.WithinSight(transform, offset.Value, fieldOfViewAngle.Value, viewDistance.Value, objectLayerMask, enemyPower);
+                //单个目标对象来筛选敌对目标
+                if (targetObject.IsShared)
+                {
+                    if (targetObject.Value)
+                    {
+                        objectInSight.Value = MovementUtility.WithinSight(transform, offset.Value, fieldOfViewAngle.Value, viewDistance.Value, targetObject.Value);
+                    }
+                }
+                //个体层+敌对势力来筛选敌对目标
+                else
+                {
+                    objectInSight.Value = ExtendedMovementUtility.WithinSight(transform, offset.Value, fieldOfViewAngle.Value, viewDistance.Value, objectLayerMask, enemyPower);
+                }
             }
 
             if (objectInSight.Value != null)
@@ -81,6 +104,3 @@ namespace BehaviorDesigner.Runtime.Tasks
         }
     }
 }
-
-
-
