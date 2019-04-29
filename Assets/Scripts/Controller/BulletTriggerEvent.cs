@@ -20,13 +20,21 @@ public class BulletTriggerEvent : MonoBehaviour
         //        isCollideTower = true;
         //    }
         //}
-
+        if (collison.name == "Plane")
+        {
+            //火球落地特效
+            Debug.Log("fire ball");
+            Destroy(gameObject);
+        }
         //子弹打到玩家、非个体单位
         if (isCollideTower || collison.name == "PlayerHandle" || LayerMask.LayerToName(collisonObject.layer) != "Individual")
         {
             //Destroy(gameObject);
             return;
         }
+
+        
+        
         //此处应该使用tower的消息系统来发消息
         MessageSystem messageSystem = tower.GetComponent<MessageSystem>();
         Individual otherIndividual = collisonObject.GetComponent<Individual>();

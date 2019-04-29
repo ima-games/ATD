@@ -1,7 +1,7 @@
 ﻿[
   {
     "ID": 0,
-    "Name": "炮塔",
+    "Name": "岩石塔",
     "Grids": "3*3",
     "Attack": 28,
     "AttSpeed": 1,
@@ -11,10 +11,10 @@
   },
   {
     "ID": 1,
-    "Name": "狙击塔",
+    "Name": "贪婪之门",
     "Grids": "3*3",
-    "Attack": 60,
-    "AttSpeed": 1.5,
+    "Attack": 150,
+    "AttSpeed": 7,
     "AttDistance": 10,
     "Cost": 500,
     "Sell": 350.0
