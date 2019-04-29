@@ -18,12 +18,12 @@ public class MessageTest_3 : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.J))
         {
-            MS.SendMessage(1, 5, -25);
+            MS.SendMessage(1, 3, 25);
             myIndividual.HealthChange(-14);
             //测试buff系统
-            MS.SendMessage(2, 5, 0);
-            MS.SendMessage(2, 5, 1);
-            MS.SendMessage(2, 5, 2);
+            MS.SendMessage(2, 3, 0);
+            MS.SendMessage(2, 3, 1);
+            MS.SendMessage(2, 3, 2);
         }
     }
 }
