@@ -67,7 +67,6 @@ public class HatredSystem : MonoBehaviour
         }
 
         //此处更新行为树的最新目标
-        behaviorTree.SetVariableValue("MostHatredTarget", GetMostHatedTarget());
 
         Debug.Log(gameObject.name+"对ID为"+HateSource.gameObject.name+"的对象增加了"+hatredList[HateSource.ID]+"点仇恨值");
     }
