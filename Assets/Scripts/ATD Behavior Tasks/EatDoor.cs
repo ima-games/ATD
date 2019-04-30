@@ -19,13 +19,14 @@ namespace BehaviorDesigner.Runtime.Tasks
 
         private Individual master;          //寄主
         private bool attacking = false;     //攻击正在进行中
-
+        
         IEnumerator Attack()
         {
             attacking = true;//开始攻击
             Vector3 pullTarget = bulletPoint.transform.position - target.Value.transform.position;
-            target.Value.GetComponent<Rigidbody>().velocity = pullTarget.normalized * bulletSpeed;
-            
+            //target.Value.GetComponent<Rigidbody>().velocity = pullTarget.normalized * bulletSpeed;
+            target.Value.GetComponent<Rigidbody>()
+                .AddForce(pullTarget.normalized * bulletForce, ForceMode.Force);
             
 
             if (pullTarget.magnitude < arriveDistance)
@@ -51,10 +52,28 @@ namespace BehaviorDesigner.Runtime.Tasks
             }
             if (!attacking)
             {
-                StartCoroutine(Attack());
+                //StartCoroutine(Attack());
             }
 
             return TaskStatus.Success;
+        }
+
+        public override void OnFixedUpdate()
+        {
+            if (target.Value!=null)
+            {
+                attacking = true;//开始攻击
+                Vector3 pullTarget = bulletPoint.transform.position - target.Value.transform.position;
+                //target.Value.GetComponent<Rigidbody>().velocity = pullTarget.normalized * bulletSpeed;
+                target.Value.GetComponent<Rigidbody>()
+                    .AddForce(pullTarget.normalized * bulletForce, ForceMode.Force);
+
+
+                if (pullTarget.magnitude < arriveDistance)
+                {
+                    Debug.Log("eat" + target.Name);
+                }
+            }
         }
     }
 }
