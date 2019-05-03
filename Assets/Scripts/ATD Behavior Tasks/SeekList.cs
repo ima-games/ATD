@@ -32,7 +32,6 @@ namespace BehaviorDesigner.Runtime.Tasks
 
         public override void OnStart()
         {
-            Debug.Log("seeklist end start");
             // initially move towards the closest waypoint
             float localDistance;
             float minDistance = 1000f;

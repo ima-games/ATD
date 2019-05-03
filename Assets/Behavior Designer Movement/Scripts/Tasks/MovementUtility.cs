@@ -208,5 +208,19 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
             UnityEditor.Handles.color = oldColor;
 #endif
         }
+        public static void DrawLineOfSightColor(Transform transform, Vector3 positionOffset, float fieldOfViewAngle, float viewDistance, bool usePhysics2D, Color color)
+        {
+#if UNITY_EDITOR
+            var oldColor = UnityEditor.Handles.color;
+            color.a = 0.1f;
+            UnityEditor.Handles.color = color;
+
+            var halfFOV = fieldOfViewAngle * 0.5f;
+            var beginDirection = Quaternion.AngleAxis(-halfFOV, (usePhysics2D ? Vector3.right : Vector3.up)) * (usePhysics2D ? transform.up : transform.forward);
+            UnityEditor.Handles.DrawSolidArc(transform.TransformPoint(positionOffset), (usePhysics2D ? transform.right : transform.up), beginDirection, fieldOfViewAngle, viewDistance);
+
+            UnityEditor.Handles.color = oldColor;
+#endif
+        }
     }
 }
