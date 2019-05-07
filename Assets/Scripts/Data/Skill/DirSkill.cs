@@ -2,13 +2,13 @@
 using UnityEngine;
 
 /// <summary>
-/// 指向性技能
+/// 指向性技能-暂时不做
 /// </summary>
 public class DirSkill : ISkill
 {
     public void InitSkill(GameObject master)
     {
-        //DO NOTHING
+
     }
 
     public void ReleaseSkill(GameObject master)
@@ -16,5 +16,8 @@ public class DirSkill : ISkill
 
     }
 
+    public void UpdateSkill(GameObject master)
+    {
 
+    }
 }

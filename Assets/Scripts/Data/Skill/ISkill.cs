@@ -14,5 +14,11 @@ public interface ISkill
     /// </summary>
     void ReleaseSkill(GameObject master);
 
+    /// <summary>
+    /// 技能每帧更新
+    /// </summary>
+    /// <param name="master"></param>
+    void UpdateSkill(GameObject master);
+
     //....其余处理消息接口
 }

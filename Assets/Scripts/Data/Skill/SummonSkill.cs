@@ -18,5 +18,8 @@ public class SummonSkill : ISkill
         GameObject.Instantiate(summonObject,master.transform.position + master.transform.forward * 2.0f, Quaternion.identity, master.transform.parent);
     }
 
+    public void UpdateSkill(GameObject master)
+    {
 
+    }
 }
