@@ -48,6 +48,7 @@ public class Individual : MonoBehaviour
     /// </summary>
     public void Dead()
     {
+        LogicManager.RemoveIndividual(this);
         //TODO:目前来说是直接destory对象，以后需加入死亡动画等效果
         Destroy(gameObject);
     }

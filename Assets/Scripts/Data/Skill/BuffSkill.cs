@@ -8,6 +8,13 @@ public class BuffSkill : ISkill
     public bool isAura = true; //光环
     public float range = 0.0f; //范围
 
+    public BuffSkill(int buffID,bool isAura = true, float range = 0.0f)
+    {
+        this.buffID = buffID;
+        this.isAura = isAura;
+        this.range = range;
+    }
+
     public void InitSkill(GameObject master)
     {
         if (!isAura)
