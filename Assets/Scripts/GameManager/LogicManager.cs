@@ -177,6 +177,7 @@ public class LogicManager : MonoBehaviour {
 		_IDQueue = new Queue<int>(_MAX_IDQUEUE_SIZE);
 		_aliveIndividualList = new List<Individual>();
 		_IDToIndividualDictionary = new Dictionary<int, Individual>();
+        _IndividualsToDelete = new List<Individual>();
 		_cash = 0;
 
 		for (int id = 2; id < _MAX_IDQUEUE_SIZE; id++) {
@@ -189,12 +190,18 @@ public class LogicManager : MonoBehaviour {
 	}
 
 	void Update() {
-        //每帧检查带删除列表，删除标记死亡的对象
-		foreach(var ind in _IndividualsToDelete)
+
+	}
+
+    private void LateUpdate()
+    {
+        //游戏循环的最后阶段,检查带删除列表，删除标记死亡的对象
+        foreach (var ind in _IndividualsToDelete)
         {
-            GameObject.Destroy(ind);
+            GameObject.Destroy(ind.gameObject);
         }
         _IndividualsToDelete.Clear();
-	}
-	#endregion
+    }
+
+    #endregion
 }
