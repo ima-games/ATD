@@ -6,7 +6,11 @@ using UnityEngine;
 public class BulletTriggerEvent : MonoBehaviour
 {
     public Individual tower;
+
+    public GameObject dieEffect;    //死亡产生的特效对象（该对象会自动删除）
+
     private bool isCollideTower;
+
 
     private void OnTriggerEnter(Collider collison)
     {
@@ -40,7 +44,9 @@ public class BulletTriggerEvent : MonoBehaviour
         Individual otherIndividual = collisonObject.GetComponent<Individual>();
 
         messageSystem.SendMessage(1, otherIndividual.ID, tower.attack);
-        //特效产生
+
+        //特效对象产生
+        GameObject.Instantiate(dieEffect, transform.position,dieEffect.transform.rotation , transform.parent);
 
         Destroy(gameObject);
     }

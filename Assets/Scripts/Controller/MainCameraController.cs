@@ -16,7 +16,7 @@ public class MainCameraController : MonoBehaviour {
     private GameObject playerHandle;
     private GameObject cameraHandle;
     private GameObject model;
-    private GameObject camera;
+    private new GameObject camera;
     private float tempEulerX;
     private Vector3 cameraDampVelocity;
     [SerializeField]
@@ -73,23 +73,31 @@ public class MainCameraController : MonoBehaviour {
         Vector3 modelOrigin2 = modelOrigin1 + new Vector3 (0, 1, 0);
         Vector3 boxCenter = modelOrigin2 + model.transform.forward * 5.0f;
         Collider[] cols = Physics.OverlapBox (boxCenter, new Vector3 (0.5f, 0.5f, 5f), model.transform.rotation, LayerMask.GetMask ("Individual"));
-        if (cols.Length == 0) {
+
+        bool ret = false;
+        foreach (var col in cols)
+        {
+            //若已锁定目标是目标，则解除锁定
+            if (lockTarget!= null && lockTarget.obj == col.gameObject)
+            {
+                break;
+            }
+            //目标不是操控者
+            if (col.gameObject != playerHandle)
+            {
+                lockTarget = new LockTarget(col.gameObject, col.bounds.extents.y);
+                lockDot.enabled = true;
+                lockState = true;
+                ret = true;
+                break;
+            }
+        }
+
+        if (!ret)
+        {
             lockTarget = null;
             lockDot.enabled = false;
             lockState = false;
-        } else {
-            foreach (var col in cols) {
-                if (lockTarget != null && lockTarget.obj == col.gameObject) {
-                    lockTarget = null;
-                    lockDot.enabled = false;
-                    lockState = false;
-                    break;
-                }
-                lockTarget = new LockTarget (col.gameObject, col.bounds.extents.y);
-                lockDot.enabled = true;
-                lockState = true;
-                break;
-            }
         }
     }
     private class LockTarget {

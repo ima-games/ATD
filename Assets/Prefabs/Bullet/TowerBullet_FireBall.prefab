@@ -222,3 +222,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tower: {fileID: 0}
+  dieEffect: {fileID: 7375327256279768964, guid: 34d4fa0a990444d4bab9877e32717337,
+    type: 3}
