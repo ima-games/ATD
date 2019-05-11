@@ -34,6 +34,12 @@ public class LogicManager : MonoBehaviour {
 	/// 游戏中的金币数量字段
 	/// </summary>
 	private static int _cash;
+
+    //NOTE： ADD BY AERY
+    /// <summary>
+    /// 被标记死亡的个体对象（每帧检查这个列表，并对列表内的游戏对象进行Destory）
+    /// </summary>
+    private static List<Individual> _IndividualsToDelete;
 	#endregion
 
 	#region Properties
@@ -86,7 +92,11 @@ public class LogicManager : MonoBehaviour {
 	/// </summary>
 	/// <param name="ind">死亡的Individual</param>
 	public static void RemoveIndividual(Individual ind) {
-		if (_IDToIndividualDictionary.ContainsKey(ind.ID)) {
+
+        //带删除列表增加该对象
+        _IndividualsToDelete.Add(ind);
+
+        if (_IDToIndividualDictionary.ContainsKey(ind.ID)) {
 			_IDToIndividualDictionary.Remove(ind.ID);
 			_aliveIndividualList.Remove(ind);
 			if (ind.ID != 0 && ind.ID != 1) {
@@ -179,7 +189,12 @@ public class LogicManager : MonoBehaviour {
 	}
 
 	void Update() {
-		
+        //每帧检查带删除列表，删除标记死亡的对象
+		foreach(var ind in _IndividualsToDelete)
+        {
+            GameObject.Destroy(ind);
+        }
+        _IndividualsToDelete.Clear();
 	}
 	#endregion
 }
