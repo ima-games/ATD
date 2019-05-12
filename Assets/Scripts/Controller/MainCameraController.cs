@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MainCameraController : MonoBehaviour
 {
@@ -9,7 +8,6 @@ public class MainCameraController : MonoBehaviour
     public float horizontalSpeed = 100.0f;
     public float verticalSpeed = 80.0f;
     public float cameraDampValue = 0.05f;
-    public Image lockDot;
     public bool lockState;
     public float lockLength = 10f;
     public bool isAI = false;
@@ -30,7 +28,6 @@ public class MainCameraController : MonoBehaviour
         tempEulerX = 20;
         model = playerHandle.GetComponent<PlayerController>().model;
         camera = Camera.main.gameObject;
-        lockDot.enabled = false;
         lockState = false;
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -67,12 +64,7 @@ public class MainCameraController : MonoBehaviour
             if (lockTarget.obj.GetComponent<Individual>().DieMark || Vector3.Distance(model.transform.position, lockTarget.obj.transform.position) > lockLength)
             {
                 lockTarget = null;
-                lockDot.enabled = false;
                 lockState = false;
-            }
-            else
-            {
-                lockDot.rectTransform.position = Camera.main.WorldToScreenPoint(lockTarget.obj.transform.position + new Vector3(0, lockTarget.halfHight, 0));
             }
         }
     }
@@ -97,7 +89,6 @@ public class MainCameraController : MonoBehaviour
             if (col.gameObject != playerHandle)
             {
                 lockTarget = new LockTarget(col.gameObject, col.bounds.extents.y);
-                lockDot.enabled = true;
                 lockState = true;
                 ret = true;
                 break;
@@ -107,7 +98,6 @@ public class MainCameraController : MonoBehaviour
         if (!ret)
         {
             lockTarget = null;
-            lockDot.enabled = false;
             lockState = false;
         }
     }
