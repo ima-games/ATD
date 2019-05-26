@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
     public GameObject model;
     public PlayerInput playerInput;
-    public MainCameraController cameraController;
+    public LockController lockController;
     public float walkSpeed = 1.6f;
     public float runMultiplier = 2.4f;
     public float jumpVelocity = 5.0f;
@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour {
     void Awake () {
         playerInput = GetComponent<PlayerInput> ();
         animator = model.GetComponent<Animator> ();
+        lockController = GetComponent<LockController>();
         rigidbody = GetComponent<Rigidbody> (); //if(rigib == null){}
         capsuleCollider = GetComponent<CapsuleCollider> ();
     }
@@ -43,10 +44,10 @@ public class PlayerController : MonoBehaviour {
     void Update () {
 
         if (playerInput.lockon) {
-            cameraController.LockSwitch ();
+            lockController.LockSwitch ();
         }
 
-        if (cameraController.lockState == false) {
+        if (lockController.lockState == false) {
             float targetRunMulti = ((playerInput.run) ? 2.0f : 1.0f);
             animator.SetFloat ("forward", playerInput.Dmag *
                 Mathf.Lerp (animator.GetFloat ("forward"), targetRunMulti, runRatio));
@@ -90,7 +91,7 @@ public class PlayerController : MonoBehaviour {
             animator.SetLayerWeight (animator.GetLayerIndex ("defense"), 0);
         }
 
-        if (cameraController.lockState == false) {
+        if (lockController.lockState == false) {
             if (playerInput.Dmag > 0.1f) //转身硬直
             {
                 Vector3 targetForward = Vector3.Slerp (model.transform.forward, playerInput.Dvec, rotateRatio);
