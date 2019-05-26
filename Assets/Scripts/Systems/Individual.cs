@@ -32,8 +32,6 @@ public class Individual : MonoBehaviour
     public int reviveCount = 0;         //复活次数
     public int maxReviveCount = 0;      //最大复活次数
 
-    public bool DieMark { get; set; } = false; //死亡标记
-
     void Start() {
 		LogicManager.RegisterIndividual(this);
 		//Do something
@@ -50,7 +48,7 @@ public class Individual : MonoBehaviour
     public void Dead()
     {
         LogicManager.RemoveIndividual(this);
-        DieMark = true;
+        gameObject.SetActive(false);
     }
 
     //--------------------以下属性更改方法--------------------

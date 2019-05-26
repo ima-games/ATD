@@ -61,7 +61,7 @@ public class MainCameraController : MonoBehaviour
     {
         if (lockTarget != null)
         {
-            if (lockTarget.obj.GetComponent<Individual>().DieMark || Vector3.Distance(model.transform.position, lockTarget.obj.transform.position) > lockLength)
+            if (!lockTarget.obj.activeInHierarchy || Vector3.Distance(model.transform.position, lockTarget.obj.transform.position) > lockLength)
             {
                 lockTarget = null;
                 lockState = false;
