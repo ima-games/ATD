@@ -17,8 +17,11 @@ public class BuffSystem : MonoBehaviour
     [SerializeField] private List<Buff> buffShow = new List<Buff>();
 
     //初始化状态栏
-    [SerializeField] private List<int> initBuff = new List<int>();
+    [SerializeField] private List<int> initBuffs = new List<int>();
 
+    //待删除buff
+    private int[] buffsToDelete = new int[64];
+    private int buffsToDeleteCount = 0;
 
     private void Awake()
     {
@@ -28,6 +31,11 @@ public class BuffSystem : MonoBehaviour
     private void Start()
     {
         InitializeBuffList();
+    }
+
+    private void Update()
+    {
+        CleanBuffsToDelete();    
     }
 
     private void FixedUpdate()
@@ -41,9 +49,6 @@ public class BuffSystem : MonoBehaviour
     /// <param name="buffID"></param>
     public void StickBuff(int buffID)
     {
-        //1.把buffID加到表里，count+1       ----AddBuff
-        //2.把buff数据同步到实体组件        ----BuffSync
-        //3.时间到，把buff去掉              ----DestroyBuff
         AddBuff(buffID);
     }
 
@@ -76,7 +81,9 @@ public class BuffSystem : MonoBehaviour
     //移除buff
     private void RemoveBuff(Buff buff)
     {
-        myBuffs.Remove(buff.ID);
+        buffsToDelete[buffsToDeleteCount] = buff.ID;
+        buffsToDeleteCount++;
+
         buffShow.Remove(buff);
         BuffData buffData = BuffDataBase.Instance.GetBuffData(buff.ID);
         //同步属性：移除BUFF
@@ -124,13 +131,15 @@ public class BuffSystem : MonoBehaviour
         {
             Buff buff = itr.Value;
             //触发型buff机制
-            if (buff.isTrigger && itr.Value.repeatCount >= 1)
+            if (buff.isTrigger && itr.Value.repeatCount >= 0)
             {
-                buff.repeatCount -= 1;
+                //注意顺序：要先检测次数用尽，再执行次数减少
+                //TRICK，避免多次释放/新建1次性触发Buff对象
                 if (itr.Value.repeatCount == 0)
                 {
                     RemoveBuff(itr.Value);
                 }
+                buff.repeatCount -= 1;
             }
             //持续性buff机制
             else
@@ -149,13 +158,25 @@ public class BuffSystem : MonoBehaviour
     /// </summary>
     private void InitializeBuffList()
     {
-        if (initBuff.Count == 0) return;
+        if (initBuffs.Count == 0) return;
         //将初始化buff表里的ID依次加入到buff表里
-        for(int i=0;i< initBuff.Count; i++)
+        for(int i=0 ; i < initBuffs.Count; i++)
         {
-            AddBuff(initBuff[i]);
+            AddBuff(initBuffs[i]);
         }
 
-        initBuff.Clear();
+        initBuffs.Clear();
     }
+
+    /// <summary>
+    /// 清理待删除Buff
+    /// </summary>
+    private void CleanBuffsToDelete()
+    {
+        for(int i = 0;i<buffsToDeleteCount; ++i)
+        {
+            myBuffs.Remove(buffsToDelete[i]);
+        }
+    }
+    
 }
