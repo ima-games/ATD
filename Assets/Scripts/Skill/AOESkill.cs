@@ -14,12 +14,12 @@ public class AOESkill : ISkill
         this.range = range;
     }
 
-    public void InitSkill(GameObject master)
+    public void InitSkill(Individual master)
     {
 
     }
 
-    public void ReleaseSkill(GameObject master)
+    public void ReleaseSkill(Individual master)
     {
         foreach (var individual in LogicManager.AliveIndividualList)
         {
@@ -31,7 +31,7 @@ public class AOESkill : ISkill
         }
     }
 
-    public void UpdateSkill(GameObject master)
+    public void UpdateSkill(Individual master)
     {
 
     }

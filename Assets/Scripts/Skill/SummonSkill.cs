@@ -7,18 +7,18 @@ public class SummonSkill : ISkill
 {
     public GameObject summonObject;//召唤物
 
-    public void InitSkill(GameObject master)
+    public void InitSkill(Individual master)
     {
         //DO NOTHING
     }
 
-    public void ReleaseSkill(GameObject master)
+    public void ReleaseSkill(Individual master)
     {
         //在施放者前方2单位距离的位置召唤物体
         GameObject.Instantiate(summonObject,master.transform.position + master.transform.forward * 2.0f, Quaternion.identity, master.transform.parent);
     }
 
-    public void UpdateSkill(GameObject master)
+    public void UpdateSkill(Individual master)
     {
 
     }

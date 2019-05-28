@@ -6,17 +6,17 @@ using UnityEngine;
 /// </summary>
 public class DirSkill : ISkill
 {
-    public void InitSkill(GameObject master)
+    public void InitSkill(Individual master)
     {
 
     }
 
-    public void ReleaseSkill(GameObject master)
+    public void ReleaseSkill(Individual master)
     {
 
     }
 
-    public void UpdateSkill(GameObject master)
+    public void UpdateSkill(Individual master)
     {
 
     }

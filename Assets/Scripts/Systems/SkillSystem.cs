@@ -4,25 +4,28 @@ using UnityEngine;
 
 public class SkillSystem : MonoBehaviour
 {
-    List<ISkill> HeroSkill = new List<ISkill>();
+    List<ISkill> heroSkills = new List<ISkill>();
     //英雄技能对象列表
-    List<ISkill> EquipmentSkill = new List<ISkill>();
+    // List<ISkill> EquipmentSkill = new List<ISkill>();
     //装备技能对象列表
     private Individual individual;
     // Start is called before the first frame update
     void Start()
     {
         individual = GetComponent<Individual>();
-
-        HeroSkill.Add(new AOESkill(0,10));
-        HeroSkill.Add(new AOESkill(1,1));
-        HeroSkill.Add(new AOESkill(2,1));
+        
+        heroSkills.Add(new AOESkill(0,10));
+        heroSkills.Add(new AOESkill(1,1));
+        heroSkills.Add(new AOESkill(2,1));
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        foreach(ISkill skill in heroSkills)
+        {
+            skill.UpdateSkill(individual);
+        }
     }
 
     /// <summary>
@@ -33,9 +36,9 @@ public class SkillSystem : MonoBehaviour
     {
         Debug.Log("Release Skill " + index);
 
-        if(index >= HeroSkill.Count){ return; }
+        if(index >= heroSkills.Count){ return; }
 
-        HeroSkill[index].ReleaseSkill(gameObject);
+        heroSkills[index].ReleaseSkill(individual);
     }
 
     public void ReceiveMessage(Individual attacker,float damage)

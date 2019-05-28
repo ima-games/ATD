@@ -15,7 +15,7 @@ public class BuffSkill : ISkill
         this.range = range;
     }
 
-    public void InitSkill(GameObject master)
+    public void InitSkill(Individual master)
     {
         if (!isAura)
         {
@@ -24,12 +24,12 @@ public class BuffSkill : ISkill
         }
     }
 
-    public void ReleaseSkill(GameObject master)
+    public void ReleaseSkill(Individual master)
     {
         //DO NOTHING
     }
 
-    public void UpdateSkill(GameObject master)
+    public void UpdateSkill(Individual master)
     {
         if (isAura)
         {
