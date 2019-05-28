@@ -4,13 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Collections;
 
+/// <summary>
+/// Buff系统
+/// </summary>
+/// Note:现在相同ID的Buff不应该同时存在，而视为叠加次数/刷新时间
 public class BuffSystem : MonoBehaviour
 {
-    List<Buff> myBuffs = new List<Buff>();
+    Dictionary<int,Buff> myBuffs = new Dictionary<int, Buff>();
     Individual myIndividual;
 
     //buff栏显示
-    [SerializeField] private List<int> buffShow = new List<int>();
+    [SerializeField] private List<Buff> buffShow = new List<Buff>();
 
     //初始化状态栏
     [SerializeField] private List<int> initBuff = new List<int>();
@@ -46,11 +50,17 @@ public class BuffSystem : MonoBehaviour
     //添加buff
     private void AddBuff(int buffID)
     {
-        Buff buff = new Buff();
-        buff.ID = buffID;
-        //test
-        buff.time = 10;
-        
+        Buff buff;
+        if (myBuffs.TryGetValue(buffID,out buff))
+        {
+
+        }
+        else
+        {
+            buff = new Buff();
+            buff.ID = buffID;
+        }
+
         myBuffs.Add(buff);
         //BuffSync(buffID);
 

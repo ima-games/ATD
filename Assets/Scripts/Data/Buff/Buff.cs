@@ -1,4 +1,6 @@
-﻿public class Buff
+﻿
+[System.Serializable]
+public class Buff
 {
     public int ID;              //BuffData的ID
     public double time;         //持续时间
