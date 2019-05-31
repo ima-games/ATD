@@ -41,6 +41,7 @@ public class BuffDataBase : MonoBehaviour
         foreach (var a in buffDatas)
         {
             buffDataDictionary.Add(a.ID, a);
+            Logger.Log("BuffData数据:ID = " + a.ID + ";触发类型 = " + a.isTrigger + ";持续时间 = " + a.Time + ";触发次数 = " + a.Count, LogType.Data);
         }
     }
     /// <summary>

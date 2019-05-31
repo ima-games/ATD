@@ -34,7 +34,7 @@ public class SkillSystem : MonoBehaviour
     /// <param name="index"></param>
     public void ReleaseSkill(int index)
     {
-        Debug.Log("Release Skill " + index);
+        Logger.Log("Release Skill " + index , LogType.Skill);
 
         if(index >= heroSkills.Count){ return; }
 

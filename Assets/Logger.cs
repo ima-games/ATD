@@ -18,6 +18,7 @@ public class Logger : MonoBehaviour
     public bool log_Hatred;
     public bool log_Buff;
     public bool log_Skill;
+    public bool log_Data;
 
     private static Logger instance;
 
@@ -27,11 +28,12 @@ public class Logger : MonoBehaviour
     }
 
 
-    private string defaultLog = "Default Log：";
-    private string individualLog = "Individual Log：";
-    private string hatredLog = "Hatred Log：";
-    private string buffLog = "Buff Log：";
-    private string skillLog = "Skill Log：";
+    static private string defaultLog = "Default Log：";
+    static private string individualLog = "Individual Log：";
+    static private string hatredLog = "Hatred Log：";
+    static private string buffLog = "Buff Log：";
+    static private string skillLog = "Skill Log：";
+    static private string dataLog = "Data Log：";
 
     static public void Log(string content,LogType logType = LogType.Default)
     {
@@ -39,24 +41,28 @@ public class Logger : MonoBehaviour
         switch (logType)
         {
             case LogType.Default:
-                content = instance.defaultLog + content;
+                content = defaultLog + content;
                 if (!instance.log_All && !instance.log_Default) return;
                 break;
             case LogType.Individual:
-                content = instance.individualLog + content;
+                content = individualLog + content;
                 if (!instance.log_All && !instance.log_Individual) return;
                 break;
             case LogType.Hatred:
-                content = instance.hatredLog + content;
+                content = hatredLog + content;
                 if (!instance.log_All && !instance.log_Hatred) return;
                 break;
             case LogType.Buff:
-                content = instance.buffLog + content;
+                content = buffLog + content;
                 if (!instance.log_All && !instance.log_Buff) return;
                 break;
             case LogType.Skill:
-                content = instance.skillLog + content;
+                content = skillLog + content;
                 if (!instance.log_All && !instance.log_Skill) return;
+                break;
+            case LogType.Data:
+                content = dataLog + content;
+                if (!instance.log_All && !instance.log_Data) return;
                 break;
         }
         //日志输出
@@ -70,6 +76,7 @@ public enum LogType{
     Individual,
     Hatred,
     Buff,
-    Skill
+    Skill,
+    Data
 }
 

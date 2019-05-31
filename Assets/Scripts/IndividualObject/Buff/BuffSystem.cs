@@ -58,6 +58,9 @@ public class BuffSystem : MonoBehaviour
     {
         Buff buff;
         BuffData buffData = BuffDataBase.Instance.GetBuffData(buffID);
+
+        Logger.Log("Buff " + buffID + " 已添加", LogType.Buff);
+
         //若buff列表没有对应的Buff，则新建一个Buff对象
         if (!myBuffs.TryGetValue(buffID,out buff))
         {
@@ -75,19 +78,19 @@ public class BuffSystem : MonoBehaviour
         buff.time += buffData.Time;
         buff.repeatCount += buffData.Count;
 
-        Logger.Log("Buff "+buffID+" 已添加",LogType.Buff);
+
     }
 
     //移除buff
     private void RemoveBuff(Buff buff)
     {
+        Logger.Log("Buff " + buff.ID + "已移除", LogType.Buff);
+
         //添加到待删除队列
         buffsToDelete[buffsToDeleteCount] = buff.ID;
         buffsToDeleteCount++;
         //可视化移除
         buffShow.Remove(buff);
-
-        Logger.Log("Buff "+ buff.ID +"已移除", LogType.Buff);
     }
 
     /// <summary>
