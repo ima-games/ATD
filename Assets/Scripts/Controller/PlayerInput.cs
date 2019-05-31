@@ -2,6 +2,7 @@
 
 public class PlayerInput : MonoBehaviour
 {
+    public Transform player;
     // Variable
     [Header("KeySettings")]
     public string keyUp = "w";
@@ -103,7 +104,7 @@ public class PlayerInput : MonoBehaviour
         float Dright2 = tmpDAxis.x;
         float Dup2 = tmpDAxis.y;
         Dmag = new Vector2(Dright2, Dup2).magnitude;
-        Dvec = Dright2 * transform.right + Dup2 * transform.forward;
+        Dvec = Dright2 * player.right + Dup2 * player.forward;
 
         //Button
         //attack = buttonAttack.onPressed;

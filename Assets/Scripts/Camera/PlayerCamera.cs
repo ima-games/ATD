@@ -8,25 +8,27 @@ public class PlayerCamera : MonoBehaviour
     public GameObject cameraHandle;
     private Transform cameraPos;
 
-    public GameObject playerHandle;
+    public LockController lockController;
+
+    public GameObject player;
+    public GameObject model;
 
     public float horizontalSpeed = 100.0f;
     public float verticalSpeed = 80.0f;
     public float cameraDampValue = 0.05f;
 
-    public LockController lockController;
+
     private float tempEulerX;
     private Vector3 cameraDampVelocity;
     private new Camera camera;
 
-    private GameObject model;
+
 
     private void Awake()
     {
         tempEulerX = 20;
         camera = Camera.main;
         cameraPos = cameraHandle.transform.GetChild(0);
-        model = playerHandle.GetComponent<PlayerController>().model;
     }
 
     void Start()
@@ -40,7 +42,7 @@ public class PlayerCamera : MonoBehaviour
         if (lockTarget == null)
         {
             Vector3 tempModelEuler = model.transform.eulerAngles;
-            playerHandle.transform.Rotate(Vector3.up, playerInput.Jright * horizontalSpeed * Time.fixedDeltaTime);
+            player.transform.Rotate(Vector3.up, playerInput.Jright * horizontalSpeed * Time.fixedDeltaTime);
             tempEulerX -= playerInput.Jup * verticalSpeed * Time.fixedDeltaTime;
             tempEulerX = Mathf.Clamp(tempEulerX, -40, 30);
             cameraHandle.transform.localEulerAngles = new Vector3(tempEulerX, 0, 0);
@@ -50,7 +52,7 @@ public class PlayerCamera : MonoBehaviour
         {
             Vector3 temmpForward = lockTarget.transform.position - model.transform.position;
             temmpForward.y = 0;
-            playerHandle.transform.forward = temmpForward;
+            player.transform.forward = temmpForward;
             cameraHandle.transform.LookAt(lockTarget.transform);
         }
 

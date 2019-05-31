@@ -7,11 +7,12 @@ using UnityEngine;
 /// </summary>
 public class SkillController : MonoBehaviour
 {
-    SkillSystem skillSystem;
+    public SkillSystem player;
+    private SkillSystem skillSystem;
 
     private void Awake()
     {
-        skillSystem = GetComponent<SkillSystem>();
+        skillSystem = player;
     }
 
     // Update is called once per frame

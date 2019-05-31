@@ -41,7 +41,7 @@ public class HatredSystem : MonoBehaviour
     public void AddHateValue(int HateID)
     {
 
-        Individual HateSource = LogicManager.GetIndividual(HateID);
+        Individual HateSource = Factory.GetIndividual(HateID);
 
         if (HateSource == null)
         {
@@ -94,7 +94,7 @@ public class HatredSystem : MonoBehaviour
         if (TargerID == -1)
             return null;
 
-        return LogicManager.GetIndividual(TargerID).transform;
+        return Factory.GetIndividual(TargerID).transform;
     }
 
     //添加仇恨列表

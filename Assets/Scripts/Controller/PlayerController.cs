@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private Animator animator;
 
-    private Rigidbody rigidbody;
+    private new Rigidbody rigidbody;
     private CapsuleCollider capsuleCollider;
     private Vector3 planeVec;
     private Vector3 thrustVec;
@@ -34,10 +34,8 @@ public class PlayerController : MonoBehaviour {
     public bool leftIsShield = true;
 
     void Awake () {
-        playerInput = GetComponent<PlayerInput> ();
         animator = model.GetComponent<Animator> ();
-        lockController = GetComponent<LockController>();
-        rigidbody = GetComponent<Rigidbody> (); //if(rigib == null){}
+        rigidbody = GetComponent<Rigidbody> ();
         capsuleCollider = GetComponent<CapsuleCollider> ();
     }
 

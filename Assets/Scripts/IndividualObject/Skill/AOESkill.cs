@@ -21,7 +21,7 @@ public class AOESkill : ISkill
 
     public void ReleaseSkill(Individual master)
     {
-        foreach (var individual in LogicManager.AliveIndividualList)
+        foreach (var individual in Factory.AliveIndividualList)
         {
             //在光环范围内
             if ((individual.transform.position - master.transform.position).sqrMagnitude < range * range)

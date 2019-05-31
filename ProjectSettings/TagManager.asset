@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Collide
   - Ground
+  - Controller
   layers:
   - Default
   - TransparentFX

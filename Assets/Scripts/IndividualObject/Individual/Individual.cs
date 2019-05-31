@@ -33,7 +33,7 @@ public class Individual : MonoBehaviour
     public int maxReviveCount = 0;      //最大复活次数
 
     void Start() {
-		LogicManager.RegisterIndividual(this);
+		Factory.RegisterIndividual(this);
 		//Do something
 	}
     //测试消息系统
@@ -47,7 +47,7 @@ public class Individual : MonoBehaviour
     /// </summary>
     public void Dead()
     {
-        LogicManager.RemoveIndividual(this);
+        Factory.RemoveIndividual(this);
         gameObject.SetActive(false);
     }
 

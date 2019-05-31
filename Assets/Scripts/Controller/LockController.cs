@@ -10,18 +10,19 @@ public class LockController : MonoBehaviour
 {
     public bool lockState;
     public float lockLength = 10f;
-    public GameObject playerHandle;
+
+    public GameObject player;
+    public GameObject model;
 
     [HideInInspector]
     public GameObject lockTarget;
     [HideInInspector]
     public float lockTargetHalfHight;
 
-    private GameObject model;
+
 
     void Awake()
     {
-        model = playerHandle.GetComponent<PlayerController>().model;
         lockState = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -54,7 +55,7 @@ public class LockController : MonoBehaviour
                 break;
             }
             //目标不是操控者
-            if (col.gameObject != playerHandle)
+            if (col.gameObject != player)
             {
                 lockTarget = col.gameObject;
                 lockTargetHalfHight = col.bounds.extents.y;
