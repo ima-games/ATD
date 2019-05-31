@@ -61,7 +61,7 @@ public class LogicManager : MonoBehaviour {
 	/// <param name="message">输出的信息</param>
 	[System.Diagnostics.Conditional("DEBUG")]
 	public static void Log(string message) {
-		Debug.Log(message);
+        Logger.Log(message, LogType.Individual);
 	}
 
 	/// <summary>

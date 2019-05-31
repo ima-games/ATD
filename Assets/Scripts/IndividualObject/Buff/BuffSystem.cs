@@ -35,12 +35,13 @@ public class BuffSystem : MonoBehaviour
 
     private void Update()
     {
-        CleanBuffsToDelete();    
+
     }
 
     private void FixedUpdate()
     {
-        BuffUpdate();
+        CleanBuffsToDelete();
+        BuffsUpdate();
     }
     
     /// <summary>
@@ -56,7 +57,6 @@ public class BuffSystem : MonoBehaviour
     private void AddBuff(int buffID)
     {
         Buff buff;
-
         BuffData buffData = BuffDataBase.Instance.GetBuffData(buffID);
         //若buff列表没有对应的Buff，则新建一个Buff对象
         if (!myBuffs.TryGetValue(buffID,out buff))
@@ -66,36 +66,37 @@ public class BuffSystem : MonoBehaviour
             //把buffID加入到buff栏中显示在面板里
             buffShow.Add(buff);
             //同步属性：增加BUFF
-            AddBuffSync(buffData);
+            AddBuffSync(buffID);
         }
         
         //对该buff属性进行更新
-        buff.ID += buffID;
+        buff.ID = buffID;
+        buff.isTrigger = buffData.isTrigger;
         buff.time += buffData.Time;
         buff.repeatCount += buffData.Count;
-        buff.isTrigger = buffData.isTrigger;
 
-        Debug.Log("ID为 "+buffID+" 已加入到列表");
+        Logger.Log("Buff "+buffID+" 已添加",LogType.Buff);
     }
 
     //移除buff
     private void RemoveBuff(Buff buff)
     {
+        //添加到待删除队列
         buffsToDelete[buffsToDeleteCount] = buff.ID;
         buffsToDeleteCount++;
-
+        //可视化移除
         buffShow.Remove(buff);
-        BuffData buffData = BuffDataBase.Instance.GetBuffData(buff.ID);
-        //同步属性：移除BUFF
-        RemoveBuffSync(buffData);
+
+        Logger.Log("Buff "+ buff.ID +"已移除", LogType.Buff);
     }
 
     /// <summary>
     /// Buff属性增加性同步
     /// </summary>
     /// <param name="buffdata"></param>
-    private void AddBuffSync(BuffData buffdata)
+    private void AddBuffSync(int buffID)
     {
+        BuffData buffdata = BuffDataBase.Instance.GetBuffData(buffID);
         myIndividual.HealthChange(buffdata.HpChange);
         myIndividual.HealthChange(buffdata.HpChange_p);
         myIndividual.AttackChange(buffdata.AttackChange);
@@ -105,14 +106,17 @@ public class BuffSystem : MonoBehaviour
         myIndividual.RecoverRateChange(buffdata.HpReturnChange);
         myIndividual.RecoverRateChange(buffdata.HpReturnChange_p);
         myIndividual.ReviveCountChange(buffdata.AddReviveCount);
+
+        Logger.Log("生效Buff" + buffID + " ", LogType.Buff);
     }
 
     /// <summary>
     /// Buff属性移除性同步
     /// </summary>
     /// <param name="buffdata"></param>
-    private void RemoveBuffSync(BuffData buffdata)
+    private void RemoveBuffSync(int buffID)
     {
+        BuffData buffdata = BuffDataBase.Instance.GetBuffData(buffID);
         myIndividual.HealthChange(-buffdata.HpChange);
         myIndividual.HealthChange(-buffdata.HpChange_p);
         myIndividual.AttackChange(-buffdata.AttackChange);
@@ -122,32 +126,57 @@ public class BuffSystem : MonoBehaviour
         myIndividual.RecoverRateChange(-buffdata.HpReturnChange);
         myIndividual.RecoverRateChange(-buffdata.HpReturnChange_p);
         myIndividual.ReviveCountChange(-buffdata.AddReviveCount);
+
+        Logger.Log("失效Buff" + buffID + " ", LogType.Buff);
     }
 
     //BUFF时间更新
-    private void BuffUpdate()
+    private void BuffsUpdate()
     {
         foreach (var itr in myBuffs)
         {
             Buff buff = itr.Value;
+            int count = itr.Value.repeatCount;
             //触发型buff机制
-            if (buff.isTrigger && itr.Value.repeatCount >= 0)
+            if (buff.isTrigger)
             {
                 //注意顺序：要先检测次数用尽，再执行次数减少
                 //TRICK，避免多次释放/新建1次性触发Buff对象
-                if (itr.Value.repeatCount == 0)
+
+                //触发次数用完
+                if (count == 0)
                 {
                     RemoveBuff(itr.Value);
                 }
-                buff.repeatCount -= 1;
+                //无限触发
+                else if (count < 0)
+                {
+                    AddBuffSync(buff.ID);
+                }
+                //仍有触发次数
+                else
+                {
+                    buff.repeatCount -= 1;
+                    AddBuffSync(buff.ID);
+                }
             }
             //持续性buff机制
             else
             {
-                buff.time -= Time.fixedDeltaTime;
-                if (itr.Value.time <= 0.0f)
+                //无限触发
+                if (count < 0)
                 {
-                    RemoveBuff(itr.Value);
+                    //DoNothing
+                }
+                //正常减少时间
+                else
+                {
+                    buff.time -= Time.fixedDeltaTime;
+                    if (itr.Value.time <= 0.0f)
+                    {
+                        RemoveBuff(itr.Value);
+                        RemoveBuffSync(buff.ID);
+                    }
                 }
             }
         }

@@ -45,7 +45,7 @@ public class HatredSystem : MonoBehaviour
 
         if (HateSource == null)
         {
-            Debug.Log("HateSource is null");
+            Logger.Log("HateSource is null", LogType.Hatred);
             return;
         }
         //如果目标的势力和自己相同则不列入仇恨列表
@@ -70,7 +70,7 @@ public class HatredSystem : MonoBehaviour
         SharedTransform sf = GetMostHatedTarget();
         behaviorTree.SetVariable("MostHatredTarget", sf);
 
-        Debug.Log(gameObject.name+"对ID为"+HateSource.gameObject.name+"的对象增加了"+hatredList[HateSource.ID]+"点仇恨值");
+        Logger.Log(gameObject.name+"对ID为"+HateSource.gameObject.name+"的对象增加了"+hatredList[HateSource.ID]+"点仇恨值",LogType.Hatred);
     }
 
     /// <summary>
