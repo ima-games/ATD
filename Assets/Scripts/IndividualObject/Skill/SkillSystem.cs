@@ -14,9 +14,9 @@ public class SkillSystem : MonoBehaviour
     {
         individual = GetComponent<Individual>();
         
-        heroSkills.Add(new AOESkill(0,10));
-        heroSkills.Add(new AOESkill(1,1));
-        heroSkills.Add(new AOESkill(2,1));
+        heroSkills.Add(new AOESkill(0,0.1f));
+        heroSkills.Add(new AOESkill(1,0.1f));
+        heroSkills.Add(new AOESkill(2,0.1f));
     }
 
     // Update is called once per frame

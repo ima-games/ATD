@@ -40,6 +40,7 @@ public class BuffSystem : MonoBehaviour
 
     private void FixedUpdate()
     {
+        CheckBuffsToDelete();
         CleanBuffsToDelete();
         BuffsUpdate();
     }
@@ -56,28 +57,36 @@ public class BuffSystem : MonoBehaviour
     //添加buff
     private void AddBuff(int buffID)
     {
+        Logger.Log("Buff " + buffID + " 已传入", LogType.Buff);
+
         Buff buff;
         BuffData buffData = BuffDataBase.Instance.GetBuffData(buffID);
 
-        Logger.Log("Buff " + buffID + " 已添加", LogType.Buff);
-
-        //若buff列表没有对应的Buff，则新建一个Buff对象
-        if (!myBuffs.TryGetValue(buffID,out buff))
+        //若已有同种Buff，则对该Buff对象属性进行更新
+        if (myBuffs.TryGetValue(buffID, out buff))
+        {
+            buff.time += buffData.Time;
+            buff.repeatCount += buffData.Count;
+        }
+        //若buff列表没有同种Buff，则新建一个Buff对象
+        else
         {
             buff = new Buff();
+            //对该buff属性进行更新
+            buff.ID = buffID;
+            buff.isTrigger = buffData.isTrigger;
+            buff.time = buffData.Time;
+            buff.repeatCount = buffData.Count;
+            //持续型Buff，第一次进入就要进行同步增加属性
+            if (!buffData.isTrigger)
+            {
+                AddBuffSync(buffID);
+            }
+            //添加buff到列表
             myBuffs.Add(buffID, buff);
-            //把buffID加入到buff栏中显示在面板里
+            //添加到显示面板里
             buffShow.Add(buff);
-            //同步属性：增加BUFF
-            AddBuffSync(buffID);
         }
-        
-        //对该buff属性进行更新
-        buff.ID = buffID;
-        buff.isTrigger = buffData.isTrigger;
-        buff.time += buffData.Time;
-        buff.repeatCount += buffData.Count;
-
 
     }
 
@@ -85,7 +94,6 @@ public class BuffSystem : MonoBehaviour
     private void RemoveBuff(Buff buff)
     {
         Logger.Log("Buff " + buff.ID + "已移除", LogType.Buff);
-
         //添加到待删除队列
         buffsToDelete[buffsToDeleteCount] = buff.ID;
         buffsToDeleteCount++;
@@ -139,48 +147,17 @@ public class BuffSystem : MonoBehaviour
         foreach (var itr in myBuffs)
         {
             Buff buff = itr.Value;
-            int count = itr.Value.repeatCount;
             //触发型buff机制
             if (buff.isTrigger)
             {
-                //注意顺序：要先检测次数用尽，再执行次数减少
-                //TRICK，避免多次释放/新建1次性触发Buff对象
-
-                //触发次数用完
-                if (count == 0)
-                {
-                    RemoveBuff(itr.Value);
-                }
-                //无限触发
-                else if (count < 0)
-                {
-                    AddBuffSync(buff.ID);
-                }
-                //仍有触发次数
-                else
-                {
-                    buff.repeatCount -= 1;
-                    AddBuffSync(buff.ID);
-                }
+                AddBuffSync(buff.ID);
+                if (buff.repeatCount > 0)buff.repeatCount -= 1;
+                buff.time -= Time.fixedDeltaTime;
             }
             //持续性buff机制
             else
             {
-                //无限触发
-                if (count < 0)
-                {
-                    //DoNothing
-                }
-                //正常减少时间
-                else
-                {
-                    buff.time -= Time.fixedDeltaTime;
-                    if (itr.Value.time <= 0.0f)
-                    {
-                        RemoveBuff(itr.Value);
-                        RemoveBuffSync(buff.ID);
-                    }
-                }
+                buff.time -= Time.fixedDeltaTime;
             }
         }
     }
@@ -201,14 +178,37 @@ public class BuffSystem : MonoBehaviour
     }
 
     /// <summary>
+    /// 检查是否有过期的Buff
+    /// </summary>
+    private void CheckBuffsToDelete()
+    {
+        foreach (var itr in myBuffs)
+        {
+            Buff buff = itr.Value;
+            //buff次数和时间都消耗完
+            if (buff.repeatCount == 0 && buff.time < 0.01f)
+            {
+                RemoveBuff(itr.Value);
+                //持续类型需要进行移除同步属性
+                if (!buff.isTrigger)
+                {
+                    RemoveBuffSync(buff.ID);
+                }
+            }
+        }
+    }
+
+    /// <summary>
     /// 清理待删除Buff
     /// </summary>
     private void CleanBuffsToDelete()
     {
-        for(int i = 0;i<buffsToDeleteCount; ++i)
+        //移除
+        for (int i = 0;i<buffsToDeleteCount; ++i)
         {
             myBuffs.Remove(buffsToDelete[i]);
         }
+        buffsToDeleteCount = 0;
     }
     
 }
