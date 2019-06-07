@@ -1,10 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Factory : MonoBehaviour
 {
-
     #region Fields
     /// <summary>
     /// ID队列的最大容量
@@ -19,11 +19,6 @@ public class Factory : MonoBehaviour
     private static Queue<int> _IDQueue;
 
     /// <summary>
-    /// 存活个体的ID列表字段
-    /// </summary>
-    private static List<Individual> _aliveIndividualList;
-
-    /// <summary>
     /// ID-Individual查找表
     /// </summary>
     private static Dictionary<int, Individual> _IDToIndividualDictionary;
@@ -33,14 +28,15 @@ public class Factory : MonoBehaviour
     /// 被标记死亡的个体对象（每帧检查这个列表，并对列表内的游戏对象进行Destory）
     /// </summary>
     private static List<Individual> _IndividualsToDelete;
+
+
     #endregion
 
     #region Properties
     /// <summary>
-    /// 存活个体的ID列表
+    /// 个体列表
     /// </summary>
-    public static List<Individual> AliveIndividualList { get { return _aliveIndividualList; } }
-
+    public static Dictionary<int, Individual> IDToIndividualDictionary { get => _IDToIndividualDictionary;}
     #endregion
 
     #region Public Methods
@@ -53,8 +49,7 @@ public class Factory : MonoBehaviour
     {
         int key = _IDQueue.Dequeue();
         ind.ID = key;
-        _IDToIndividualDictionary.Add(key, ind);
-        _aliveIndividualList.Add(ind);
+        IDToIndividualDictionary.Add(key, ind);
         Logger.Log($"Individual { ind.ID } has successfully registered.",LogType.Individual);
     }
 
@@ -65,8 +60,7 @@ public class Factory : MonoBehaviour
     /// <param name="ID">ID：英雄为0，基地为1</param>
     public static void RegisterIndividual(Individual ind, int ID)
     {
-        _IDToIndividualDictionary.Add(ID, ind);
-        _aliveIndividualList.Add(ind);
+        IDToIndividualDictionary.Add(ID, ind);
         Logger.Log($"Individual { ind.ID } has successfully registered.", LogType.Individual);
     }
 
@@ -76,14 +70,12 @@ public class Factory : MonoBehaviour
     /// <param name="ind">死亡的Individual</param>
     public static void RemoveIndividual(Individual ind)
     {
-
         //带删除列表增加该对象
         _IndividualsToDelete.Add(ind);
 
-        if (_IDToIndividualDictionary.ContainsKey(ind.ID))
+        if (IDToIndividualDictionary.ContainsKey(ind.ID))
         {
-            _IDToIndividualDictionary.Remove(ind.ID);
-            _aliveIndividualList.Remove(ind);
+            IDToIndividualDictionary.Remove(ind.ID);
             if (ind.ID != 0 && ind.ID != 1)
             {
                 _IDQueue.Enqueue(ind.ID);
@@ -97,12 +89,84 @@ public class Factory : MonoBehaviour
     /// <param name="ID">待查找的ID</param>
     public static Individual GetIndividual(int ID)
     {
-        if (_IDToIndividualDictionary.ContainsKey(ID))
+        if (IDToIndividualDictionary.ContainsKey(ID))
         {
-            return _IDToIndividualDictionary[ID];
+            return IDToIndividualDictionary[ID];
         }
         Logger.Log($"Individual { ID } is NOT found.", LogType.Individual);
         return null;
+    }
+
+    //NOTE：ADDED BY AERY
+    /// <summary>
+    /// 遍历个体列表（可带条件过滤）
+    /// </summary>
+    /// <param name="行为"></param>
+    /// <param name="条件"></param>
+    public static void TraversalIndividuals(Action<Individual> action, Func<Individual, bool> condition)
+    {
+        foreach (var pair in IDToIndividualDictionary)
+        {
+            Individual ind = pair.Value;
+            if (condition(ind))
+            {
+                action(ind);
+            }
+        }
+    }
+
+    //NOTE：ADDED BY AERY
+    /// <summary>
+    /// 遍历个体列表（可带条件过滤）
+    /// </summary>
+    /// <param name="行为"></param>
+    /// <param name="条件"></param>
+    public static void TraversalIndividuals(Action<Individual> action)
+    {
+        foreach (var pair in IDToIndividualDictionary)
+        {
+           action(pair.Value);
+        }
+    }
+
+    //NOTE：ADDED BY AERY
+    /// <summary>
+    /// 遍历个体列表（可带条件过滤）
+    /// </summary>
+    /// <param name="行为"></param>
+    /// <param name="圆心"></param>
+    /// <param name="半径"></param>
+    /// <param name="条件"></param>
+    public static void TraversalIndividualsInCircle(Action<Individual> action, Vector3 point, float radius, Func<Individual, bool> condition)
+    {
+        foreach (var pair in IDToIndividualDictionary)
+        {
+            Individual ind = pair.Value;
+            if ((ind.transform.position - point).sqrMagnitude < radius * radius && condition(ind))
+            {
+                action(ind);
+            }
+        }
+    }
+
+    //NOTE：ADDED BY AERY
+    /// <summary>
+    /// 遍历个体列表（可带条件过滤）
+    /// </summary>
+    /// <param name="行为"></param>
+    /// <param name="圆心"></param>
+    /// <param name="半径"></param>
+    /// <param name="条件"></param>
+    public static void TraversalIndividualsInCircle(Action<Individual> action, Vector3 point, float radius)
+    {
+        foreach (var pair in IDToIndividualDictionary)
+        {
+            Individual ind = pair.Value;
+            if ((ind.transform.position - point).sqrMagnitude < radius * radius)
+            {
+                action(ind);
+            }
+        }
     }
 
     #endregion
@@ -154,7 +218,6 @@ public class Factory : MonoBehaviour
     void Awake()
     {
         _IDQueue = new Queue<int>(_MAX_IDQUEUE_SIZE);
-        _aliveIndividualList = new List<Individual>();
         _IDToIndividualDictionary = new Dictionary<int, Individual>();
         _IndividualsToDelete = new List<Individual>();
 

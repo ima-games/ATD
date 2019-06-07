@@ -33,14 +33,9 @@ public class BuffSkill : ISkill
     {
         if (isAura)
         {
-            foreach(var individual in Factory.AliveIndividualList)
-            {
-                //在光环范围内
-                if((individual.transform.position - master.transform.position).sqrMagnitude < range* range)
-                {
-                    master.GetComponent<MessageSystem>().SendMessage(2,individual.ID, buffID);
-                }
-            }
+            Factory.TraversalIndividualsInCircle(
+                (individual) => { master.GetComponent<MessageSystem>().SendMessage(2, individual.ID, buffID); }
+                , master.transform.position, range);
         }
     }
 }

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//非编辑模式下，关掉所有Log
-#if !UNITY_EDITOR
-        Debug.unityLogger.logEnabled = false;
-#endif
+////非编辑模式下，关掉所有Log
+//#if !UNITY_EDITOR
+//        Debug.unityLogger.logEnabled = false;
+//#endif
 
 /// <summary>
 /// 单例类：Debug模式下的日志调试
