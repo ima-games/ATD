@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 技能映射控制器
 /// </summary>
-public class SkillController : MonoBehaviour
+public class SkillInput : MonoBehaviour
 {
     public SkillSystem player;
     private SkillSystem skillSystem;

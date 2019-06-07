@@ -13,4 +13,10 @@ public class TriggerControl : MonoBehaviour
     public void ResetTrigger(string triggerName) {
         animator.ResetTrigger(triggerName);
     }
+
+    //TODO : 暂时消除攻击动画播放时缺失事件的错误提示
+    void ClearSignalAttack()
+    {
+
+    }
 }
