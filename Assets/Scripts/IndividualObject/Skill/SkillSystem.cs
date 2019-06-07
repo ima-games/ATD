@@ -9,14 +9,24 @@ public class SkillSystem : MonoBehaviour
     // List<ISkill> EquipmentSkill = new List<ISkill>();
     //装备技能对象列表
     private Individual individual;
-    // Start is called before the first frame update
-    void Start()
+
+
+    private void Awake()
     {
         individual = GetComponent<Individual>();
-        
-        heroSkills.Add(new AOESkill(0,0.1f));
-        heroSkills.Add(new AOESkill(1,0.1f));
-        heroSkills.Add(new AOESkill(2,0.1f));
+
+        heroSkills.Add(new BuffSkill(6, true, true, 5.0f));   //主动技能：嘲讽Buff
+        heroSkills.Add(new BuffSkill(0, true, false));        //主动技能：回血buff
+        heroSkills.Add(new BuffSkill(14, true, false));       //主动技能：攻速戒指buff
+    }
+
+
+    void Start()
+    {
+        foreach (ISkill skill in heroSkills)
+        {
+            skill.InitSkill(individual);
+        }
     }
 
     // Update is called once per frame
@@ -26,7 +36,7 @@ public class SkillSystem : MonoBehaviour
         {
             skill.UpdateSkill(individual);
         }
-    }
+    } 
 
     /// <summary>
     /// 释放技能

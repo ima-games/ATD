@@ -6,7 +6,7 @@ using UnityEngine;
 public class Individual : MonoBehaviour
 {
     public int ID = 0;
-    public int health = 100;           //生命
+    public float health = 100;           //生命
     public int maxHealth = 100;        //最大生命值
     public int attack = 10;            //攻击力
     public float attackSpeed = 1.0f;   //攻击速度
@@ -36,10 +36,11 @@ public class Individual : MonoBehaviour
 		Factory.RegisterIndividual(this);
 		//Do something
 	}
+
     //测试消息系统
     public void ReduceHealth(int damage)
     {
-        health-=damage;
+        health -= damage;
     }
 
     /// <summary>
@@ -49,6 +50,14 @@ public class Individual : MonoBehaviour
     {
         Factory.RemoveIndividual(this);
         gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// 个体属性更新
+    /// </summary>
+    private void Update()
+    {
+        health += recoverRate * Time.deltaTime;
     }
 
     //--------------------以下属性更改方法--------------------
