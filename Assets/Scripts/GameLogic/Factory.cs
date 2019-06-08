@@ -23,20 +23,32 @@ public class Factory : MonoBehaviour
     /// </summary>
     private static Dictionary<int, Individual> _IDToIndividualDictionary;
 
+    /// <summary>
+    /// 特殊记录：玩家个体对象
+    /// </summary>
+    private static Individual player = null;
+
+    /// <summary>
+    /// 特殊记录：基地个体对象
+    /// </summary>
+    private static Individual baseIndividual = null;
+
     //NOTE：ADDED BY AERY
     /// <summary>
-    /// 被标记死亡的个体对象（每帧检查这个列表，并对列表内的游戏对象进行Destory）
+    /// 辅助用：被标记死亡的个体对象（每帧检查这个列表，并对列表内的游戏对象进行Destory）
     /// </summary>
     private static List<Individual> _IndividualsToDelete;
-
 
     #endregion
 
     #region Properties
-    /// <summary>
-    /// 个体列表
-    /// </summary>
+
     public static Dictionary<int, Individual> IDToIndividualDictionary { get => _IDToIndividualDictionary;}
+
+    public static Individual PlayerIndividual { get => player;}
+
+    public static Individual BaseIndividual { get => baseIndividual;}
+
     #endregion
 
     #region Public Methods
@@ -45,23 +57,28 @@ public class Factory : MonoBehaviour
     /// 在生成新的Individual时注册ID
     /// </summary>   
     /// <param name="ind">待注册的Individual</param>
-    public static void RegisterIndividual(Individual ind)
+    public static void RegisterIndividual(Individual ind, IndividualType individualType = IndividualType.Normal)
     {
+        //根据个体类型，记录特别个体
+        switch (individualType)
+        {
+            case IndividualType.Normal:
+                break;
+            case IndividualType.Player:
+                if (player) { Logger.Log("Warning!PlayerIndividual already existed!!", LogType.Individual); }
+                player = ind;
+                break;
+            case IndividualType.BaseIndividual:
+                if (baseIndividual) { Logger.Log("Warning!baseIndividual already existed!!", LogType.Individual); }
+                baseIndividual = ind;
+                break;
+        }
+
         int key = _IDQueue.Dequeue();
         ind.ID = key;
         IDToIndividualDictionary.Add(key, ind);
-        Logger.Log($"Individual { ind.ID } has successfully registered.",LogType.Individual);
-    }
 
-    /// <summary>
-    /// 在生成英雄或者基地时注册ID
-    /// </summary>   
-    /// <param name="ind">待注册的Individual</param>
-    /// <param name="ID">ID：英雄为0，基地为1</param>
-    public static void RegisterIndividual(Individual ind, int ID)
-    {
-        IDToIndividualDictionary.Add(ID, ind);
-        Logger.Log($"Individual { ind.ID } has successfully registered.", LogType.Individual);
+        Logger.Log($"Individual { ind.ID } has successfully registered.",LogType.Individual);
     }
 
     /// <summary>
@@ -76,10 +93,7 @@ public class Factory : MonoBehaviour
         if (IDToIndividualDictionary.ContainsKey(ind.ID))
         {
             IDToIndividualDictionary.Remove(ind.ID);
-            if (ind.ID != 0 && ind.ID != 1)
-            {
-                _IDQueue.Enqueue(ind.ID);
-            }
+            _IDQueue.Enqueue(ind.ID);
         }
     }
 
@@ -221,7 +235,7 @@ public class Factory : MonoBehaviour
         _IDToIndividualDictionary = new Dictionary<int, Individual>();
         _IndividualsToDelete = new List<Individual>();
 
-        for (int id = 2; id < _MAX_IDQUEUE_SIZE; id++)
+        for (int id = 1; id < _MAX_IDQUEUE_SIZE; id++)
         {
             _IDQueue.Enqueue(id);
         }
@@ -248,4 +262,12 @@ public class Factory : MonoBehaviour
     }
 
     #endregion
+}
+
+/// <summary>
+/// 个体类型，目前只需要特化玩家类型和基地类型，用于Factory直接查找特殊个体
+/// </summary>
+public enum IndividualType
+{
+    Normal,Player,BaseIndividual
 }

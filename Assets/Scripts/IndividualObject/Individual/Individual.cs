@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class Individual : MonoBehaviour
 {
+    public IndividualType individualType = IndividualType.Normal;   //个体类型
+
     public int ID = 0;
-    public float health = 100;           //生命
+    public float health = 100;         //生命
     public int maxHealth = 100;        //最大生命值
     public int attack = 10;            //攻击力
     public float attackSpeed = 1.0f;   //攻击速度
@@ -32,10 +34,16 @@ public class Individual : MonoBehaviour
     public int reviveCount = 0;         //复活次数
     public int maxReviveCount = 0;      //最大复活次数
 
-    void Start() {
-		Factory.RegisterIndividual(this);
-		//Do something
-	}
+    private void Awake()
+    {
+        //向工厂注册个体
+        Factory.RegisterIndividual(this, individualType);
+    }
+
+    void Start()
+    {
+
+    }
 
     /// <summary>
     /// 个体对象死亡时调用的死亡函数
