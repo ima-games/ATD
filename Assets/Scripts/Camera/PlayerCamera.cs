@@ -39,7 +39,7 @@ public class PlayerCamera : MonoBehaviour
     private Quaternion targetRotation;
 
     //TODO
-    private MouseDrag mouseDrag;
+    private MouseSelect mouseSelect;
 
     private void Awake()
     {
@@ -47,7 +47,7 @@ public class PlayerCamera : MonoBehaviour
         camera = Camera.main;
         cameraPos = cameraHandle.transform.GetChild(0);
 
-        mouseDrag = GetComponent<MouseDrag>();
+        mouseSelect = GetComponent<MouseSelect>();
     }
 
     void Start()
@@ -98,27 +98,35 @@ public class PlayerCamera : MonoBehaviour
             }
         }
 
-        //TODO
         if (state == State.Neither)
         {
-            mouseDrag.enabled = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            float distanSq = Vector3.SqrMagnitude(camera.transform.position - targetPosition);
 
-            if (Vector3.Distance(transform.position, targetPosition) < .01f)
+            if (isToTopDownView && distanSq < 5.0f * 5.0f)
             {
-                transform.position = targetPosition;
-                transform.rotation = targetRotation;
+                mouseSelect.enabled = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                mouseSelect.enabled = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+
+            if (distanSq < .015f * .015f)
+            {
                 if (isToTopDownView)
                 {
                     state = State.TD;
-                    mouseDrag.enabled = true;
-                    Cursor.lockState = CursorLockMode.None;
                 }
                 else
                 {
                     state = State.TPS;
                 }
+                transform.position = targetPosition;
+                transform.rotation = targetRotation;
             }
+
         }
 
         camera.transform.position = Vector3.SmoothDamp(camera.transform.position, targetPosition, ref cameraDampVelocity, cameraDampValue);
