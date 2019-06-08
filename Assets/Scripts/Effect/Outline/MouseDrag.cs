@@ -10,11 +10,13 @@ public class MouseDrag : MonoBehaviour {
 
     void Update()
     {
+        //TODO
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitInfo;
 
+        int mask = (1 << 11);
         // 射线检测
-        if (Physics.Raycast(ray, out hitInfo))
+        if (Physics.Raycast(ray,out hitInfo,10000, mask, new QueryTriggerInteraction()))
         {
             //在scene视图中显示检测射线
             Debug.DrawLine(ray.origin, hitInfo.point, Color.green);
