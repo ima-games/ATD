@@ -38,11 +38,16 @@ public class PlayerCamera : MonoBehaviour
     private Vector3 targetPosition;
     private Quaternion targetRotation;
 
+    //TODO
+    private MouseDrag mouseDrag;
+
     private void Awake()
     {
         tempEulerX = 20;
         camera = Camera.main;
         cameraPos = cameraHandle.transform.GetChild(0);
+
+        mouseDrag = GetComponent<MouseDrag>();
     }
 
     void Start()
@@ -93,8 +98,12 @@ public class PlayerCamera : MonoBehaviour
             }
         }
 
+        //TODO
         if (state == State.Neither)
         {
+            mouseDrag.enabled = false;
+            Cursor.lockState = CursorLockMode.Locked;
+
             if (Vector3.Distance(transform.position, targetPosition) < .01f)
             {
                 transform.position = targetPosition;
@@ -102,6 +111,8 @@ public class PlayerCamera : MonoBehaviour
                 if (isToTopDownView)
                 {
                     state = State.TD;
+                    mouseDrag.enabled = true;
+                    Cursor.lockState = CursorLockMode.None;
                 }
                 else
                 {
