@@ -1,18 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MoneyTextUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private LogicManager logicManager;
+    private Text text;
+    private string moneyString = " $";
+
+    private void Awake()
     {
-        
+        logicManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<LogicManager>();
+        text = GetComponent<Text>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        text.text = logicManager.Cash + moneyString;
     }
 }
