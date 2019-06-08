@@ -37,12 +37,6 @@ public class Individual : MonoBehaviour
 		//Do something
 	}
 
-    //测试消息系统
-    public void ReduceHealth(int damage)
-    {
-        health -= damage;
-    }
-
     /// <summary>
     /// 个体对象死亡时调用的死亡函数
     /// </summary>

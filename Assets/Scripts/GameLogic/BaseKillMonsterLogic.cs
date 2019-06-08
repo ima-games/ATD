@@ -13,7 +13,7 @@ public class BaseKillMonsterLogic : MonoBehaviour
         {
             Destroy(collision.gameObject);
 
-            baseIndividual.ReduceHealth(1);
+            baseIndividual.health -= 5.0f;
             float BaseHp = baseIndividual.health;
 
             Debug.Log("基地血量为" + BaseHp);
