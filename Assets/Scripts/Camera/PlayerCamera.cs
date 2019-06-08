@@ -22,7 +22,21 @@ public class PlayerCamera : MonoBehaviour
     private Vector3 cameraDampVelocity;
     private new Camera camera;
 
+    public GameObject TDView;
+    public float LerpModulus;
 
+    private enum State
+    {
+        TPS, TD, Neither
+    }
+    private State state;
+    private bool isToTopDownView;
+
+    private Vector3 TDPosition;
+    private Quaternion TDRotation;
+
+    private Vector3 targetPosition;
+    private Quaternion targetRotation;
 
     private void Awake()
     {
@@ -33,7 +47,12 @@ public class PlayerCamera : MonoBehaviour
 
     void Start()
     {
-        
+        state = State.TPS;
+        TDPosition = TDView.transform.position;
+        TDRotation = TDView.transform.rotation;
+        targetPosition = TDPosition;
+        targetRotation = TDRotation;
+        isToTopDownView = false;
     }
 
     void FixedUpdate()
@@ -56,7 +75,44 @@ public class PlayerCamera : MonoBehaviour
             cameraHandle.transform.LookAt(lockTarget.transform);
         }
 
-        camera.transform.position = Vector3.SmoothDamp(camera.transform.position, cameraPos.transform.position, ref cameraDampVelocity, cameraDampValue);
-        camera.transform.LookAt(cameraHandle.transform);
+
+        if (!isToTopDownView)
+        {
+            targetPosition = cameraPos.position;
+            targetRotation = cameraPos.rotation;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            state = State.Neither;
+            isToTopDownView = !isToTopDownView;
+            if (isToTopDownView)
+            {
+                targetPosition = TDPosition;
+                targetRotation = TDRotation;
+            }
+        }
+
+        if (state == State.Neither)
+        {
+            if (Vector3.Distance(transform.position, targetPosition) < .01f)
+            {
+                transform.position = targetPosition;
+                transform.rotation = targetRotation;
+                if (isToTopDownView)
+                {
+                    state = State.TD;
+                }
+                else
+                {
+                    state = State.TPS;
+                }
+            }
+        }
+
+        camera.transform.position = Vector3.SmoothDamp(camera.transform.position, targetPosition, ref cameraDampVelocity, cameraDampValue);
+        camera.transform.rotation = Quaternion.Slerp(camera.transform.rotation, targetRotation, LerpModulus);
+        //transform.position = Vector3.Slerp(transform.position, targetPosition, LerpModulus);
+        //camera.transform.LookAt(cameraHandle.transform);
     }
 }
