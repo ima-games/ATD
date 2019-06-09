@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
     public float runMultiplier = 2.4f;
     public float jumpVelocity = 5.0f;
     public float rollVeticalVelocity = 0f;
+
     [Header ("动画平滑系数")]
     public float rotateRatio = 0.3f; //转身
     public float runRatio = 0.3f; //切换奔跑
@@ -33,13 +34,20 @@ public class PlayerController : MonoBehaviour {
     private Vector3 deltaPos;
     public bool leftIsShield = true;
 
+    private Individual individual;
+
     void Awake () {
         animator = model.GetComponent<Animator> ();
         rigidbody = GetComponent<Rigidbody> ();
         capsuleCollider = GetComponent<CapsuleCollider> ();
+        individual = GetComponent<Individual>();
     }
 
     void Update () {
+        //根据个体属性，更新移动速度
+        walkSpeed = individual.speed / 8.0f;
+        //根据个体属性，更新攻击速度
+        animator.SetFloat("attackSpeed", individual.attackSpeed);
 
         if (playerInput.lockon) {
             lockController.LockSwitch ();

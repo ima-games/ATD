@@ -10,8 +10,5 @@ public class RootMotoinControl : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    void OnAnimatorMove() {
-        SendMessageUpwards("OnUpdateRM",animator.deltaPosition);
 
-    }
 }

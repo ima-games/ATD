@@ -101,13 +101,13 @@ public class Individual : MonoBehaviour
     //改变百分比攻速
     public void AttackSpeedChange(double increment_p)
     {
-        attackSpeed = (float)(1.0f + increment_p) * attackSpeed;
+        attackSpeed = (float)(attackSpeed + increment_p);
     }
 
     //改变百分比速度
     public void SpeedChange(double increment_p)
     {
-        speed = (float)(1.0f + increment_p) * speed;
+        speed = (float)(speed + increment_p);
     }
 
     //改变固定数值的回血速度
