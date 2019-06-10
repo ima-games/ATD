@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LogicManager : MonoBehaviour {
+public class MoneyManager : MonoBehaviour {
 
     #region Fields
     /// <summary>

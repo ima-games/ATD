@@ -17,7 +17,7 @@ public class TowerManager : MonoBehaviour
     private TowerDataBase _towerDataBase;
 
     //金钱
-    private LogicManager _logicManager;
+    private MoneyManager _logicManager;
 
     //塔基对应是否有塔
     private Dictionary<GameObject, bool> _towerBaseHasTower = new Dictionary<GameObject, bool>();
