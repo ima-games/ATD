@@ -20,12 +20,8 @@ public class WeaponTriggerEvent : MonoBehaviour {
 
         messageSystem.SendMessage (1, otherIndividual.ID, master.attack);
 
-        //0.5秒内才能再触发一次攻击消息，避免一次攻击多次触发
-        attacking = true;
+        ////0.5秒内才能再触发一次攻击消息，避免一次攻击多次触发
+        //attacking = true;
     }
 
-    public void attack()
-    {
-        attacking = false;
-    }
 }
