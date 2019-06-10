@@ -21,6 +21,7 @@ public class Logger : MonoBehaviour
     public bool log_Data;
     public bool log_Tower;
     public bool log_Monster;
+    public bool log_AI;
 
     private static Logger instance;
 
@@ -38,6 +39,7 @@ public class Logger : MonoBehaviour
     static private string dataLog = "Data Log：";
     static private string towerLog = "Tower Log：";
     static private string monsterLog = "Monster Log：";
+    static private string AILog = "AI Log：";
 
     static public void Log(string content,LogType logType = LogType.Default)
     {
@@ -76,6 +78,10 @@ public class Logger : MonoBehaviour
                 if (!instance.log_All && !instance.log_Monster) return;
                 content = monsterLog + content;
                 break;
+            case LogType.AI:
+                if (!instance.log_All && !instance.log_AI) return;
+                content = AILog + content;
+                break;
         }
         //日志输出
         Debug.Log(content);
@@ -91,6 +97,7 @@ public enum LogType{
     Skill,
     Data,
     Tower,
-    Monster
+    Monster,
+    AI
 }
 
