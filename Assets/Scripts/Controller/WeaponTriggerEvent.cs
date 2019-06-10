@@ -13,21 +13,19 @@ public class WeaponTriggerEvent : MonoBehaviour {
         //正在攻击,武器打到的是自己,武器打到的是非个体单位
         if (attacking || otherGo == master.gameObject || LayerMask.LayerToName(otherGo.layer) != "Individual" )
             return;
-
-        Debug.Log("Weapon Trigger Enter！");
+        Logger.Log("Weapon Trigger Enter！", LogType.Individual);
 
         MessageSystem messageSystem = master.GetComponent<MessageSystem> ();
         Individual otherIndividual = otherGo.GetComponent<Individual> ();
 
         messageSystem.SendMessage (1, otherIndividual.ID, master.attack);
+
         //0.5秒内才能再触发一次攻击消息，避免一次攻击多次触发
         attacking = true;
-        // StartCoroutine (AttackTimerCount ());
     }
 
-    // IEnumerator AttackTimerCount () {
-    //     yield return new WaitForSeconds (1.0f);
-    //     attacking = false;
-    // }
-
+    public void attack()
+    {
+        attacking = false;
+    }
 }

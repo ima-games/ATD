@@ -39,15 +39,13 @@ public class PlayerCamera : MonoBehaviour
     private Quaternion targetRotation;
 
     //TODO
-    private MouseSelect mouseSelect;
+    public TowerSelect mouseSelect;
 
     private void Awake()
     {
         tempEulerX = 20;
         camera = Camera.main;
         cameraPos = cameraHandle.transform.GetChild(0);
-
-        mouseSelect = GetComponent<MouseSelect>();
     }
 
     void Start()
