@@ -348,7 +348,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   master: {fileID: 1041712213}
-  attacking: 0
 --- !u!136 &54962661
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -360,9 +359,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 1.11
-  m_Height: 2
+  m_Height: 2.2
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0.000000059604645, y: 0.09, z: -0.00000008940697}
 --- !u!23 &54962662
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4537,7 +4536,7 @@ MonoBehaviour:
   ID: 1
   health: 100
   maxHealth: 100
-  attack: 10
+  attack: 15
   attackSpeed: 1
   speed: 10
   attackDistance: 1

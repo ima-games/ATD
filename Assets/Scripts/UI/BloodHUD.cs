@@ -35,6 +35,10 @@ public class BloodHUD : MonoBehaviour
         }
 
         var ind = Factory.GetIndividual(receverID);
+        if(ind == null)
+        {
+            return;
+        }
 
         int bloodchange = -(int)ob;
 
