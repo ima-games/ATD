@@ -5,35 +5,54 @@ using UnityEngine;
 public class WeaponTriggerEvent : MonoBehaviour {
     public Individual master;
 
-    private void OnCollisionEnter(Collision collision)
+    //TODO 
+    private List<GameObject> attackedObjects = new List<GameObject>();
+    bool attackable = false;
+
+    private void Start()
     {
-        var otherGo = collision.gameObject;
+        
+    }
 
-        //武器打到的是自己,武器打到的是非个体单位
-        if (otherGo == master.gameObject || LayerMask.LayerToName(otherGo.layer) != "Individual")
-            return;
+    private void OnEnable()
+    {
+        attackable = true;
+    }
 
-        Logger.Log("Weapon Collision Enter！", LogType.Individual);
-
-        MessageSystem messageSystem = master.GetComponent<MessageSystem>();
-        Individual otherIndividual = otherGo.GetComponent<Individual>();
-
-        messageSystem.SendMessage(1, otherIndividual.ID, master.attack);
+    private void OnDisable()
+    {
+        attackable = false;
     }
 
     private void OnTriggerEnter (Collider other) {
+        if (!attackable) return;
+
         var otherGo = other.gameObject;
 
         //武器打到的是自己,武器打到的是非个体单位
         if (otherGo == master.gameObject || LayerMask.LayerToName(otherGo.layer) != "Individual" )
             return;
 
-        Logger.Log("Weapon Trigger Enter！", LogType.Individual);
+        if (attackedObjects.Contains(otherGo))
+            return;
+        
+        Logger.Log("Weapon Trigger Attack！", LogType.Individual);
 
-        MessageSystem messageSystem = master.GetComponent<MessageSystem> ();
-        Individual otherIndividual = otherGo.GetComponent<Individual> ();
+        //添加被攻击对象 到 已攻击目标
+        attackedObjects.Add(otherGo);
 
-        messageSystem.SendMessage(1,otherIndividual.ID,master.attack);
+        Individual otherIndividual = otherGo.GetComponent<Individual>();
+        master.Attack(otherIndividual);
     }
 
+    public void StartAttack()
+    {
+        this.enabled = true;
+        attackedObjects.Clear();
+    }
+
+    public void EndAttack()
+    {
+        this.enabled = false;
+    }
 }

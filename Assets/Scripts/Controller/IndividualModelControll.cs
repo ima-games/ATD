@@ -7,6 +7,7 @@ public class IndividualModelControll : MonoBehaviour
     private Animator animator;
     private PlayerController plac;
     public Vector3 a;
+    public WeaponTriggerEvent weapon;
 
     void Awake() {
         animator = GetComponent<Animator>();
@@ -23,9 +24,14 @@ public class IndividualModelControll : MonoBehaviour
         animator.ResetTrigger(triggerName);
     }
 
-    void ClearSignalAttack()
+    void StartAttack()
     {
+        weapon.StartAttack();
+    }
 
+    void EndAttack()
+    {
+        weapon.EndAttack();
     }
 
     void OnAnimatorIK()

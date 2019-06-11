@@ -14,67 +14,67 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: jabVelocity
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: attack1aAVelocity
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: jump
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: roll
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: attack
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: isGround
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: R0L1
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: defense
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: right
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: attackSpeed
     m_Type: 1
-    m_DefaultFloat: 1
+    m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -1370,7 +1370,7 @@ AnimatorState:
   m_SpeedParameter: attackSpeed
   m_MirrorParameter: R0L1
   m_CycleOffsetParameter: 
-  m_TimeParameter: attackSpeed
+  m_TimeParameter: 
 --- !u!1102 &1102443102884410332
 AnimatorState:
   serializedVersion: 5
@@ -1483,7 +1483,7 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: 206266867280739644}
   m_Tag: 
-  m_SpeedParameter: forward
+  m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -1592,7 +1592,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 4831e51d07d01434a9767c5e91b2a464, type: 3}
+  m_Motion: {fileID: 7400000, guid: 3ee2d6ec57fe1d14cb53926333f6ebb4, type: 3}
   m_Tag: attack
   m_SpeedParameter: 
   m_MirrorParameter: R0L1
@@ -1739,7 +1739,7 @@ AnimatorState:
   m_SpeedParameter: attackSpeed
   m_MirrorParameter: R0L1
   m_CycleOffsetParameter: 
-  m_TimeParameter: attackSpeed
+  m_TimeParameter: 
 --- !u!1102 &1102827542229765810
 AnimatorState:
   serializedVersion: 5
@@ -1845,12 +1845,12 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 4831e51d07d01434a9767c5e91b2a464, type: 3}
+  m_Motion: {fileID: 7400000, guid: 7c3ac43c854208542b73444c482c0712, type: 3}
   m_Tag: attack
   m_SpeedParameter: attackSpeed
   m_MirrorParameter: R0L1
   m_CycleOffsetParameter: 
-  m_TimeParameter: attackSpeed
+  m_TimeParameter: 
 --- !u!1107 &1107164711424048772
 AnimatorStateMachine:
   serializedVersion: 5
@@ -1887,10 +1887,10 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1102777060833391644}
-    m_Position: {x: 288, y: 12, z: 0}
+    m_Position: {x: 276, y: 12, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102954242800854584}
-    m_Position: {x: 540, y: 12, z: 0}
+    m_Position: {x: 564, y: -12, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102423942196924280}
     m_Position: {x: 792, y: 12, z: 0}

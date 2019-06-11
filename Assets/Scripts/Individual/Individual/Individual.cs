@@ -34,15 +34,26 @@ public class Individual : MonoBehaviour
     public int reviveCount = 0;         //复活次数
     public int maxReviveCount = 0;      //最大复活次数
 
+    private MessageSystem messageSystem;
+
     private void Awake()
     {
         //向工厂注册个体
         Factory.RegisterIndividual(this, individualType);
+
+        messageSystem = GetComponent<MessageSystem>();
     }
 
     void Start()
     {
 
+    }
+
+
+
+    public void Attack(Individual target)
+    {
+        messageSystem.SendMessage(1,target.ID, attack);
     }
 
     /// <summary>
