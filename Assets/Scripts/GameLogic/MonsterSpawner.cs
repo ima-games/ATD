@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using LitJson;
+using BehaviorDesigner.Runtime;
 
 public class MonsterSpawner : MonoBehaviour
 {
@@ -58,7 +59,7 @@ public class MonsterSpawner : MonoBehaviour
         //如果文件不存在，则跳出该方法
         if(File.Exists(path)==false)
         {
-            Debug.Log(path + "  文件不存在");
+            Logger.Log(path + "  文件不存在", LogType.Data);
             return;
         }
 
@@ -73,11 +74,11 @@ public class MonsterSpawner : MonoBehaviour
         
         if(levelData==null)
         {
-            Debug.Log("没有获取到 关卡json 文件");
+            Logger.Log("没有获取到 关卡json 文件", LogType.Data);
         }
         else
         {
-            Debug.Log("已获取到关卡json数据");
+            Logger.Log("已获取到关卡json数据", LogType.Data);
         }
     }
 
@@ -88,7 +89,7 @@ public class MonsterSpawner : MonoBehaviour
         {
             timeQueue.Enqueue(t.time);
         }
-        Debug.Log("成功获取时间队列");
+        Logger.Log("成功获取时间队列", LogType.Monster);
     }
 
     //获取怪物列表队列
@@ -101,7 +102,8 @@ public class MonsterSpawner : MonoBehaviour
                 monsterListQueue.Enqueue(k);
             }
         }
-        Debug.Log("成功获取怪物列表队列");
+
+        Logger.Log("成功获取怪物列表队列", LogType.Monster);
     }
 
     //访问队列第一个列表，压入生成队列
@@ -114,7 +116,7 @@ public class MonsterSpawner : MonoBehaviour
         }
 
         MonsterList nowMonsterList = monsterListQueue.Peek();
-        Debug.Log("即将生成ID为" + nowMonsterList.monsterID + "的怪物，数量为" + nowMonsterList.count + "，出生点为" + nowMonsterList.wayID + "生成间隔" + nowMonsterList.rate + " s");
+        Logger.Log("即将生成ID为" + nowMonsterList.monsterID + "的怪物，数量为" + nowMonsterList.count + "，出生点为" + nowMonsterList.wayID + "生成间隔" + nowMonsterList.rate + " s", LogType.Monster);
 
         for(int i=0;i<nowMonsterList.count;i++)
         {
@@ -137,26 +139,26 @@ public class MonsterSpawner : MonoBehaviour
     }
 
 
-
+    //TODO
     float timer = 1.0f;
-    public Object MyLittleCapsule;
+    public GameObject MyLittleCapsule;
+    public Transform Monsters;
+    public Transform spawnPoint;
+    private WayPointManager wayPointManager;
 
+    private void Awake()
+    {
+        wayPointManager = GetComponent<WayPointManager>();
+    }
 
     private void Start()
     {
         //test
         GetJsonToLevelData("Assets/Scripts/TestScripts_Zhidai/Mission.json");
     }
+
     private void Update()
     {
-        
-    }
-
-
-
-    private void Test()
-    {
-
         if (timer > 0)
         {
             timer -= Time.deltaTime;
@@ -164,8 +166,17 @@ public class MonsterSpawner : MonoBehaviour
 
         if (timer < 0)
         {
-            Instantiate(MyLittleCapsule);
+            Test();
             timer = 1.0f;
         }
+
+    }
+
+
+
+    private void Test()
+    {
+       var monster = Instantiate(MyLittleCapsule,spawnPoint.position,Quaternion.identity,Monsters);
+        monster.GetComponent<BehaviorTree>().SetVariableValue("Road",wayPointManager.GetRoad(Random.Range(0,2)));
     }
 }
