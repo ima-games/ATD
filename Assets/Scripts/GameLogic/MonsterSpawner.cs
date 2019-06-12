@@ -167,7 +167,7 @@ public class MonsterSpawner : MonoBehaviour
         if (timer < 0)
         {
             Test();
-            timer = 1.0f;
+            timer = 3.0f;
         }
 
     }
