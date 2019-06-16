@@ -55,17 +55,270 @@ ModelImporter:
     7400034: orc_sleeping
     7400036: orc_wake_up
     7400038: orc_walk
+    7400040: orc_bind //// root_orc
+    7400042: orc_idle //// root_orc
+    7400044: orc_block //// root_orc
+    7400046: orc_chomp //// root_orc
+    7400048: orc_hit_front //// root_orc
+    7400050: orc_hit_left //// root_orc
+    7400052: orc_hit_right //// root_orc
+    7400054: orc_panic //// root_orc
+    7400056: orc_die //// root_orc
+    7400058: orc_scared //// root_orc
+    7400060: orc_attack_repeatedly //// root_orc
+    7400062: orc_dizzy //// root_orc
+    7400064: orc_spin_attack //// root_orc
+    7400066: orc_ground_smash //// root_orc
+    7400068: orc_talk //// root_orc
+    7400070: orc_laugh //// root_orc
+    7400072: orc_sleeping //// root_orc
+    7400074: orc_wake_up //// root_orc
+    7400076: orc_walk //// root_orc
+    7400078: orc_bind //// body_orc
+    7400080: orc_idle //// body_orc
+    7400082: orc_block //// body_orc
+    7400084: orc_chomp //// body_orc
+    7400086: orc_hit_front //// body_orc
+    7400088: orc_hit_left //// body_orc
+    7400090: orc_hit_right //// body_orc
+    7400092: orc_panic //// body_orc
+    7400094: orc_die //// body_orc
+    7400096: orc_scared //// body_orc
+    7400098: orc_attack_repeatedly //// body_orc
+    7400100: orc_dizzy //// body_orc
+    7400102: orc_spin_attack //// body_orc
+    7400104: orc_ground_smash //// body_orc
+    7400106: orc_talk //// body_orc
+    7400108: orc_laugh //// body_orc
+    7400110: orc_sleeping //// body_orc
+    7400112: orc_wake_up //// body_orc
+    7400114: orc_walk //// body_orc
+    7400116: orc_bind //// head_orc
+    7400118: orc_idle //// head_orc
+    7400120: orc_block //// head_orc
+    7400122: orc_chomp //// head_orc
+    7400124: orc_hit_front //// head_orc
+    7400126: orc_hit_left //// head_orc
+    7400128: orc_hit_right //// head_orc
+    7400130: orc_panic //// head_orc
+    7400132: orc_die //// head_orc
+    7400134: orc_scared //// head_orc
+    7400136: orc_attack_repeatedly //// head_orc
+    7400138: orc_dizzy //// head_orc
+    7400140: orc_spin_attack //// head_orc
+    7400142: orc_ground_smash //// head_orc
+    7400144: orc_talk //// head_orc
+    7400146: orc_laugh //// head_orc
+    7400148: orc_sleeping //// head_orc
+    7400150: orc_wake_up //// head_orc
+    7400152: orc_walk //// head_orc
+    7400154: orc_bind //// face_orc
+    7400156: orc_idle //// face_orc
+    7400158: orc_block //// face_orc
+    7400160: orc_chomp //// face_orc
+    7400162: orc_hit_front //// face_orc
+    7400164: orc_hit_left //// face_orc
+    7400166: orc_hit_right //// face_orc
+    7400168: orc_panic //// face_orc
+    7400170: orc_die //// face_orc
+    7400172: orc_scared //// face_orc
+    7400174: orc_attack_repeatedly //// face_orc
+    7400176: orc_dizzy //// face_orc
+    7400178: orc_spin_attack //// face_orc
+    7400180: orc_ground_smash //// face_orc
+    7400182: orc_talk //// face_orc
+    7400184: orc_laugh //// face_orc
+    7400186: orc_sleeping //// face_orc
+    7400188: orc_wake_up //// face_orc
+    7400190: orc_walk //// face_orc
+    7400192: orc_bind //// eye_r_orc
+    7400194: orc_idle //// eye_r_orc
+    7400196: orc_block //// eye_r_orc
+    7400198: orc_chomp //// eye_r_orc
+    7400200: orc_hit_front //// eye_r_orc
+    7400202: orc_hit_left //// eye_r_orc
+    7400204: orc_hit_right //// eye_r_orc
+    7400206: orc_panic //// eye_r_orc
+    7400208: orc_die //// eye_r_orc
+    7400210: orc_scared //// eye_r_orc
+    7400212: orc_attack_repeatedly //// eye_r_orc
+    7400214: orc_dizzy //// eye_r_orc
+    7400216: orc_spin_attack //// eye_r_orc
+    7400218: orc_ground_smash //// eye_r_orc
+    7400220: orc_talk //// eye_r_orc
+    7400222: orc_laugh //// eye_r_orc
+    7400224: orc_sleeping //// eye_r_orc
+    7400226: orc_wake_up //// eye_r_orc
+    7400228: orc_walk //// eye_r_orc
+    7400230: orc_bind //// eye_l_orc
+    7400232: orc_idle //// eye_l_orc
+    7400234: orc_block //// eye_l_orc
+    7400236: orc_chomp //// eye_l_orc
+    7400238: orc_hit_front //// eye_l_orc
+    7400240: orc_hit_left //// eye_l_orc
+    7400242: orc_hit_right //// eye_l_orc
+    7400244: orc_panic //// eye_l_orc
+    7400246: orc_die //// eye_l_orc
+    7400248: orc_scared //// eye_l_orc
+    7400250: orc_attack_repeatedly //// eye_l_orc
+    7400252: orc_dizzy //// eye_l_orc
+    7400254: orc_spin_attack //// eye_l_orc
+    7400256: orc_ground_smash //// eye_l_orc
+    7400258: orc_talk //// eye_l_orc
+    7400260: orc_laugh //// eye_l_orc
+    7400262: orc_sleeping //// eye_l_orc
+    7400264: orc_wake_up //// eye_l_orc
+    7400266: orc_walk //// eye_l_orc
+    7400268: orc_bind //// left_shoulder_orc
+    7400270: orc_idle //// left_shoulder_orc
+    7400272: orc_block //// left_shoulder_orc
+    7400274: orc_chomp //// left_shoulder_orc
+    7400276: orc_hit_front //// left_shoulder_orc
+    7400278: orc_hit_left //// left_shoulder_orc
+    7400280: orc_hit_right //// left_shoulder_orc
+    7400282: orc_panic //// left_shoulder_orc
+    7400284: orc_die //// left_shoulder_orc
+    7400286: orc_scared //// left_shoulder_orc
+    7400288: orc_attack_repeatedly //// left_shoulder_orc
+    7400290: orc_dizzy //// left_shoulder_orc
+    7400292: orc_spin_attack //// left_shoulder_orc
+    7400294: orc_ground_smash //// left_shoulder_orc
+    7400296: orc_talk //// left_shoulder_orc
+    7400298: orc_laugh //// left_shoulder_orc
+    7400300: orc_sleeping //// left_shoulder_orc
+    7400302: orc_wake_up //// left_shoulder_orc
+    7400304: orc_walk //// left_shoulder_orc
+    7400306: orc_bind //// left_arm_orc
+    7400308: orc_idle //// left_arm_orc
+    7400310: orc_block //// left_arm_orc
+    7400312: orc_chomp //// left_arm_orc
+    7400314: orc_hit_front //// left_arm_orc
+    7400316: orc_hit_left //// left_arm_orc
+    7400318: orc_hit_right //// left_arm_orc
+    7400320: orc_panic //// left_arm_orc
+    7400322: orc_die //// left_arm_orc
+    7400324: orc_scared //// left_arm_orc
+    7400326: orc_attack_repeatedly //// left_arm_orc
+    7400328: orc_dizzy //// left_arm_orc
+    7400330: orc_spin_attack //// left_arm_orc
+    7400332: orc_ground_smash //// left_arm_orc
+    7400334: orc_talk //// left_arm_orc
+    7400336: orc_laugh //// left_arm_orc
+    7400338: orc_sleeping //// left_arm_orc
+    7400340: orc_wake_up //// left_arm_orc
+    7400342: orc_walk //// left_arm_orc
+    7400344: orc_bind //// left_hand_orc
+    7400346: orc_idle //// left_hand_orc
+    7400348: orc_block //// left_hand_orc
+    7400350: orc_chomp //// left_hand_orc
+    7400352: orc_hit_front //// left_hand_orc
+    7400354: orc_hit_left //// left_hand_orc
+    7400356: orc_hit_right //// left_hand_orc
+    7400358: orc_panic //// left_hand_orc
+    7400360: orc_die //// left_hand_orc
+    7400362: orc_scared //// left_hand_orc
+    7400364: orc_attack_repeatedly //// left_hand_orc
+    7400366: orc_dizzy //// left_hand_orc
+    7400368: orc_spin_attack //// left_hand_orc
+    7400370: orc_ground_smash //// left_hand_orc
+    7400372: orc_talk //// left_hand_orc
+    7400374: orc_laugh //// left_hand_orc
+    7400376: orc_sleeping //// left_hand_orc
+    7400378: orc_wake_up //// left_hand_orc
+    7400380: orc_walk //// left_hand_orc
+    7400382: orc_bind //// right_shoulder_orc
+    7400384: orc_idle //// right_shoulder_orc
+    7400386: orc_block //// right_shoulder_orc
+    7400388: orc_chomp //// right_shoulder_orc
+    7400390: orc_hit_front //// right_shoulder_orc
+    7400392: orc_hit_left //// right_shoulder_orc
+    7400394: orc_hit_right //// right_shoulder_orc
+    7400396: orc_panic //// right_shoulder_orc
+    7400398: orc_die //// right_shoulder_orc
+    7400400: orc_scared //// right_shoulder_orc
+    7400402: orc_attack_repeatedly //// right_shoulder_orc
+    7400404: orc_dizzy //// right_shoulder_orc
+    7400406: orc_spin_attack //// right_shoulder_orc
+    7400408: orc_ground_smash //// right_shoulder_orc
+    7400410: orc_talk //// right_shoulder_orc
+    7400412: orc_laugh //// right_shoulder_orc
+    7400414: orc_sleeping //// right_shoulder_orc
+    7400416: orc_wake_up //// right_shoulder_orc
+    7400418: orc_walk //// right_shoulder_orc
+    7400420: orc_bind //// right_arm_orc
+    7400422: orc_idle //// right_arm_orc
+    7400424: orc_block //// right_arm_orc
+    7400426: orc_chomp //// right_arm_orc
+    7400428: orc_hit_front //// right_arm_orc
+    7400430: orc_hit_left //// right_arm_orc
+    7400432: orc_hit_right //// right_arm_orc
+    7400434: orc_panic //// right_arm_orc
+    7400436: orc_die //// right_arm_orc
+    7400438: orc_scared //// right_arm_orc
+    7400440: orc_attack_repeatedly //// right_arm_orc
+    7400442: orc_dizzy //// right_arm_orc
+    7400444: orc_spin_attack //// right_arm_orc
+    7400446: orc_ground_smash //// right_arm_orc
+    7400448: orc_talk //// right_arm_orc
+    7400450: orc_laugh //// right_arm_orc
+    7400452: orc_sleeping //// right_arm_orc
+    7400454: orc_wake_up //// right_arm_orc
+    7400456: orc_walk //// right_arm_orc
+    7400458: orc_bind //// right_hand_orc
+    7400460: orc_idle //// right_hand_orc
+    7400462: orc_block //// right_hand_orc
+    7400464: orc_chomp //// right_hand_orc
+    7400466: orc_hit_front //// right_hand_orc
+    7400468: orc_hit_left //// right_hand_orc
+    7400470: orc_hit_right //// right_hand_orc
+    7400472: orc_panic //// right_hand_orc
+    7400474: orc_die //// right_hand_orc
+    7400476: orc_scared //// right_hand_orc
+    7400478: orc_attack_repeatedly //// right_hand_orc
+    7400480: orc_dizzy //// right_hand_orc
+    7400482: orc_spin_attack //// right_hand_orc
+    7400484: orc_ground_smash //// right_hand_orc
+    7400486: orc_talk //// right_hand_orc
+    7400488: orc_laugh //// right_hand_orc
+    7400490: orc_sleeping //// right_hand_orc
+    7400492: orc_wake_up //// right_hand_orc
+    7400494: orc_walk //// right_hand_orc
+    9500000: //RootNode
     11100000: //RootNode
+    11100002: body_orc
+    11100004: eye_l_orc
+    11100006: eye_r_orc
+    11100008: eyes
+    11100010: face_orc
+    11100012: head_orc
+    11100014: left_arm_orc
+    11100016: left_hand_orc
+    11100018: left_shoulder_orc
+    11100020: micro_orc
+    11100022: right_arm_orc
+    11100024: right_hand_orc
+    11100026: right_shoulder_orc
+    11100028: root_orc
     13700000: eyes
     13700002: micro_orc
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: orc3
+    second: {fileID: 2100000, guid: 29d64a7c995d1b6409559f657304d1d8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: orc_transp
+    second: {fileID: 2100000, guid: 08bdd9ee8bf97d447be1bd9be33da1ce, type: 2}
   materials:
     importMaterials: 1
     materialName: 1
     materialSearch: 1
     materialLocation: 0
   animations:
-    legacyGenerateAnimations: 4
+    legacyGenerateAnimations: 2
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
@@ -78,7 +331,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -601,7 +854,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -624,6 +877,7 @@ ModelImporter:
     globalScale: 0.01
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
     importVisibility: 0
     importBlendShapes: 1
     importCameras: 0
@@ -641,13 +895,16 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 0
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 4
     normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
@@ -661,13 +918,12 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    rootMotionBoneName: micro_orc
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 1
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 1
   userData: 

@@ -141,7 +141,7 @@ public class MonsterSpawner : MonoBehaviour
 
     //TODO
     float timer = 1.0f;
-    public GameObject MyLittleCapsule;
+    public GameObject[] monsterPrefabs;
     public Transform Monsters;
     public Transform spawnPoint;
     private WayPointManager wayPointManager;
@@ -176,7 +176,7 @@ public class MonsterSpawner : MonoBehaviour
 
     private void Test()
     {
-       var monster = Instantiate(MyLittleCapsule,spawnPoint.position,Quaternion.identity,Monsters);
+       var monster = Instantiate(monsterPrefabs[Random.Range(0,monsterPrefabs.Length)],spawnPoint.position,Quaternion.identity,Monsters);
         monster.GetComponent<BehaviorTree>().SetVariableValue("Road",wayPointManager.GetRoad(Random.Range(0,2)));
     }
 }

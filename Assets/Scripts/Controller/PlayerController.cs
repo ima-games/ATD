@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour {
     public GameObject model;
     public PlayerInput playerInput;
     public LockController lockController;
-    public float walkSpeed = 1.6f;
     public float runMultiplier = 2.4f;
     public float jumpVelocity = 5.0f;
     public float rollVeticalVelocity = 0f;
@@ -33,7 +32,7 @@ public class PlayerController : MonoBehaviour {
     //private float lerpTarget;
     private Vector3 deltaPos;
     public bool leftIsShield = true;
-
+    private float walkSpeed = 1.6f;
     private Individual individual;
 
     void Awake () {
