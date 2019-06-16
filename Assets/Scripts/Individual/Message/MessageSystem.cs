@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,17 +10,13 @@ public class MessageSystem : MonoBehaviour
     // SendMessage  朝物体下所有组件发送消息
     // SendMessageUpwards  朝物体和上级父物体发送信息
     Individual SelfIndicidual;
-    HatredSystem SelfHatredSystem;
-    SkillSystem SelfSkillSystem;
-    BuffSystem SelfBuffSystem;
+
+    private List<Action<Individual, float>> attackEventListeners;
+    private List<Action<Individual, int>> buffEventListeners;
 
     private void Awake()
     {
         SelfIndicidual = GetComponent<Individual>();
-        SelfHatredSystem = GetComponent<HatredSystem>();
-        SelfSkillSystem = GetComponent<SkillSystem>();
-        SelfBuffSystem = GetComponent<BuffSystem>();
-
         //将事件类型和函数绑定
         EventCenter.AddListener<int, int, int, object>(EventType.Message, SolveMessage);
     }
@@ -38,11 +35,14 @@ public class MessageSystem : MonoBehaviour
     {
         //看看自己是不是接收器的ID
         if (receverID != SelfIndicidual.ID) return;
+
+        Individual sourceInd = Factory.GetIndividual(senderID);
+
         //对消息来源进行选择，传参并转发，若为伤害信息，则加入到仇恨表中
         switch (messageID)
         {
-            case 1: UnderAttack(senderID, receverID, ob); break;
-            case 2: GainBuff(senderID, receverID, ob); break;
+            case 1: UnderAttack(sourceInd,(float)ob); break;
+            case 2: GainBuff(sourceInd,(int)ob); break;
             default: break;
         }
     }
@@ -67,24 +67,49 @@ public class MessageSystem : MonoBehaviour
         }
     }
 
+    //-----------------------个体对象的各组件可调用的订阅函数------------
+
+    /// <summary>
+    /// 订阅攻击函数 action参数：攻击者，受伤者，伤害量
+    /// </summary>
+    /// <param name="action 参数：攻击者，伤害量"></param>
+    public void registerAttackEvent(Action<Individual,float> action)
+    {
+        attackEventListeners.Add(action);
+    }
+
+    /// <summary>
+    /// 订阅Buff函数 action参数：发送者，buffID
+    /// </summary>
+    /// <param name="action参数：发送者，buffID"></param>
+    public void registerBuffEvent(Action<Individual, int> action)
+    {
+        buffEventListeners.Add(action);
+    }
 
 
     //-----------------------以下为消息类型-----------------------
 
-    //被攻击调用，发送器ID，接收器ID，伤害量
-    private void UnderAttack(int senderID, int receverID, object damage)
+    //被攻击调用，攻击者，受伤者，伤害量
+    private void UnderAttack(Individual sender,float damage)
     {
-        if (SelfIndicidual)
-            SelfIndicidual.HealthChange(-(int)damage);
+       SelfIndicidual.HealthChange(-(int)damage);
 
-        if (SelfHatredSystem)
-            SelfHatredSystem.AddHateValue(senderID);
+        //if (SelfHatredSystem)
+        //    SelfHatredSystem.AddHateValue(senderID);
         //SelfSkillSystem.ReceiveMessage(LogicManager.GetIndividual(senderID), (float)damage);
+        for (int i = 0; i < attackEventListeners.Count; ++i)
+        {
+            attackEventListeners[i](sender, damage);
+        }
     }
 
-    //获得一个buff，发送者ID，接受者ID，buffID
-    private void GainBuff(int senderID, int receverID, object buffID)
+    //获得一个buff，发送者，接受者，buffID
+    private void GainBuff(Individual sender,  int buffID)
     {
-        SelfBuffSystem.StickBuff((int)buffID);
+        for(int i = 0; i < buffEventListeners.Count; ++i)
+        {
+            buffEventListeners[i](sender,buffID);
+        }
     }
 }

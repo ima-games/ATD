@@ -9,8 +9,11 @@ public class MonsterController : MonoBehaviour
     private new Rigidbody rigidbody;
     private NavMeshAgent navMeshAgent;
 
+    private MessageSystem messageSystem;
+
     private void Awake()
     {
+        messageSystem = GetComponent<MessageSystem>();
         rigidbody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
     }
@@ -18,7 +21,17 @@ public class MonsterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        RegisterMessage();   
+    }
+
+    void RegisterMessage()
+    {
+        messageSystem.registerAttackEvent(
+            (Individual attacker, float damage) =>
+            {
+                animator.SetTrigger("Hit");
+            }
+            );
     }
 
     // Update is called once per frame

@@ -23,14 +23,19 @@ public class BuffSystem : MonoBehaviour
     private int[] buffsToDelete = new int[64];
     private int buffsToDeleteCount = 0;
 
+
+    private MessageSystem messageSystem;
+
     private void Awake()
     {
+        messageSystem = GetComponent<MessageSystem>();
         myIndividual = GetComponent<Individual>();
     }
 
     private void Start()
     {
         InitializeBuffList();
+        RegisterMessage();
     }
 
     private void Update()
@@ -44,15 +49,13 @@ public class BuffSystem : MonoBehaviour
         CleanBuffsToDelete();
         BuffsUpdate();
     }
-    
-    /// <summary>
-    /// 消息系统接口 传入添加的buff的ID
-    /// </summary>
-    /// <param name="buffID"></param>
-    public void StickBuff(int buffID)
+
+    //订阅消息
+    public void RegisterMessage()
     {
-        AddBuff(buffID);
+        messageSystem.registerBuffEvent((Individual sender, int buffID) => { AddBuff(buffID); });
     }
+
 
     //添加buff
     private void AddBuff(int buffID)

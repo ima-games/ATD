@@ -46,10 +46,7 @@ public class Individual : MonoBehaviour
 
     void Start()
     {
-
     }
-
-
 
     public void Attack(Individual target)
     {

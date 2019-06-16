@@ -33,13 +33,27 @@ public class PlayerController : MonoBehaviour {
     private Vector3 deltaPos;
     public bool leftIsShield = true;
     private float walkSpeed = 1.6f;
+
     private Individual individual;
 
+    private MessageSystem messageSystem;
+
     void Awake () {
+        messageSystem = GetComponent<MessageSystem>();
         animator = model.GetComponent<Animator> ();
         rigidbody = GetComponent<Rigidbody> ();
         capsuleCollider = GetComponent<CapsuleCollider> ();
         individual = GetComponent<Individual>();
+    }
+
+    void RegisterMessage()
+    {
+        messageSystem.registerAttackEvent(
+            (Individual attacker,float damage) =>
+            {
+                //todo ...
+            }
+            );
     }
 
     void Update () {

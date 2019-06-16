@@ -21,8 +21,11 @@ public class HatredSystem : MonoBehaviour
 
     private BehaviorTree behaviorTree;
 
+    private MessageSystem messageSystem;
+
     private void Awake()
     {
+        messageSystem = GetComponent<MessageSystem>();
         individual = GetComponent<Individual>();
         behaviorTree = GetComponent<BehaviorTree>();
     }
@@ -31,6 +34,14 @@ public class HatredSystem : MonoBehaviour
     {
         ////实例化时调用
         //StartCoroutine(HateDecrementTimer());
+
+        RegisterMessage();
+    }
+
+    //订阅消息
+    public void RegisterMessage()
+    {
+        messageSystem.registerAttackEvent((Individual attacker, float damage) => { AddHateValue(attacker); });
     }
 
 
@@ -38,11 +49,8 @@ public class HatredSystem : MonoBehaviour
     /// 增加仇恨值，若仇恨目标不在仇恨列表里，则先加入列表
     /// </summary>
     /// <param name="HateSource">仇恨目标</param>
-    public void AddHateValue(int HateID)
+    public void AddHateValue(Individual HateSource)
     {
-
-        Individual HateSource = Factory.GetIndividual(HateID);
-
         if (HateSource == null)
         {
             Logger.Log("HateSource is null", LogType.Hatred);
