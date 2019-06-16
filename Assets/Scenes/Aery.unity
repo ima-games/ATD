@@ -810,7 +810,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &92091563
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2953,7 +2953,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &311320114
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4635,7 +4635,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &476422380
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5236,17 +5236,17 @@ MonoBehaviour:
       types: []
       parentIndex: 
       startIndex: 
-      variableStartIndex: 
+      variableStartIndex: 000000000300000006000000
       JSONSerialization: 
       fieldSerializationData:
         typeName: []
-        fieldNameHash: 
-        startIndex: 
-        dataPosition: 
+        fieldNameHash: f9be55564aaa52567707a104f9be55564aaa52567707a104f9be55564aaa52567707a104c17bf6c7
+        startIndex: 00000000010000000200000003000000040000000500000006000000070000000800000009000000
+        dataPosition: 00000000280000002e0000002f000000570000006700000068000000940000009800000099000000
         unityObjects: []
-        byteData: 
-        byteDataArray: 
-      Version: 
+        byteData: 4265686176696f7244657369676e65722e52756e74696d652e5368617265645472616e73666f726d546172676574014265686176696f7244657369676e65722e52756e74696d652e5368617265645472616e73666f726d4d6f7374486174726564546172676574014265686176696f7244657369676e65722e52756e74696d652e5368617265645472616e73666f726d4c697374526f61640100000000
+        byteDataArray: 4265686176696f7244657369676e65722e52756e74696d652e5368617265645472616e73666f726d546172676574014265686176696f7244657369676e65722e52756e74696d652e5368617265645472616e73666f726d4d6f7374486174726564546172676574014265686176696f7244657369676e65722e52756e74696d652e5368617265645472616e73666f726d4c697374526f61640100000000
+      Version: 1.6.1
 --- !u!1 &488769423
 GameObject:
   m_ObjectHideFlags: 0
@@ -6075,7 +6075,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &619817124
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -7136,7 +7136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &755603917
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8027,17 +8027,17 @@ MonoBehaviour:
       types: []
       parentIndex: 
       startIndex: 
-      variableStartIndex: 
+      variableStartIndex: 000000000300000006000000
       JSONSerialization: 
       fieldSerializationData:
         typeName: []
-        fieldNameHash: 
-        startIndex: 
-        dataPosition: 
+        fieldNameHash: f9be55564aaa52567707a104f9be55564aaa52567707a104f9be55564aaa52567707a104c17bf6c7
+        startIndex: 00000000010000000200000003000000040000000500000006000000070000000800000009000000
+        dataPosition: 00000000280000002e0000002f000000570000006700000068000000940000009800000099000000
         unityObjects: []
-        byteData: 
+        byteData: 4265686176696f7244657369676e65722e52756e74696d652e5368617265645472616e73666f726d546172676574014265686176696f7244657369676e65722e52756e74696d652e5368617265645472616e73666f726d4d6f7374486174726564546172676574014265686176696f7244657369676e65722e52756e74696d652e5368617265645472616e73666f726d4c697374526f61640100000000
         byteDataArray: 
-      Version: 
+      Version: 1.6.1
 --- !u!1 &782125150
 GameObject:
   m_ObjectHideFlags: 0
@@ -8567,7 +8567,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &810750494
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -17150,6 +17150,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Monster_orc
+      objectReference: {fileID: 0}
+    - target: {fileID: 5505657454952485820, guid: a49ee7503efd8e94abe1378ee3e09ec3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5505657454952386460, guid: a49ee7503efd8e94abe1378ee3e09ec3,
         type: 3}

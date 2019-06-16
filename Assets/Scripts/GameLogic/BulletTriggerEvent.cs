@@ -43,7 +43,7 @@ public class BulletTriggerEvent : MonoBehaviour
         MessageSystem messageSystem = tower.GetComponent<MessageSystem>();
         Individual otherIndividual = collisonObject.GetComponent<Individual>();
 
-        messageSystem.SendMessage(1, otherIndividual.ID, tower.attack);
+        messageSystem.SendMessage(1, otherIndividual.ID,tower.attack);
 
         //特效对象产生
         GameObject.Instantiate(dieEffect, transform.position,dieEffect.transform.rotation , transform.parent);

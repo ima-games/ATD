@@ -11,8 +11,8 @@ public class MessageSystem : MonoBehaviour
     // SendMessageUpwards  朝物体和上级父物体发送信息
     Individual SelfIndicidual;
 
-    private List<Action<Individual, float>> attackEventListeners;
-    private List<Action<Individual, int>> buffEventListeners;
+    private List<Action<Individual, float>> attackEventListeners = new List<Action<Individual, float>>();
+    private List<Action<Individual, int>> buffEventListeners = new List<Action<Individual, int>>();
 
     private void Awake()
     {
@@ -93,7 +93,7 @@ public class MessageSystem : MonoBehaviour
     //被攻击调用，攻击者，受伤者，伤害量
     private void UnderAttack(Individual sender,float damage)
     {
-       SelfIndicidual.HealthChange(-(int)damage);
+        //SelfIndicidual.HealthChange(-(int)damage);
 
         //if (SelfHatredSystem)
         //    SelfHatredSystem.AddHateValue(senderID);

@@ -112,7 +112,7 @@ public class BuffSystem : MonoBehaviour
     {
         BuffData buffdata = BuffDataBase.Instance.GetBuffData(buffID);
         myIndividual.HealthChange(buffdata.HpChange);
-        myIndividual.HealthChange(buffdata.HpChange_p);
+        //myIndividual.HealthChange(buffdata.HpChange_p);
         myIndividual.AttackChange(buffdata.AttackChange);
         myIndividual.AttackChange(buffdata.AttackChange_p);
         myIndividual.AttackSpeedChange(buffdata.AttSpeedChange_p);
@@ -132,7 +132,7 @@ public class BuffSystem : MonoBehaviour
     {
         BuffData buffdata = BuffDataBase.Instance.GetBuffData(buffID);
         myIndividual.HealthChange(-buffdata.HpChange);
-        myIndividual.HealthChange(-buffdata.HpChange_p);
+        //myIndividual.HealthChange(-buffdata.HpChange_p);
         myIndividual.AttackChange(-buffdata.AttackChange);
         myIndividual.AttackChange(-buffdata.AttackChange_p);
         myIndividual.AttackSpeedChange(-buffdata.AttSpeedChange_p);

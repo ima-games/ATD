@@ -400,7 +400,7 @@ public class TPScontrollerChara : MonoBehaviour
     void EventAttack_L1()
     {
         //Debug.Log("Attack_L1");
-        messagesystem.SendMessage(1, individual.attack, 50);
+        //messagesystem.SendMessage(1, individual.attack, 50);
     }
     //落地
     void EventLand()

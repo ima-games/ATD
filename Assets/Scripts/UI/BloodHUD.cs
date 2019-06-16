@@ -40,7 +40,7 @@ public class BloodHUD : MonoBehaviour
             return;
         }
 
-        int bloodchange = -(int)ob;
+        int bloodchange = -(int)((float)ob);
 
         //血量减少HUD显示
         if(bloodchange < 0.0f)

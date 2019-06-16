@@ -9,8 +9,8 @@ public class Individual : MonoBehaviour
 
     public int ID = 0;
     public float health = 100;         //生命
-    public int maxHealth = 100;        //最大生命值
-    public int attack = 10;            //攻击力
+    public float maxHealth = 100;        //最大生命值
+    public float attack = 10;            //攻击力
     public float attackSpeed = 1.0f;   //攻击速度
     public float speed = 1.0f;         //速度
     public float attackDistance = 1.0f;//攻击距离
@@ -46,6 +46,12 @@ public class Individual : MonoBehaviour
 
     void Start()
     {
+        RegisterEvent();
+    }
+
+    void RegisterEvent()
+    {
+        messageSystem.registerAttackEvent((Individual attacker,float damage)=>{ HealthChange(-damage); });
     }
 
     public void Attack(Individual target)
@@ -73,7 +79,7 @@ public class Individual : MonoBehaviour
     //--------------------以下属性更改方法--------------------
 
     //改变固定数值的生命值
-    public void HealthChange(int increment)
+    public void HealthChange(float increment)
     {
         health += increment;
         health = Mathf.Min(health, maxHealth);
@@ -83,16 +89,16 @@ public class Individual : MonoBehaviour
         }
     }
 
-    //改变百分比生命值
-    public void HealthChange(double increment_p)
-    {
-        health = (int)(1.0f + increment_p) * health;
-        health = Mathf.Min(health, maxHealth);
-        if (health < 0)
-        {
-            Dead();
-        }
-    }
+    ////改变百分比生命值
+    //public void HealthChange(double increment_p)
+    //{
+    //    health = (int)(1.0f + increment_p) * health;
+    //    health = Mathf.Min(health, maxHealth);
+    //    if (health < 0)
+    //    {
+    //        Dead();
+    //    }
+    //}
     
     //改变固定数值的攻击力
     public void AttackChange(int increment)
