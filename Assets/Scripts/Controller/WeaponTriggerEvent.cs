@@ -41,8 +41,8 @@ public class WeaponTriggerEvent : MonoBehaviour {
         //添加被攻击对象 到 已攻击目标
         attackedObjects.Add(otherGo);
 
-        Individual otherIndividual = otherGo.GetComponent<Individual>();
-        master.Attack(otherIndividual);
+        Individual target = otherGo.GetComponent<Individual>();
+        master.Attack(target);
     }
 
     public void StartAttack()

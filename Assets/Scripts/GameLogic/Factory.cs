@@ -33,11 +33,11 @@ public class Factory : MonoBehaviour
     /// </summary>
     private static Individual baseIndividual = null;
 
-    //NOTE：ADDED BY AERY
-    /// <summary>
-    /// 辅助用：被标记死亡的个体对象（每帧检查这个列表，并对列表内的游戏对象进行Destory）
-    /// </summary>
-    private static List<Individual> _IndividualsToDelete;
+    ////NOTE：ADDED BY AERY
+    ///// <summary>
+    ///// 辅助用：被标记死亡的个体对象（每帧检查这个列表，并对列表内的游戏对象进行Destory）
+    ///// </summary>
+    //private static List<Individual> _IndividualsToDelete;
 
     #endregion
 
@@ -87,8 +87,8 @@ public class Factory : MonoBehaviour
     /// <param name="ind">死亡的Individual</param>
     public static void RemoveIndividual(Individual ind)
     {
-        //带删除列表增加该对象
-        _IndividualsToDelete.Add(ind);
+        ////带删除列表增加该对象
+        //_IndividualsToDelete.Add(ind);
 
         if (IDToIndividualDictionary.ContainsKey(ind.ID))
         {
@@ -233,7 +233,7 @@ public class Factory : MonoBehaviour
     {
         _IDQueue = new Queue<int>(_MAX_IDQUEUE_SIZE);
         _IDToIndividualDictionary = new Dictionary<int, Individual>();
-        _IndividualsToDelete = new List<Individual>();
+        //_IndividualsToDelete = new List<Individual>();
 
         for (int id = 1; id < _MAX_IDQUEUE_SIZE; id++)
         {
@@ -253,12 +253,12 @@ public class Factory : MonoBehaviour
 
     private void LateUpdate()
     {
-        //游戏循环的最后阶段,检查带删除列表，删除标记死亡的对象
-        foreach (var ind in _IndividualsToDelete)
-        {
-            GameObject.Destroy(ind.gameObject);
-        }
-        _IndividualsToDelete.Clear();
+        ////游戏循环的最后阶段,检查带删除列表，删除标记死亡的对象
+        //foreach (var ind in _IndividualsToDelete)
+        //{
+        //    //GameObject.Destroy(ind.gameObject);
+        //}
+        //_IndividualsToDelete.Clear();
     }
 
     #endregion

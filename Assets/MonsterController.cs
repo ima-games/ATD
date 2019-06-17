@@ -1,54 +1,92 @@
-﻿using System.Collections;
+﻿using BehaviorDesigner.Runtime;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MonsterController : MonoBehaviour
+/// <summary>
+/// 怪物个体对象控制器
+/// </summary>
+public class MonsterController : IndividualController
 {
+    public float removeTime = 3.0f; //死亡后移除时间
+
     private Animator animator;
     private new Rigidbody rigidbody;
     private NavMeshAgent navMeshAgent;
-
+    private BuffSystem buffSystem;
+    private HatredSystem hatredSystem;
+    private BehaviorTree behaviorTree;
     private MessageSystem messageSystem;
 
     private void Awake()
     {
-        messageSystem = GetComponent<MessageSystem>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
         rigidbody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        buffSystem = GetComponent<BuffSystem>();
+        hatredSystem = GetComponent<HatredSystem>();
+        behaviorTree = GetComponent<BehaviorTree>();
+        messageSystem = GetComponent<MessageSystem>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        RegisterMessage();   
-    }
 
-    void RegisterMessage()
-    {
-        messageSystem.registerAttackEvent(
-            (Individual attacker, float damage) =>
-            {
-                animator.SetTrigger("Hit");
-            }
-            );
     }
 
     // Update is called once per frame
     void Update()
     {
-        animator.SetFloat("Velocity", rigidbody.velocity.magnitude);
+        Walk(rigidbody.velocity);
     }
 
-    public void Attack()
+    public override void Walk(Vector3 velocity)
+    {
+        animator.SetFloat("Velocity",velocity.magnitude);
+    }
+
+    public override void Attack()
     {
         animator.SetTrigger("Attack");
     }
 
-    public void GetDamaged()
+    public override void GetDamaged()
     {
         animator.SetTrigger("Hit");
     }
 
+    /// <summary>
+    /// 个体对象死亡，执行一些必要的死亡操作（但未被移除）
+    /// </summary>
+    public override void Die()
+    {
+        //避免物理碰撞事件
+        gameObject.layer = 0;//default layer
+
+        //删除脚本
+        Destroy(buffSystem);
+        Destroy(hatredSystem);
+        Destroy(behaviorTree);
+        Destroy(messageSystem);
+
+        //播放死亡动画
+        animator.SetTrigger("Die");
+
+        //rigidbody.freezeRotation = false;
+
+        StartCoroutine(RemoveObject());
+    }
+
+    // 移除个体对象
+    IEnumerator RemoveObject()
+    {
+        yield return new WaitForSeconds(removeTime);
+
+        Destroy(gameObject);
+
+        yield break;
+    }
 
 }

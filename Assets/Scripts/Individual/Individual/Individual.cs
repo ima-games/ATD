@@ -9,8 +9,8 @@ public class Individual : MonoBehaviour
 
     public int ID = 0;
     public float health = 100;         //生命
-    public float maxHealth = 100;        //最大生命值
-    public float attack = 10;            //攻击力
+    public float maxHealth = 100;      //最大生命值
+    public float attack = 10;          //攻击力
     public float attackSpeed = 1.0f;   //攻击速度
     public float speed = 1.0f;         //速度
     public float attackDistance = 1.0f;//攻击距离
@@ -34,7 +34,9 @@ public class Individual : MonoBehaviour
     public int reviveCount = 0;         //复活次数
     public int maxReviveCount = 0;      //最大复活次数
 
+    //用于辅助的系统组件
     private MessageSystem messageSystem;
+    private IndividualController controller;
 
     private void Awake()
     {
@@ -42,6 +44,7 @@ public class Individual : MonoBehaviour
         Factory.RegisterIndividual(this, individualType);
 
         messageSystem = GetComponent<MessageSystem>();
+        controller = GetComponent<IndividualController>();
     }
 
     void Start()
@@ -51,21 +54,8 @@ public class Individual : MonoBehaviour
 
     void RegisterEvent()
     {
-        messageSystem.registerAttackEvent((Individual attacker,float damage)=>{ HealthChange(-damage); });
-    }
-
-    public void Attack(Individual target)
-    {
-        messageSystem.SendMessage(1,target.ID, attack);
-    }
-
-    /// <summary>
-    /// 个体对象死亡时调用的死亡函数
-    /// </summary>
-    public void Dead()
-    {
-        Factory.RemoveIndividual(this);
-        gameObject.SetActive(false);
+        //订阅 受到攻击 消息
+        messageSystem.registerAttackEvent((Individual attacker,float damage)=>{ GetDamage(-damage); });
     }
 
     /// <summary>
@@ -76,16 +66,38 @@ public class Individual : MonoBehaviour
         health += recoverRate * Time.deltaTime;
     }
 
-    //--------------------以下属性更改方法--------------------
+    //--------------------个体行为-------------------
+    public void GetDamage(float damage)
+    {
+        HealthChange(damage);
+
+        if (damage < 0.0f)
+        {
+            //利用控制器执行受伤行为xcv 
+            controller.GetDamaged();
+        }
+    }
+
+    public void Attack(Individual target)
+    {
+        messageSystem.SendMessage(1,target.ID,attack);
+    }
+
+    //--------------------属性更改--------------------
 
     //改变固定数值的生命值
     public void HealthChange(float increment)
     {
         health += increment;
         health = Mathf.Min(health, maxHealth);
+
         if (health < 0)
         {
-            Dead();
+            //先移除个体组件
+            Factory.RemoveIndividual(this);
+            this.enabled = false;
+            //利用控制器执行死亡行为
+            controller.Die();
         }
     }
 

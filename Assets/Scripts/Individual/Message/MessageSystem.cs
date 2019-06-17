@@ -93,11 +93,6 @@ public class MessageSystem : MonoBehaviour
     //被攻击调用，攻击者，受伤者，伤害量
     private void UnderAttack(Individual sender,float damage)
     {
-        //SelfIndicidual.HealthChange(-(int)damage);
-
-        //if (SelfHatredSystem)
-        //    SelfHatredSystem.AddHateValue(senderID);
-        //SelfSkillSystem.ReceiveMessage(LogicManager.GetIndividual(senderID), (float)damage);
         for (int i = 0; i < attackEventListeners.Count; ++i)
         {
             attackEventListeners[i](sender, damage);
