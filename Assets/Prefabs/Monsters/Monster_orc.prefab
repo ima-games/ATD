@@ -557,7 +557,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5505657454952485820}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.3, y: 0, z: 19.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -581,8 +581,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
-  m_CollisionDetection: 0
+  m_Constraints: 112
+  m_CollisionDetection: 2
 --- !u!114 &5505657453510177586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -703,17 +703,17 @@ MonoBehaviour:
       types: []
       parentIndex: 
       startIndex: 
-      variableStartIndex: 
+      variableStartIndex: 000000000300000006000000
       JSONSerialization: 
       fieldSerializationData:
         typeName: []
-        fieldNameHash: 
-        startIndex: 
-        dataPosition: 
+        fieldNameHash: f9be55564aaa52567707a104f9be55564aaa52567707a104f9be55564aaa52567707a104c17bf6c7
+        startIndex: 00000000010000000200000003000000040000000500000006000000070000000800000009000000
+        dataPosition: 00000000280000002e0000002f000000570000006700000068000000940000009800000099000000
         unityObjects: []
-        byteData: 
-        byteDataArray: 
-      Version: 
+        byteData: 4265686176696f7244657369676e65722e52756e74696d652e5368617265645472616e73666f726d546172676574014265686176696f7244657369676e65722e52756e74696d652e5368617265645472616e73666f726d4d6f7374486174726564546172676574014265686176696f7244657369676e65722e52756e74696d652e5368617265645472616e73666f726d4c697374526f61640100000000
+        byteDataArray: 4265686176696f7244657369676e65722e52756e74696d652e5368617265645472616e73666f726d546172676574014265686176696f7244657369676e65722e52756e74696d652e5368617265645472616e73666f726d4d6f7374486174726564546172676574014265686176696f7244657369676e65722e52756e74696d652e5368617265645472616e73666f726d4c697374526f61640100000000
+      Version: 1.6.1
 --- !u!135 &5505657454952485823
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -721,12 +721,12 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5505657454952485820}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 74e0870f3fc5fb94bbcf061376f44977, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Center: {x: 0, y: 0.49, z: 0}
+  m_Center: {x: 0, y: 0.48, z: 0}
 --- !u!114 &5505657454952485817
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -114,6 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onEnterMessages:
   - OnGroundEnter
+  onExitMessages: []
 --- !u!114 &114053190662981580
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -128,6 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onEnterMessages:
   - OnAttack1hAEnter
+  onExitMessages: []
 --- !u!114 &114217704732447794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -142,6 +144,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onEnterMessages:
   - OnRollEnter
+  onExitMessages:
+  - OnRollExit
 --- !u!114 &114250661671316402
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -156,6 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onEnterMessages:
   - OnFallEnter
+  onExitMessages: []
 --- !u!114 &114405277024334008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -183,6 +188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onEnterMessages:
   - OnAttack1hAEnter
+  onExitMessages: []
 --- !u!114 &114621510967329618
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -256,6 +262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onEnterMessages:
   - OnJabEnter
+  onExitMessages: []
 --- !u!114 &114707803692986036
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -270,6 +277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onEnterMessages:
   - OnAttack1hAEnter
+  onExitMessages: []
 --- !u!114 &114791006144359122
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -312,6 +320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onEnterMessages:
   - OnJumpEnter
+  onExitMessages: []
 --- !u!206 &206266867280739644
 BlendTree:
   m_ObjectHideFlags: 1
@@ -1365,7 +1374,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 7c3ac43c854208542b73444c482c0712, type: 3}
+  m_Motion: {fileID: 7400000, guid: 4831e51d07d01434a9767c5e91b2a464, type: 3}
   m_Tag: attack
   m_SpeedParameter: attackSpeed
   m_MirrorParameter: R0L1
@@ -1845,7 +1854,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 7c3ac43c854208542b73444c482c0712, type: 3}
+  m_Motion: {fileID: 7400000, guid: 4831e51d07d01434a9767c5e91b2a464, type: 3}
   m_Tag: attack
   m_SpeedParameter: attackSpeed
   m_MirrorParameter: R0L1

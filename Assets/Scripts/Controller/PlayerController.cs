@@ -183,12 +183,19 @@ public class PlayerController : MonoBehaviour {
         playerInput.inputEnabled = false;
         lockPlane = true;
     }
-    public void OnRollEnter () {
-        thrustVec = new Vector3 (0, rollVeticalVelocity, 0);
+    public void OnRollEnter()
+    {
+        thrustVec = new Vector3(0, rollVeticalVelocity, 0);
         playerInput.inputEnabled = false;
         lockPlane = true;
         trackDirection = true;
     }
+
+    public void OnRollExit()
+    {
+
+    }
+
     public void OnJabEnter () {
         playerInput.inputEnabled = false;
         lockPlane = true;
