@@ -70,7 +70,6 @@ public class Individual : MonoBehaviour
     public void GetDamage(float damage)
     {
         HealthChange(damage);
-
         if (damage < 0.0f)
         {
             //利用控制器执行受伤行为xcv 
@@ -93,11 +92,11 @@ public class Individual : MonoBehaviour
 
         if (health < 0)
         {
+            //利用控制器执行死亡行为
+            controller.Die();
             //先移除个体组件
             Factory.RemoveIndividual(this);
             this.enabled = false;
-            //利用控制器执行死亡行为
-            controller.Die();
         }
     }
 

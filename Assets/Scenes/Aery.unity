@@ -10083,7 +10083,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   individualType: 1
   ID: 1
-  health: 100
+  health: 5
   maxHealth: 100
   attack: 15
   attackSpeed: 1

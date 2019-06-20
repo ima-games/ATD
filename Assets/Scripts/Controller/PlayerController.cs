@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : IndividualController{
     public GameObject model;
     public PlayerInput playerInput;
     public LockController lockController;
@@ -34,26 +34,26 @@ public class PlayerController : MonoBehaviour {
     public bool leftIsShield = true;
     private float walkSpeed = 1.6f;
 
+    private float forward = 0.0f;
+    private float right = 0.0f;
+
     private Individual individual;
 
+    private BuffSystem buffSystem;
     private MessageSystem messageSystem;
 
     void Awake () {
-        messageSystem = GetComponent<MessageSystem>();
         animator = model.GetComponent<Animator> ();
         rigidbody = GetComponent<Rigidbody> ();
         capsuleCollider = GetComponent<CapsuleCollider> ();
         individual = GetComponent<Individual>();
+
+        buffSystem = GetComponent<BuffSystem>();
+        messageSystem = GetComponent<MessageSystem>();
     }
 
     void RegisterMessage()
     {
-        messageSystem.registerAttackEvent(
-            (Individual attacker,float damage) =>
-            {
-                //todo ...
-            }
-            );
     }
 
     void Update () {
@@ -62,75 +62,7 @@ public class PlayerController : MonoBehaviour {
         //根据个体属性，更新攻击速度
         animator.SetFloat("attackSpeed", individual.attackSpeed);
 
-        if (playerInput.lockon) {
-            lockController.LockSwitch ();
-        }
-
-        if (lockController.lockState == false) {
-            float targetRunMulti = ((playerInput.run) ? 2.0f : 1.0f);
-            animator.SetFloat ("forward", playerInput.Dmag *
-                Mathf.Lerp (animator.GetFloat ("forward"), targetRunMulti, runRatio));
-        } else {
-            Vector3 localDevc = transform.InverseTransformVector (playerInput.Dvec);
-            animator.SetFloat ("forward", localDevc.z * ((playerInput.run) ? 2.0f : 1.0f));
-            animator.SetFloat ("right", localDevc.x * ((playerInput.run) ? 2.0f : 1.0f));
-        }
-
-        //animator.SetBool ("defense", playerInput.defense);
-
-        if (playerInput.roll || rigidbody.velocity.magnitude > 7f) {
-            animator.SetTrigger ("roll");
-            canAttack = false;
-        }
-
-        if (playerInput.jump) {
-            animator.SetTrigger ("jump");
-            canAttack = false;
-        }
-
-        if ((playerInput.lHand || playerInput.rHand) && (CheckState ("ground") || CheckStateTag ("attack")) && canAttack) {
-            if (playerInput.rHand) {
-                animator.SetBool ("R0L1", false);
-                animator.SetTrigger ("attack");
-            } else if (playerInput.lHand && !leftIsShield) {
-                animator.SetBool ("R0L1", true);
-                animator.SetTrigger ("attack");
-            }
-        }
-
-        if (leftIsShield) {
-            if (CheckState ("ground")) {
-                animator.SetBool ("defense", playerInput.defense);
-                animator.SetLayerWeight (animator.GetLayerIndex ("defense"), 1);
-            } else {
-                animator.SetBool("defense",false);
-                //animator.SetLayerWeight (animator.GetLayerIndex ("defense"), 0);
-            }
-        } else {
-            animator.SetLayerWeight (animator.GetLayerIndex ("defense"), 0);
-        }
-
-        if (lockController.lockState == false) {
-            if (playerInput.Dmag > 0.1f) //转身硬直
-            {
-                Vector3 targetForward = Vector3.Slerp (model.transform.forward, playerInput.Dvec, rotateRatio);
-                model.transform.forward = targetForward;
-            }
-
-            if (lockPlane == false) {
-                planeVec = playerInput.Dmag * model.transform.forward * walkSpeed *
-                    ((playerInput.run) ? runMultiplier : 1.0f);
-            }
-        } else {
-            if (trackDirection == false) {
-                model.transform.forward = transform.forward;
-            } else {
-                model.transform.forward = planeVec.normalized;
-            }
-            if (lockPlane == false) {
-                planeVec = playerInput.Dvec * walkSpeed * ((playerInput.run) ? runMultiplier : 1.0f);
-            }
-        }
+        Walk(new Vector3(forward, right, 0));
     }
 
     void FixedUpdate () {
@@ -138,6 +70,99 @@ public class PlayerController : MonoBehaviour {
         rigidbody.velocity = new Vector3 (planeVec.x, rigidbody.velocity.y, planeVec.z) + thrustVec;
         thrustVec = Vector3.zero;
         deltaPos = Vector3.zero;
+
+        //锁定目标
+        if (playerInput.lockon)
+        {
+            lockController.LockSwitch();
+        }
+
+        //前后左右移动
+        if (lockController.lockState == false)
+        {
+            float targetRunMulti = ((playerInput.run) ? 2.0f : 1.0f);
+            forward = playerInput.Dmag * Mathf.Lerp(animator.GetFloat("forward"), targetRunMulti, runRatio);
+        }
+        else
+        {
+            Vector3 localDevc = transform.InverseTransformVector(playerInput.Dvec);
+            forward = localDevc.z * ((playerInput.run) ? 2.0f : 1.0f);
+            right = localDevc.x * ((playerInput.run) ? 2.0f : 1.0f);
+        }
+
+        //animator.SetBool ("defense", playerInput.defense);
+
+        //翻滚
+        if (playerInput.roll || rigidbody.velocity.magnitude > 7f)
+        {
+            animator.SetTrigger("roll");
+            canAttack = false;
+        }
+
+        //跳跃
+        if (playerInput.jump)
+        {
+            animator.SetTrigger("jump");
+            canAttack = false;
+        }
+
+        if ((playerInput.lHand || playerInput.rHand) && (CheckState("ground") || CheckStateTag("attack")) && canAttack)
+        {
+            if (playerInput.rHand)
+            {
+                animator.SetBool("R0L1", false);
+                Attack();
+            }
+            else if (playerInput.lHand && !leftIsShield)
+            {
+                animator.SetBool("R0L1", true);
+                Attack();
+            }
+        }
+
+        //if (leftIsShield) {
+        //    if (CheckState ("ground")) {
+        //        animator.SetBool ("defense", playerInput.defense);
+        //        animator.SetLayerWeight (animator.GetLayerIndex ("defense"), 1);
+        //    } else {
+        //        animator.SetBool("defense",false);
+        //        //animator.SetLayerWeight (animator.GetLayerIndex ("defense"), 0);
+        //    }
+        //} else {
+        //    animator.SetLayerWeight (animator.GetLayerIndex ("defense"), 0);
+        //}
+
+        //----TODO
+        if (lockController.lockState == false)
+        {
+            if (playerInput.Dmag > 0.1f) //转身硬直
+            {
+                Vector3 targetForward = Vector3.Slerp(model.transform.forward, playerInput.Dvec, rotateRatio);
+                model.transform.forward = targetForward;
+            }
+
+            if (lockPlane == false)
+            {
+                planeVec = playerInput.Dmag * model.transform.forward * walkSpeed *
+                    ((playerInput.run) ? runMultiplier : 1.0f);
+            }
+        }
+        else
+        {
+            if (trackDirection == false)
+            {
+                model.transform.forward = transform.forward;
+            }
+            else
+            {
+                model.transform.forward = planeVec.normalized;
+            }
+            if (lockPlane == false)
+            {
+                planeVec = playerInput.Dvec * walkSpeed * ((playerInput.run) ? runMultiplier : 1.0f);
+            }
+        }
+
     }
 
     /// <summary>
@@ -235,5 +260,35 @@ public class PlayerController : MonoBehaviour {
             deltaPos += (0.8f * deltaPos + 0.2f * (Vector3) _deltaPos) / 1.0f;
         }
     }
+
     #endregion
+
+    public override void Walk(Vector3 velocity)
+    {
+        animator.SetFloat("forward", velocity.x);
+        animator.SetFloat("right", velocity.y);
+    }
+
+    public override void Attack()
+    {
+        animator.SetTrigger("attack");
+    }
+
+    public override void GetDamaged()
+    {
+        animator.SetTrigger("hit");
+    }
+
+    public override void Die()
+    {
+        animator.SetTrigger("die");
+
+        //避免物理碰撞事件
+        gameObject.layer = 0;//default layer
+
+        //删除脚本
+        Destroy(buffSystem);
+        Destroy(messageSystem);
+    }
+
 }
