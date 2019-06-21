@@ -65,11 +65,11 @@ public class MonsterController : IndividualController
         //避免物理碰撞事件
         gameObject.layer = 0;//default layer
 
-        //删除脚本
-        Destroy(buffSystem);
-        Destroy(hatredSystem);
-        Destroy(behaviorTree);
-        Destroy(messageSystem);
+        //关闭脚本
+        buffSystem.enabled = false ;
+        hatredSystem.enabled =false;
+        behaviorTree.enabled = false;
+        messageSystem.enabled = false;
 
         //播放死亡动画
         animator.SetTrigger("Die");

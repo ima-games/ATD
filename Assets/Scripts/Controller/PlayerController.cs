@@ -41,6 +41,7 @@ public class PlayerController : IndividualController{
 
     private BuffSystem buffSystem;
     private MessageSystem messageSystem;
+    private SkillSystem skillSystem;
 
     void Awake () {
         animator = model.GetComponent<Animator> ();
@@ -50,6 +51,7 @@ public class PlayerController : IndividualController{
 
         buffSystem = GetComponent<BuffSystem>();
         messageSystem = GetComponent<MessageSystem>();
+        skillSystem = GetComponent<SkillSystem>();
     }
 
     void RegisterMessage()
@@ -119,18 +121,6 @@ public class PlayerController : IndividualController{
                 Attack();
             }
         }
-
-        //if (leftIsShield) {
-        //    if (CheckState ("ground")) {
-        //        animator.SetBool ("defense", playerInput.defense);
-        //        animator.SetLayerWeight (animator.GetLayerIndex ("defense"), 1);
-        //    } else {
-        //        animator.SetBool("defense",false);
-        //        //animator.SetLayerWeight (animator.GetLayerIndex ("defense"), 0);
-        //    }
-        //} else {
-        //    animator.SetLayerWeight (animator.GetLayerIndex ("defense"), 0);
-        //}
 
         //----TODO
         if (lockController.lockState == false)
@@ -286,9 +276,10 @@ public class PlayerController : IndividualController{
         //避免物理碰撞事件
         gameObject.layer = 0;//default layer
 
-        //删除脚本
-        Destroy(buffSystem);
-        Destroy(messageSystem);
+        //关闭脚本
+        buffSystem.enabled = false;
+        messageSystem.enabled = false;
+        skillSystem.enabled =false;
     }
 
 }
