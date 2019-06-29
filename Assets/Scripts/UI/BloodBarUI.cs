@@ -21,19 +21,14 @@ public class BloodBarUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerIndividual == null)
+        if (playerIndividual.enabled == false)
         {
             myScrollbar.size = 0;
-            return;
         }
-
-        if (!playerIndividual.gameObject.activeInHierarchy)
+        else
         {
-            playerIndividual = null;
-            return;
+            myScrollbar.size = playerIndividual.health / playerIndividual.maxHealth;
         }
-
-        myScrollbar.size = playerIndividual.health / playerIndividual.maxHealth;
     }
 
 
