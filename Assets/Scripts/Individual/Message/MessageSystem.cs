@@ -13,6 +13,7 @@ public class MessageSystem : MonoBehaviour
 
     private List<Action<Individual, float>> attackEventListeners = new List<Action<Individual, float>>();
     private List<Action<Individual, int>> buffEventListeners = new List<Action<Individual, int>>();
+    private List<Action<Individual>> dieEventListeners = new List<Action<Individual>>();
 
     private void Awake()
     {
@@ -34,7 +35,8 @@ public class MessageSystem : MonoBehaviour
     public void SolveMessage(int messageID, int senderID, int receverID, object ob)
     {
         //看看自己是不是接收器的ID
-        if (receverID != SelfIndicidual.ID) return;
+        //0表示广播
+        if (receverID != 0 && (SelfIndicidual == null || receverID != SelfIndicidual.ID)) return;
 
         Individual sourceInd = Factory.GetIndividual(senderID);
 
@@ -42,7 +44,8 @@ public class MessageSystem : MonoBehaviour
         switch (messageID)
         {
             case 1: UnderAttack(sourceInd,(float)ob); break;
-            case 2: GainBuff(sourceInd,(int)ob); break;
+            case 2: GainBuff(sourceInd, (int)ob); break;
+            case 3: IndividualDie(sourceInd); break;
             default: break;
         }
     }
@@ -53,6 +56,7 @@ public class MessageSystem : MonoBehaviour
     /// <summary>
     /// 消息类型 1 普通攻击 :自身对ID为receverID的个体发起攻击，伤害量为ob
     ///          2 加buff   :自身对ID为receverID的个体添加一个ID为ob的buff
+    ///          3 死亡消息 :自身个体死亡
     /// </summary>
     /// <param name="messageID">消息类型</param>
     /// <param name="receverID">接收器</param>
@@ -63,6 +67,7 @@ public class MessageSystem : MonoBehaviour
         {
             case 1: EventCenter.Broadcast<int, int, int, object>(EventType.Message, messageID, SelfIndicidual.ID, receverID, ob); break;
             case 2: EventCenter.Broadcast<int, int, int, object>(EventType.Message, messageID, SelfIndicidual.ID, receverID, ob); break;
+            case 3: EventCenter.Broadcast<int, int, int, object>(EventType.Message, messageID, SelfIndicidual.ID, receverID, ob); break;
             default: break;
         }
     }
@@ -87,6 +92,15 @@ public class MessageSystem : MonoBehaviour
         buffEventListeners.Add(action);
     }
 
+    /// <summary>
+    /// 订阅死亡函数 action参数：死亡个体
+    /// </summary>
+    /// <param name="action"></param>
+    public void registerDieEvent(Action<Individual> action)
+    {
+        dieEventListeners.Add(action);
+    }
+
 
     //-----------------------以下为消息类型-----------------------
 
@@ -105,6 +119,15 @@ public class MessageSystem : MonoBehaviour
         for(int i = 0; i < buffEventListeners.Count; ++i)
         {
             buffEventListeners[i](sender,buffID);
+        }
+    }
+
+    //sender个体死亡
+    private void IndividualDie(Individual sender)
+    {
+        for (int i = 0; i < dieEventListeners.Count; ++i)
+        {
+            dieEventListeners[i](sender);
         }
     }
 }

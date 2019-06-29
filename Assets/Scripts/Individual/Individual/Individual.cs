@@ -89,8 +89,9 @@ public class Individual : MonoBehaviour
         {
             //利用控制器执行死亡行为
             controller.Die();
-            //先移除个体组件
-            Factory.RemoveIndividual(this);
+            //通知死亡行为
+            messageSystem.SendMessage(3,0,0);
+            //个体脚本禁用
             this.enabled = false;
         }
         else if (increment < 0.0f)

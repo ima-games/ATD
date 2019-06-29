@@ -11,7 +11,10 @@ public class Factory : MonoBehaviour
     /// </summary>
     [SerializeField]
     [Header("ID队列的最大容量，参考场景内总Individual数量设置")]
-    private int _MAX_IDQUEUE_SIZE = 100;
+    private int _MAX_IDQUEUE_SIZE = 256;
+
+    //消息系统
+    private MessageSystem messageSystem;
 
     /// <summary>
     /// ID队列，ID分配容器
@@ -32,12 +35,6 @@ public class Factory : MonoBehaviour
     /// 特殊记录：基地个体对象
     /// </summary>
     private static Individual baseIndividual = null;
-
-    ////NOTE：ADDED BY AERY
-    ///// <summary>
-    ///// 辅助用：被标记死亡的个体对象（每帧检查这个列表，并对列表内的游戏对象进行Destory）
-    ///// </summary>
-    //private static List<Individual> _IndividualsToDelete;
 
     #endregion
 
@@ -87,9 +84,6 @@ public class Factory : MonoBehaviour
     /// <param name="ind">死亡的Individual</param>
     public static void RemoveIndividual(Individual ind)
     {
-        ////带删除列表增加该对象
-        //_IndividualsToDelete.Add(ind);
-
         if (IDToIndividualDictionary.ContainsKey(ind.ID))
         {
             IDToIndividualDictionary.Remove(ind.ID);
@@ -228,13 +222,14 @@ public class Factory : MonoBehaviour
     }
     #endregion
 
+
     #region Mono
     void Awake()
     {
+        messageSystem = GetComponent<MessageSystem>();
+        //初始化ID序号池
         _IDQueue = new Queue<int>(_MAX_IDQUEUE_SIZE);
         _IDToIndividualDictionary = new Dictionary<int, Individual>();
-        //_IndividualsToDelete = new List<Individual>();
-
         for (int id = 1; id < _MAX_IDQUEUE_SIZE; id++)
         {
             _IDQueue.Enqueue(id);
@@ -243,7 +238,8 @@ public class Factory : MonoBehaviour
 
     void Start()
     {
-
+        //工厂注册死亡监听事件
+        messageSystem.registerDieEvent(RemoveIndividual);
     }
 
     void Update()
@@ -253,21 +249,13 @@ public class Factory : MonoBehaviour
 
     private void LateUpdate()
     {
-        ////游戏循环的最后阶段,检查带删除列表，删除标记死亡的对象
-        //foreach (var ind in _IndividualsToDelete)
-        //{
-        //    //GameObject.Destroy(ind.gameObject);
-        //}
-        //_IndividualsToDelete.Clear();
+
     }
 
     #endregion
 }
 
-/// <summary>
-/// 个体类型，目前只需要特化玩家类型和基地类型，用于Factory直接查找特殊个体
-/// </summary>
-public enum IndividualType
-{
-    Normal,Player,BaseIndividual
-}
+// 个体类型，目前只需要特化玩家类型和基地类型，用于Factory直接查找特殊个体
+public enum IndividualType {
+    Normal, Player, BaseIndividual
+};

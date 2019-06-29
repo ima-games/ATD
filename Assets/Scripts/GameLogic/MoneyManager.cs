@@ -19,14 +19,18 @@ public class MoneyManager : MonoBehaviour {
 	/// 游戏中的金币数量
 	/// </summary>
 	public int Cash { get { return _cash; } }
-	#endregion
 
-	#region Public Methods
-	/// <summary>
-	/// 增加游戏中的金币数量
-	/// </summary>
-	/// <param name="cash">增加的值</param>
-	public void AddCash(int cash) {
+    //消息系统
+    private MessageSystem messageSystem;
+
+    #endregion
+
+    #region Public Methods
+    /// <summary>
+    /// 增加游戏中的金币数量
+    /// </summary>
+    /// <param name="cash">增加的值</param>
+    public void AddCash(int cash) {
 		_cash += cash;
 	}
 
@@ -46,17 +50,31 @@ public class MoneyManager : MonoBehaviour {
 	#endregion
 
 	#region Private Methods
-	
+	/// <summary>
+    /// 通过击杀个体，获得金币
+    /// </summary>
+    /// <param name="individual"></param>
+    public void AddMoneyByKillIndividual(Individual individual)
+    {
+        //只有怪物势力个体增加金币
+        if (individual.power != Individual.Power.Monster) return;
+
+        //TODO:暂定每个怪物金币 12
+        AddCash(12);
+    }
+
 	#endregion
 
 	#region Mono
 	void Awake() {
 		_cash = 0;
-	}
+        messageSystem = GetComponent<MessageSystem>();
+    }
 
 	void Start() {
-
-	}
+        //注册死亡监听事件
+        messageSystem.registerDieEvent(AddMoneyByKillIndividual);
+    }
 
 	void Update() {
 
