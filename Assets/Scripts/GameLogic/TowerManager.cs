@@ -17,7 +17,7 @@ public class TowerManager : MonoBehaviour
     private TowerDataBase _towerDataBase;
 
     //金钱
-    private MoneyManager _logicManager;
+    private MoneyManager _moneyManager;
 
     //塔基对应是否有塔
     private Dictionary<GameObject, bool> _towerBaseHasTower = new Dictionary<GameObject, bool>();
@@ -31,11 +31,14 @@ public class TowerManager : MonoBehaviour
     {
         _towerBases = GameObject.FindGameObjectsWithTag("TowerBase");
 
+        _moneyManager = GetComponent<MoneyManager>();
+
         //初始化默认都没有塔
         for (int i = 0; i < _towerBases.Length; ++i)
         {
             _towerBaseHasTower.Add(_towerBases[i], false);
         }
+
     }
     // Start is called before the first frame update
     void Start()
@@ -68,8 +71,12 @@ public class TowerManager : MonoBehaviour
             return false;
         }
 
-        //目前而言都是免费造塔
+        //目前而言都是50元 造塔
         //TODO:检测塔 钱
+        if(_moneyManager.Cash < 50)
+        {
+            return false;
+        }
 
         return true;
     }
@@ -82,6 +89,9 @@ public class TowerManager : MonoBehaviour
             Logger.Log("Can't Build Tower!", LogType.Tower);
             return;
         }
+
+        //TODO：建造一个塔，耗费50元
+        _moneyManager.ReduceCash(50);
 
         _towerBaseHasTower[TargetTowerBase] = true;
         Instantiate(_towerPrefabs[towerIndex], TargetTowerBase.transform);

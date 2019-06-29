@@ -67,7 +67,6 @@ public class MoneyManager : MonoBehaviour {
 
 	#region Mono
 	void Awake() {
-		_cash = 0;
         messageSystem = GetComponent<MessageSystem>();
     }
 
