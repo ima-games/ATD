@@ -11,14 +11,18 @@ public class BaseKillMonsterLogic : MonoBehaviour
     {
         Logger.Log(collision.gameObject.name, LogType.Individual);
 
-        if (collision.gameObject.layer.Equals(1<<LayerMask.NameToLayer("Individual")))
+        if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Individual")))
         {
-            Destroy(collision.gameObject);
+            var ind = collision.gameObject.GetComponent<Individual>();
+            if(ind.enabled && ind.power == Individual.Power.Monster)
+            {
+                collision.gameObject.GetComponent<Individual>().GetDamage(999999.0f);
 
-            baseIndividual.health -= 5.0f;
-            float BaseHp = baseIndividual.health;
+                baseIndividual.health -= 5.0f;
+                float BaseHp = baseIndividual.health;
 
-            Logger.Log("基地血量为" + BaseHp,LogType.Individual);
+                Logger.Log("基地血量为" + BaseHp, LogType.Individual);
+            }
         }
     }
 

@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SkillSystem : MonoBehaviour
-{
-    List<ISkill> heroSkills = new List<ISkill>();
+{    
     //英雄技能对象列表
-    // List<ISkill> EquipmentSkill = new List<ISkill>();
+    List<ISkill> heroSkills = new List<ISkill>();
+    public List<ISkill> HeroSkills { get => heroSkills; set => heroSkills = value; }
+
     //装备技能对象列表
+    // List<ISkill> EquipmentSkill = new List<ISkill>();
+
     private Individual individual;
 
 
@@ -15,15 +18,15 @@ public class SkillSystem : MonoBehaviour
     {
         individual = GetComponent<Individual>();
 
-        heroSkills.Add(new BuffSkill(6, true, true, 5.0f));   //主动技能：嘲讽Buff
-        heroSkills.Add(new BuffSkill(0, true, false));        //主动技能：回血buff
-        heroSkills.Add(new BuffSkill(14, true, false));       //主动技能：攻速戒指buff
+        HeroSkills.Add(new BuffSkill(6, true, true, 5.0f));   //主动技能：嘲讽Buff
+        HeroSkills.Add(new BuffSkill(0, true, false));        //主动技能：回血buff
+        HeroSkills.Add(new BuffSkill(14, true, false));       //主动技能：攻速戒指buff
     }
 
 
     void Start()
     {
-        foreach (ISkill skill in heroSkills)
+        foreach (ISkill skill in HeroSkills)
         {
             skill.InitSkill(individual);
         }
@@ -32,7 +35,7 @@ public class SkillSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach(ISkill skill in heroSkills)
+        foreach(ISkill skill in HeroSkills)
         {
             skill.UpdateSkill(individual);
         }
@@ -46,9 +49,9 @@ public class SkillSystem : MonoBehaviour
     {
         Logger.Log("Release Skill " + index , LogType.Skill);
 
-        if(index >= heroSkills.Count){ return; }
+        if(index >= HeroSkills.Count){ return; }
 
-        heroSkills[index].ReleaseSkill(individual);
+        HeroSkills[index].ReleaseSkill(individual);
     }
 
     public void ReceiveMessage(Individual attacker,float damage)
