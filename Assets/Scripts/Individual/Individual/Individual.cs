@@ -55,7 +55,7 @@ public class Individual : MonoBehaviour
     void RegisterEvent()
     {
         //订阅 受到攻击 消息
-        messageSystem.registerAttackEvent((Individual attacker,float damage)=>{ GetDamage(-damage); });
+        messageSystem.registerAttackEvent((Individual attacker,float damage)=>{ GetDamage(damage); });
     }
 
     /// <summary>
@@ -69,7 +69,7 @@ public class Individual : MonoBehaviour
     //--------------------个体行为-------------------
     public void GetDamage(float damage)
     {
-        HealthChange(damage);
+        HealthChange(-damage);
     }
 
     public void Attack(Individual target)

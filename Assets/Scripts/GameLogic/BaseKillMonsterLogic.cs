@@ -11,9 +11,9 @@ public class BaseKillMonsterLogic : MonoBehaviour
     {
         Logger.Log(collision.gameObject.name, LogType.Individual);
 
-        if (collision.gameObject.layer.Equals(1<<LayerMask.NameToLayer("Individual")))
+        if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Individual"))&& collision.gameObject.GetComponent<Individual>().enabled)
         {
-            Destroy(collision.gameObject);
+            collision.gameObject.GetComponent<Individual>().GetDamage(999999.0f);
 
             baseIndividual.health -= 5.0f;
             float BaseHp = baseIndividual.health;
