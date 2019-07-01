@@ -20,5 +20,15 @@ public interface ISkill
     /// <param name="master"></param>
     void UpdateSkill(Individual master);
 
-    //....其余处理消息接口
+    /// <summary>
+    /// 技能是否冷却
+    /// </summary>
+    /// <returns></returns>
+    bool IsColdTimeEnd();
+
+    /// <summary>
+    /// 技能冷却百分比
+    /// </summary>
+    /// <returns></returns>
+    float GetColdTimePercent();
 }

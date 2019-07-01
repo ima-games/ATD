@@ -9,9 +9,6 @@ public class BulletTriggerEvent : MonoBehaviour
 
     public GameObject dieEffect;    //死亡产生的特效对象（该对象会自动删除）
 
-    private bool isCollideTower;
-
-
     private void OnTriggerEnter(Collider collison)
     {
         //Individual tower = gameObject.transform.parent.gameObject.GetComponent<Individual>();
@@ -31,7 +28,7 @@ public class BulletTriggerEvent : MonoBehaviour
             Destroy(gameObject);
         }
         //子弹打到玩家、非个体单位
-        if (isCollideTower || collison.name == "PlayerHandle" || LayerMask.LayerToName(collisonObject.layer) != "Individual")
+        if (collison.name == "PlayerHandle" || LayerMask.LayerToName(collisonObject.layer) != "Individual")
         {
             //Destroy(gameObject);
             return;
