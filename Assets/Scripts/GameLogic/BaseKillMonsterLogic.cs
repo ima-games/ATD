@@ -11,7 +11,7 @@ public class BaseKillMonsterLogic : MonoBehaviour
     {
         Logger.Log(collision.gameObject.name, LogType.Individual);
 
-        if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Individual")))
+        if (collision.gameObject.layer.Equals(1<<LayerMask.NameToLayer("Individual")))
         {
             Destroy(collision.gameObject);
 
