@@ -45,16 +45,19 @@ public class MonsterSpawner : MonoBehaviour
         public float rate;
     }
 
-    //关卡数据
-    private Dictionary<string, JsonData> levelData = new Dictionary<string, JsonData>();
-    
-    //关卡列表队列
+    //关卡(波)列表队列
     private Queue<WaveInformation> waveQueue = new Queue<WaveInformation>();
-
+    //怪物预制体列表
     public GameObject[] monsterPrefabs;
+    //怪物列表父对象
     public Transform Monsters;
+    //出生点
     public Transform spawnPoint;
+    //是否已经生成完一波的所有怪物
+    public bool alreadySpawnOneWave = true;
+
     private WayPointManager wayPointManager;
+
 
     //获取json文件，传入json文件路径
     private void GetJsonToLevelData(string path)
@@ -73,7 +76,7 @@ public class MonsterSpawner : MonoBehaviour
         string jsonToString = streamReader.ReadToEnd();
 
         //获得json中的数据
-        levelData = JsonMapper.ToObject<Dictionary<string, JsonData>>(jsonToString);
+        Dictionary<string, JsonData> levelData = JsonMapper.ToObject<Dictionary<string, JsonData>>(jsonToString);
 
         if (levelData==null)
         {
@@ -111,30 +114,59 @@ public class MonsterSpawner : MonoBehaviour
         }
     }
 
-    //依次生成怪物
+    //生成一波怪物
+    public void StartOneWave()
+    {
+        alreadySpawnOneWave = false;
+        // 开启生成
+        StartCoroutine(CreateMonster());
+    }
+
     IEnumerator CreateMonster()
     {
-        //每一波
-        while (waveQueue.Count > 0)
+        if (waveQueue.Count <= 0) yield break;
+
+        WaveInformation waveInformation = waveQueue.Dequeue();
+        //每一波生成前的等待时间
+        yield return new WaitForSeconds(waveInformation.time);
+        //每一个怪物列表
+        foreach (var monsterList in waveInformation.monsterLists)
         {
-            WaveInformation waveInformation = waveQueue.Dequeue();
-            //每一波生成前的等待时间
-            yield return new WaitForSeconds(waveInformation.time);
-            //每一个怪物列表
-            foreach (var monsterList in waveInformation.monsterLists)
+            for (int j = 0; j < monsterList.count; ++j)
             {
-                for (int j = 0; j < monsterList.count; ++j)
-                {
-                    //生成怪物
-                    var monster = Instantiate(monsterPrefabs[monsterList.monsterID-1], spawnPoint.position, Quaternion.identity, Monsters);
-                    //设置路径
-                    monster.GetComponent<BehaviorTree>().SetVariableValue("Road", wayPointManager.GetRoad(monsterList.wayID-1));
-                    //生成间隔
-                    float rate = monsterList.rate;
-                    yield return new WaitForSeconds(rate);
-                }
+                //生成怪物
+                var monster = Instantiate(monsterPrefabs[monsterList.monsterID - 1], spawnPoint.position, Quaternion.identity, Monsters);
+                //设置路径
+                monster.GetComponent<BehaviorTree>().SetVariableValue("Road", wayPointManager.GetRoad(monsterList.wayID - 1));
+                //生成间隔
+                float rate = monsterList.rate;
+                yield return new WaitForSeconds(rate);
             }
         }
+
+        alreadySpawnOneWave = true;
+    }
+
+    //用于查询是否还有关卡
+    public bool HasWave()
+    {
+        return waveQueue.Count > 0;
+    }
+
+    //用于查询某一关卡出现的怪物种类
+    public List<int> GetMonsterIDsInOneWave()
+    {
+        List<int> IDList = new List<int>();
+        WaveInformation waveInformation = waveQueue.Peek();
+        //每一个怪物列表
+        foreach (var monsterList in waveInformation.monsterLists)
+        {
+            int ID = monsterList.monsterID;
+
+            if (!IDList.Contains(ID))
+                IDList.Add(ID);
+        }
+        return IDList;
     }
 
 
@@ -142,13 +174,12 @@ public class MonsterSpawner : MonoBehaviour
     {
         wayPointManager = GetComponent<WayPointManager>();
 
-        GetJsonToLevelData("Assets/Scripts/TestScripts_Zhidai/Mission.json");
+        GetJsonToLevelData("Assets/Scripts/Data/Mission.json");
     }
 
     private void Start()
     {
-        // 开启生成
-        StartCoroutine(CreateMonster());
+
     }
 
 }

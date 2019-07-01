@@ -46,6 +46,17 @@ public class Factory : MonoBehaviour
 
     public static Individual BaseIndividual { get => baseIndividual;}
 
+    //检测是否存在怪物
+    public static bool HasMonsterIndividual()
+    {
+        foreach(var ind in _IDToIndividualDictionary.Values)
+        {
+            if (ind.power == Individual.Power.Monster) return true;
+        }
+
+        return false;
+    }
+
     #endregion
 
     #region Public Methods

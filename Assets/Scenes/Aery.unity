@@ -6690,7 +6690,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0.50883496, b: 0.4009434, a: 0.84705883}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -7153,7 +7153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -9426,7 +9426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.39999998, g: 1, b: 0.4490741, a: 0.84705883}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -10147,6 +10147,7 @@ MonoBehaviour:
   - {fileID: 5505657454952485820, guid: a49ee7503efd8e94abe1378ee3e09ec3, type: 3}
   Monsters: {fileID: 1715111485}
   spawnPoint: {fileID: 1655267592}
+  alreadySpawnOneWave: 1
 --- !u!114 &1008345956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10516,7 +10517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -10535,7 +10536,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u7B2C1\u5173"
+  m_Text: "\u7B2C1\u6CE2"
 --- !u!222 &1063978813
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10918,7 +10919,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -11304,6 +11305,7 @@ GameObject:
   - component: {fileID: 1198825099}
   - component: {fileID: 1198825101}
   - component: {fileID: 1198825102}
+  - component: {fileID: 1198825103}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Manager
@@ -11380,6 +11382,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2384236f9bd1b849ad617db65deda24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1198825103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198825097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 963827b67efed8c468144d56477c986b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveStartPanel: {fileID: 744458076}
+  waveStartText: {fileID: 2055045616}
+  waveEndPanel: {fileID: 1857307153}
+  waveEndText: {fileID: 1063978812}
+  monsterSpawner: {fileID: 1008345955}
 --- !u!1 &1221427756
 GameObject:
   m_ObjectHideFlags: 0
@@ -15956,7 +15975,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -17053,7 +17072,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

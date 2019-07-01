@@ -2,27 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//TODO：基地受伤逻辑
 public class BaseKillMonsterLogic : MonoBehaviour
 {
-    Individual baseIndividual;
+    private Individual baseIndividual;
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
-        if (collision.gameObject.tag.Equals("Enemy"))
+        Logger.Log(collision.gameObject.name, LogType.Individual);
+
+        if (collision.gameObject.layer.Equals(1<<LayerMask.NameToLayer("Individual")))
         {
             Destroy(collision.gameObject);
 
             baseIndividual.health -= 5.0f;
             float BaseHp = baseIndividual.health;
 
-            Debug.Log("基地血量为" + BaseHp);
+            Logger.Log("基地血量为" + BaseHp,LogType.Individual);
         }
     }
 
     private void Awake()
     {
-        baseIndividual = gameObject.GetComponent<Individual>();
+        baseIndividual = GetComponent<Individual>();
     }
 
 }
