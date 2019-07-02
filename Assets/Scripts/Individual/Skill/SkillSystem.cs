@@ -54,7 +54,10 @@ public class SkillSystem : MonoBehaviour
     {
         Logger.Log("Release Skill " + index , LogType.Skill);
 
-        if(index >= HeroSkills.Count){ return; }
+        if (!individual.enabled)
+            return;
+
+        if (index >= HeroSkills.Count){ return; }
 
         if (HeroSkills[index].IsColdTimeEnd())
         {

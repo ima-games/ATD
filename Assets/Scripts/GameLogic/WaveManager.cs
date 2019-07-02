@@ -16,6 +16,10 @@ public class WaveManager : MonoBehaviour
     public Text waveEndText;
     //怪物生成器
     public MonsterSpawner monsterSpawner;
+
+    public Animation endPanel;
+    public Animation losePanel;
+
     //金钱管理器
     private MoneyManager moneyManager;
     //是否已经开始一波
@@ -42,7 +46,11 @@ public class WaveManager : MonoBehaviour
 
         //没有关卡则退出
         if (!monsterSpawner.HasWave())
+        {
+            StartCoroutine(EndAllWaves());
             return;
+        }
+
 
         waveIndex++;
         StartCoroutine(StartOneWaveAfterSeconds());
@@ -54,6 +62,12 @@ public class WaveManager : MonoBehaviour
         StartOneWave();
     }
 
+    //所有波都防守成功后，提示胜利
+    IEnumerator EndAllWaves()
+    {
+        yield return new WaitForSeconds(5.0f);
+        endPanel.Play();
+    }
 
     private void Awake()
     {
@@ -67,9 +81,17 @@ public class WaveManager : MonoBehaviour
         StartOneWave();
     }
 
+    //TODO FLAG
+    bool alreadyLose = false;
     // Update is called once per frame
     void Update()
     {
+        //若玩家死了，则提示失败
+        if (!Factory.PlayerIndividual.enabled && !alreadyLose)
+        {
+            losePanel.Play();
+            alreadyLose = true;
+        }
         //若无怪物，则证明完成一波
         if (alreadyStart && monsterSpawner.alreadySpawnOneWave && !Factory.HasMonsterIndividual())
         {

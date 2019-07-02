@@ -276,10 +276,14 @@ public class PlayerController : IndividualController{
         //避免物理碰撞事件
         gameObject.layer = 0;//default layer
 
+        //解锁鼠标
+        Cursor.lockState = CursorLockMode.None;
+
         //关闭脚本
         buffSystem.enabled = false;
         messageSystem.enabled = false;
         skillSystem.enabled =false;
+        this.enabled = false;
     }
 
 }
