@@ -3780,9 +3780,6 @@ MonoBehaviour:
   - {fileID: 6479017161525532697, guid: ca431b2b0bf261e46b70589a4dcaa877, type: 3}
   - {fileID: 4669057976009981882, guid: 71ac364d72d275149bb220f0f0495336, type: 3}
   - {fileID: 4234805238077313757, guid: c62965f393a7092448943ac9baf08860, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &386179658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6408,7 +6405,7 @@ GameObject:
   - component: {fileID: 608570701}
   - component: {fileID: 608570700}
   m_Layer: 0
-  m_Name: "-------------\u97F3\u4E50-----------"
+  m_Name: "-------------\u97F3\u4E50-------------"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11030,7 +11027,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef28fa8fc5d5f2140bbfc2b26e6171d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillEffectManager: {fileID: 0}
 --- !u!114 &1041712217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13339,7 +13335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 0.7530315, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

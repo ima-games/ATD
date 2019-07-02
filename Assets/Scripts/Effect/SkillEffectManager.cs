@@ -10,7 +10,6 @@ public class SkillEffectManager : MonoBehaviour
 {
     public GameObject[] effectPrefabs;
 
-
     private void Awake()
     {
 
