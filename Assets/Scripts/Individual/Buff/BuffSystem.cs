@@ -23,13 +23,14 @@ public class BuffSystem : MonoBehaviour
     private int[] buffsToDelete = new int[64];
     private int buffsToDeleteCount = 0;
 
-
+    private BuffEffectManager buffEffectManager;
     private MessageSystem messageSystem;
 
     private void Awake()
     {
         messageSystem = GetComponent<MessageSystem>();
         myIndividual = GetComponent<Individual>();
+        buffEffectManager = GameObject.FindGameObjectWithTag("Effects").GetComponent<BuffEffectManager>();
     }
 
     private void Start()
@@ -121,6 +122,8 @@ public class BuffSystem : MonoBehaviour
         myIndividual.RecoverRateChange(buffdata.HpReturnChange_p);
         myIndividual.ReviveCountChange(buffdata.AddReviveCount);
 
+        buffEffectManager.PlayEffect(transform,buffID);
+
         Logger.Log("生效Buff" + buffID + " ", LogType.Buff);
     }
 
@@ -140,6 +143,8 @@ public class BuffSystem : MonoBehaviour
         myIndividual.RecoverRateChange(-buffdata.HpReturnChange);
         myIndividual.RecoverRateChange(-buffdata.HpReturnChange_p);
         myIndividual.ReviveCountChange(-buffdata.AddReviveCount);
+
+        buffEffectManager.StopEffect(transform,buffID);
 
         Logger.Log("失效Buff" + buffID + " ", LogType.Buff);
     }

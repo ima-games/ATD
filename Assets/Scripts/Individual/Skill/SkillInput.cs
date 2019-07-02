@@ -8,11 +8,9 @@ using UnityEngine;
 public class SkillInput : MonoBehaviour
 {
     public SkillSystem player;
-    private SkillSystem skillSystem;
 
     private void Awake()
     {
-        skillSystem = player;
     }
 
     // Update is called once per frame
@@ -25,17 +23,17 @@ public class SkillInput : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            skillSystem.ReleaseSkill(0);
+            player.ReleaseSkill(0);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            skillSystem.ReleaseSkill(1);
+            player.ReleaseSkill(1);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            skillSystem.ReleaseSkill(2);
+            player.ReleaseSkill(2);
         }
     }
 }

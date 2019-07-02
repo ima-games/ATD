@@ -47,6 +47,7 @@ public class HatredSystem : MonoBehaviour
     public void RegisterMessage()
     {
         messageSystem.registerAttackEvent((Individual attacker, float damage) => { AddHateValue(attacker); });
+        messageSystem.registerBuffEvent((Individual target,int buffID) => { if (BuffDataBase.Instance.GetBuffData(buffID).isTaunt) { AddHateValue(target); } });
     }
 
 

@@ -8,8 +8,11 @@ public class SkillSystem : MonoBehaviour
     List<ISkill> heroSkills = new List<ISkill>();
     public List<ISkill> HeroSkills { get => heroSkills; set => heroSkills = value; }
 
-    //装备技能对象列表
-    // List<ISkill> EquipmentSkill = new List<ISkill>();
+    //TODO
+    public SkillEffectManager skillEffectManager;
+    
+    ////装备技能对象列表
+    //List<ISkill> EquipmentSkill = new List<ISkill>();
 
     private Individual individual;
 
@@ -17,7 +20,8 @@ public class SkillSystem : MonoBehaviour
     private void Awake()
     {
         individual = GetComponent<Individual>();
-
+        //TODO
+        //目前硬编码给玩家赋予3个技能
         HeroSkills.Add(new BuffSkill(6, true, true, 5.0f));   //主动技能：嘲讽Buff
         HeroSkills.Add(new BuffSkill(0, true, false));        //主动技能：回血buff
         HeroSkills.Add(new BuffSkill(14, true, false));       //主动技能：攻速戒指buff

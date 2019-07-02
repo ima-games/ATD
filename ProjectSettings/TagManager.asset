@@ -9,6 +9,7 @@ TagManager:
   - Controller
   - Manager
   - TowerBase
+  - Effects
   layers:
   - Default
   - TransparentFX
