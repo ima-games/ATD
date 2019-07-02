@@ -27,4 +27,21 @@ public class SkillEffectManager : MonoBehaviour
     {
         
     }
+
+    IEnumerator RemoveEffectAfterSeconds(float time,GameObject go)
+    {
+        yield return new WaitForSeconds(time);
+        Destroy(go);
+    }
+
+    internal void PlayEffect(Transform targetInd,int index)
+    {
+        if (index >= effectPrefabs.Length || !effectPrefabs[index])
+        {
+            return;
+        }
+
+        var go = Instantiate(effectPrefabs[index],targetInd);
+        StartCoroutine(RemoveEffectAfterSeconds(2.0f,go));
+    }
 }

@@ -8,8 +8,7 @@ public class SkillSystem : MonoBehaviour
     List<ISkill> heroSkills = new List<ISkill>();
     public List<ISkill> HeroSkills { get => heroSkills; set => heroSkills = value; }
 
-    //TODO
-    public SkillEffectManager skillEffectManager;
+    private SkillEffectManager skillEffectManager;
     
     ////装备技能对象列表
     //List<ISkill> EquipmentSkill = new List<ISkill>();
@@ -25,6 +24,8 @@ public class SkillSystem : MonoBehaviour
         HeroSkills.Add(new BuffSkill(6, true, true, 5.0f));   //主动技能：嘲讽Buff
         HeroSkills.Add(new BuffSkill(0, true, false));        //主动技能：回血buff
         HeroSkills.Add(new BuffSkill(14, true, false));       //主动技能：攻速戒指buff
+
+        skillEffectManager = GameObject.FindGameObjectWithTag("Effects").GetComponent<SkillEffectManager>();
     }
 
 
@@ -55,7 +56,11 @@ public class SkillSystem : MonoBehaviour
 
         if(index >= HeroSkills.Count){ return; }
 
-        HeroSkills[index].ReleaseSkill(individual);
+        if (HeroSkills[index].IsColdTimeEnd())
+        {
+            HeroSkills[index].ReleaseSkill(individual);
+            skillEffectManager.PlayEffect(transform, index);
+        }
     }
 
     public void ReceiveMessage(Individual attacker,float damage)
