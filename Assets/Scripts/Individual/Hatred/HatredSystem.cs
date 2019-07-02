@@ -16,8 +16,8 @@ public class HatredSystem : MonoBehaviour
     //仇恨列表可视化
     [SerializeField] private List<string> hatredListShow = new List<string>();
 
-    //key 是仇恨来源ID ，value 是仇恨值
-    Dictionary<int, int> hatredList = new Dictionary<int, int>();
+    //key 是仇恨来源个体 ，value 是仇恨值
+    Dictionary<Individual, int> hatredMap = new Dictionary<Individual, int>();
 
     private BehaviorTree behaviorTree;
 
@@ -36,6 +36,11 @@ public class HatredSystem : MonoBehaviour
         //StartCoroutine(HateDecrementTimer());
 
         RegisterMessage();
+    }
+
+    private void Update()
+    {
+
     }
 
     //订阅消息
@@ -63,7 +68,7 @@ public class HatredSystem : MonoBehaviour
         //    return;
         //}
 
-        if (!hatredList.ContainsKey(HateSource.ID))
+        if (!hatredMap.ContainsKey(HateSource))
         {
             AddHatredList(HateSource);
             //把仇恨目标的名字加入到仇恨列表可视化
@@ -71,14 +76,14 @@ public class HatredSystem : MonoBehaviour
         }
         else
         {
-            hatredList[HateSource.ID] += HateSource.hatredValue;
+            hatredMap[HateSource] += HateSource.hatredValue;
         }
 
         //此处更新行为树的最新目标
         SharedTransform sf = GetMostHatedTarget();
         behaviorTree.SetVariable("MostHatredTarget", sf);
 
-        Logger.Log(gameObject.name+"对ID为"+HateSource.gameObject.name+"的对象增加了"+hatredList[HateSource.ID]+"点仇恨值",LogType.Hatred);
+        Logger.Log(gameObject.name+"对ID为"+HateSource.gameObject.name+"的对象增加了"+hatredMap[HateSource]+"点仇恨值",LogType.Hatred);
     }
 
     /// <summary>
@@ -88,27 +93,34 @@ public class HatredSystem : MonoBehaviour
     public Transform GetMostHatedTarget()
     {
         int maxValue = 0;
-        int TargerID = -1;
-        foreach (KeyValuePair<int, int> kvp in hatredList)
+        Individual targetInd = null;
+        foreach (KeyValuePair<Individual, int> kvp in hatredMap)
         {
             if (kvp.Value > maxValue)
             {
                 maxValue = kvp.Value;
-                TargerID = kvp.Key;
+                targetInd = kvp.Key;
             }
         }
 
         //若找不到则返还null
-        if (TargerID == -1)
+        if (!targetInd)
             return null;
 
-        return Factory.GetIndividual(TargerID).transform;
+        if (!targetInd.enabled)
+        {
+            hatredMap.Remove(targetInd);
+            hatredListShow.Remove(targetInd.name);
+            return null;
+        }
+
+        return targetInd.transform;
     }
 
     //添加仇恨列表
     private void AddHatredList(Individual HateSource)
     {
-        hatredList.Add(HateSource.ID, HateSource.hatredValue); 
+        hatredMap.Add(HateSource, HateSource.hatredValue); 
     }
 
     ////随时间流逝仇恨减少
