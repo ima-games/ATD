@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Collide
   - Ground
+  - Controller
+  - Manager
+  - TowerBase
+  - Effects
   layers:
   - Default
   - TransparentFX
@@ -18,7 +22,7 @@ TagManager:
   - Ground
   - Weapon
   - Individual
-  - 
+  - TowerBase
   - 
   - 
   - 
