@@ -18,7 +18,7 @@ public class BaseKillMonsterLogic : MonoBehaviour
             {
                 collision.gameObject.GetComponent<Individual>().GetDamage(999999.0f);
 
-                baseIndividual.health -= 5.0f;
+                baseIndividual.GetDamage(5.0f);
                 float BaseHp = baseIndividual.health;
 
                 Logger.Log("基地血量为" + BaseHp, LogType.Individual);
