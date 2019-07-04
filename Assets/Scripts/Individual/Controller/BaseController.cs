@@ -13,7 +13,7 @@ public class BaseController : IndividualController
     {
         //避免物理碰撞事件
         gameObject.layer = 0;//default layer
-        GameObject.Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     public override void GetDamaged()
