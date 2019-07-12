@@ -5,7 +5,14 @@ using UnityEngine;
 //TODO：基地受伤逻辑
 public class BaseKillMonsterLogic : MonoBehaviour
 {
+    private IndividualController baseIndividualController;
     private Individual baseIndividual;
+
+    private void Awake()
+    {
+        baseIndividual = GetComponent<Individual>();
+        baseIndividualController = GetComponent<IndividualController>();
+    }
 
     void OnCollisionEnter(Collision collision)
     {
@@ -16,19 +23,13 @@ public class BaseKillMonsterLogic : MonoBehaviour
             var ind = collision.gameObject.GetComponent<Individual>();
             if(ind.enabled && ind.power == Individual.Power.Monster)
             {
-                collision.gameObject.GetComponent<Individual>().GetDamage(999999.0f);
+                collision.gameObject.GetComponent<IndividualController>().GetDamaged(0,999999.0f);
 
-                baseIndividual.GetDamage(5.0f);
+                baseIndividualController.GetDamaged(0, 5.0f);
                 float BaseHp = baseIndividual.health;
 
                 Logger.Log("基地血量为" + BaseHp, LogType.Individual);
             }
         }
     }
-
-    private void Awake()
-    {
-        baseIndividual = GetComponent<Individual>();
-    }
-
 }

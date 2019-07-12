@@ -36,7 +36,8 @@ public class BuffSystem : MonoBehaviour
     private void Start()
     {
         InitializeBuffList();
-        RegisterMessage();
+        //订阅消息
+        messageSystem.registerBuffEvent((int sender, int buffID) => { AddBuff(buffID); });
     }
 
     private void Update()
@@ -49,12 +50,6 @@ public class BuffSystem : MonoBehaviour
         CheckBuffsToDelete();
         CleanBuffsToDelete();
         BuffsUpdate();
-    }
-
-    //订阅消息
-    public void RegisterMessage()
-    {
-        messageSystem.registerBuffEvent((Individual sender, int buffID) => { AddBuff(buffID); });
     }
 
 

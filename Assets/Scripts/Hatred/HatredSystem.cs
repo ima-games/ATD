@@ -46,17 +46,18 @@ public class HatredSystem : MonoBehaviour
     //订阅消息
     public void RegisterMessage()
     {
-        messageSystem.registerAttackEvent((Individual attacker, float damage) => { AddHateValue(attacker); });
-        messageSystem.registerBuffEvent((Individual target,int buffID) => { if (BuffDataBase.Instance.GetBuffData(buffID).isTaunt) { AddHateValue(target); } });
+        messageSystem.registerAttackEvent((int attackerID, float damage) => { AddHateValue(attackerID); });
+        messageSystem.registerBuffEvent((int targetID,int buffID) => { if (BuffDataBase.Instance.GetBuffData(buffID).isTaunt) { AddHateValue(targetID); } });
     }
 
 
     /// <summary>
     /// 增加仇恨值，若仇恨目标不在仇恨列表里，则先加入列表
     /// </summary>
-    /// <param name="HateSource">仇恨目标</param>
-    public void AddHateValue(Individual HateSource)
+    /// <param name="HateSourceID">仇恨目标</param>
+    public void AddHateValue(int HateSourceID)
     {
+        Individual HateSource = Factory.GetIndividual(HateSourceID);
         if (HateSource == null)
         {
             Logger.Log("HateSource is null", LogType.Hatred);

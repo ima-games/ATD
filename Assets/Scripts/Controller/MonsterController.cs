@@ -11,6 +11,7 @@ public class MonsterController : IndividualController
 {
     public float removeTime = 3.0f; //死亡后移除时间
 
+    private Individual selfIndividual;
     private Animator animator;
     private new Rigidbody rigidbody;
     private NavMeshAgent navMeshAgent;
@@ -21,6 +22,7 @@ public class MonsterController : IndividualController
 
     private void Awake()
     {
+        selfIndividual = GetComponent<Individual>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         rigidbody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
@@ -33,7 +35,8 @@ public class MonsterController : IndividualController
     // Start is called before the first frame update
     void Start()
     {
-
+        //注册受伤监听事件
+        messageSystem.registerAttackEvent(GetDamaged);
     }
 
     // Update is called once per frame
@@ -42,19 +45,31 @@ public class MonsterController : IndividualController
         Walk(rigidbody.velocity);
     }
 
+
     public override void Walk(Vector3 velocity)
     {
         animator.SetFloat("Velocity",velocity.magnitude);
     }
 
-    public override void Attack()
+    public override void Attack(int targetID)
     {
-        animator.SetTrigger("Attack");
+        messageSystem.SendMessage(1, targetID, selfIndividual.attack);
+        //animator.SetTrigger("Attack");
     }
 
-    public override void GetDamaged()
+    public override void GetDamaged(int sourceID, float damage)
     {
-        animator.SetTrigger("Hit");
+        selfIndividual.HealthChange(-damage);
+        //生命值少于0，调用死亡行为
+        if (selfIndividual.health < 0)
+        {
+            Die();
+        }
+        //调用受伤行为
+        else
+        {
+            animator.SetTrigger("Hit");
+        }
     }
 
     /// <summary>
@@ -65,16 +80,19 @@ public class MonsterController : IndividualController
         //避免物理碰撞事件
         gameObject.layer = 0;//default layer
 
-        //关闭脚本
-        buffSystem.enabled = false ;
-        hatredSystem.enabled =false;
-        behaviorTree.enabled = false;
-        messageSystem.enabled = false;
-
         //播放死亡动画
         animator.SetTrigger("Die");
 
-        //rigidbody.freezeRotation = false;
+        //关闭脚本
+        buffSystem.enabled = false;
+        hatredSystem.enabled = false;
+        behaviorTree.enabled = false;
+        messageSystem.enabled = false;
+        selfIndividual.enabled = false;
+        this.enabled = false;
+
+        //发出死亡消息
+        messageSystem.SendMessage(3,0,0);
 
         StartCoroutine(RemoveObject());
     }

@@ -42,7 +42,7 @@ public class WeaponTriggerEvent : MonoBehaviour {
         attackedObjects.Add(otherGo);
 
         Individual target = otherGo.GetComponent<Individual>();
-        master.Attack(target);
+        master.GetComponent<IndividualController>().Attack(target.ID);
     }
 
     public void StartAttack()

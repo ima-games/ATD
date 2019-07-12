@@ -34,28 +34,16 @@ public class Individual : MonoBehaviour
     public int reviveCount = 0;         //复活次数
     public int maxReviveCount = 0;      //最大复活次数
 
-    //用于辅助的系统组件
-    private MessageSystem messageSystem;
-    private IndividualController controller;
-
     private void Awake()
     {
         //向工厂注册个体
         Factory.RegisterIndividual(this, individualType);
-
-        messageSystem = GetComponent<MessageSystem>();
-        controller = GetComponent<IndividualController>();
+        //更新消息系统的ID
+        GetComponent<MessageSystem>().selfID = ID;
     }
 
     void Start()
     {
-        RegisterEvent();
-    }
-
-    void RegisterEvent()
-    {
-        //订阅 受到攻击 消息
-        messageSystem.registerAttackEvent((Individual attacker,float damage)=>{ GetDamage(damage); });
     }
 
     /// <summary>
@@ -66,16 +54,16 @@ public class Individual : MonoBehaviour
         health += recoverRate * Time.deltaTime;
     }
 
-    //--------------------个体行为-------------------
-    public void GetDamage(float damage)
-    {
-        HealthChange(-damage);
-    }
+    ////--------------------个体行为-------------------
+    //public void GetDamage(float damage)
+    //{
+    //    HealthChange(-damage);
+    //}
 
-    public void Attack(Individual target)
-    {
-        messageSystem.SendMessage(1,target.ID,attack);
-    }
+    //public void Attack(Individual target)
+    //{
+    //    messageSystem.SendMessage(1,target.ID,attack);
+    //}
 
     //--------------------属性更改--------------------
 
@@ -84,21 +72,6 @@ public class Individual : MonoBehaviour
     {
         health += increment;
         health = Mathf.Min(health, maxHealth);
-
-        if (health < 0)
-        {
-            //利用控制器执行死亡行为
-            controller.Die();
-            //通知死亡行为
-            messageSystem.SendMessage(3,0,0);
-            //个体脚本禁用
-            this.enabled = false;
-        }
-        else if (increment < 0.0f)
-        {
-            //利用控制器执行受伤行为xcv 
-            controller.GetDamaged();
-        }
     }
 
     ////改变百分比生命值

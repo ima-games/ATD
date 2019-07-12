@@ -37,32 +37,32 @@ public class PlayerController : IndividualController{
     private float forward = 0.0f;
     private float right = 0.0f;
 
-    private Individual individual;
-
+    private Individual selfIndividual;
     private BuffSystem buffSystem;
     private MessageSystem messageSystem;
     private SkillSystem skillSystem;
 
+
     void Awake () {
+        selfIndividual = GetComponent<Individual>();
         animator = model.GetComponent<Animator> ();
         rigidbody = GetComponent<Rigidbody> ();
         capsuleCollider = GetComponent<CapsuleCollider> ();
-        individual = GetComponent<Individual>();
-
         buffSystem = GetComponent<BuffSystem>();
         messageSystem = GetComponent<MessageSystem>();
         skillSystem = GetComponent<SkillSystem>();
     }
-
-    void RegisterMessage()
+    private void Start()
     {
+        //注册受伤监听事件
+        messageSystem.registerAttackEvent(GetDamaged);
     }
 
     void Update () {
         //根据个体属性，更新移动速度
-        walkSpeed = individual.speed / 8.0f;
+        walkSpeed = selfIndividual.speed / 8.0f;
         //根据个体属性，更新攻击速度
-        animator.SetFloat("attackSpeed", individual.attackSpeed);
+        animator.SetFloat("attackSpeed", selfIndividual.attackSpeed);
 
         Walk(new Vector3(forward, right, 0));
     }
@@ -113,12 +113,12 @@ public class PlayerController : IndividualController{
             if (playerInput.rHand)
             {
                 animator.SetBool("R0L1", false);
-                Attack();
+                animator.SetTrigger("attack");
             }
             else if (playerInput.lHand && !leftIsShield)
             {
                 animator.SetBool("R0L1", true);
-                Attack();
+                animator.SetTrigger("attack");
             }
         }
 
@@ -259,14 +259,24 @@ public class PlayerController : IndividualController{
         animator.SetFloat("right", velocity.y);
     }
 
-    public override void Attack()
+    public override void Attack(int targetID)
     {
-        animator.SetTrigger("attack");
+        messageSystem.SendMessage(1, targetID, selfIndividual.attack);
     }
 
-    public override void GetDamaged()
+    public override void GetDamaged(int sourceID, float damage)
     {
-        animator.SetTrigger("hit");
+        selfIndividual.HealthChange(-damage);
+        //生命值少于0，调用死亡行为
+        if (selfIndividual.health < 0)
+        {
+            Die();
+        }
+        //调用受伤行为
+        else
+        {
+            animator.SetTrigger("hit");
+        }
     }
 
     public override void Die()
@@ -282,8 +292,12 @@ public class PlayerController : IndividualController{
         //关闭脚本
         buffSystem.enabled = false;
         messageSystem.enabled = false;
-        skillSystem.enabled =false;
+        skillSystem.enabled = false;
+        selfIndividual.enabled = false;
         this.enabled = false;
+
+        //发出死亡消息
+        messageSystem.SendMessage(3, 0, 0);
     }
 
 }

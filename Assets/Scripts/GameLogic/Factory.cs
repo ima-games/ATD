@@ -92,13 +92,13 @@ public class Factory : MonoBehaviour
     /// <summary>
     /// 在Individual死亡时注销Individual
     /// </summary>
-    /// <param name="ind">死亡的Individual</param>
-    public static void RemoveIndividual(Individual ind)
+    /// <param name="individualID">死亡的Individual</param>
+    public static void RemoveIndividual(int individualID)
     {
-        if (IDToIndividualDictionary.ContainsKey(ind.ID))
+        if (IDToIndividualDictionary.ContainsKey(individualID))
         {
-            IDToIndividualDictionary.Remove(ind.ID);
-            _IDQueue.Enqueue(ind.ID);
+            IDToIndividualDictionary.Remove(individualID);
+            _IDQueue.Enqueue(individualID);
         }
     }
 

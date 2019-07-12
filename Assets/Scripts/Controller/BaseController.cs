@@ -4,9 +4,26 @@ using UnityEngine;
 
 public class BaseController : IndividualController
 {
-    public override void Attack()
+    private void Awake()
     {
-        throw new System.NotImplementedException();
+
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public override void Attack(int targetID)
+    {
+
     }
 
     public override void Die()
@@ -16,7 +33,7 @@ public class BaseController : IndividualController
         gameObject.SetActive(false);
     }
 
-    public override void GetDamaged()
+    public override void GetDamaged(int sourceID , float damage)
     {
 
     }
@@ -26,15 +43,4 @@ public class BaseController : IndividualController
         throw new System.NotImplementedException();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
