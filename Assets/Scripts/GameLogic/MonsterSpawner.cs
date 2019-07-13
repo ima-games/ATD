@@ -174,7 +174,7 @@ public class MonsterSpawner : MonoBehaviour
     {
         wayPointManager = GetComponent<WayPointManager>();
 
-        GetJsonToLevelData("Assets/Scripts/Data/Mission.json");
+        GetJsonToLevelData("Mission.json");
     }
 
     private void Start()

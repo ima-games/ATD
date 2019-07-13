@@ -27,6 +27,11 @@ public class Factory : MonoBehaviour
     private static Dictionary<int, Individual> _IDToIndividualDictionary;
 
     /// <summary>
+    /// 存放被删除对象，用于lazy delete
+    /// </summary>
+    private static List<int> _IDToRemove;
+
+    /// <summary>
     /// 特殊记录：玩家个体对象
     /// </summary>
     private static Individual player = null;
@@ -45,17 +50,6 @@ public class Factory : MonoBehaviour
     public static Individual PlayerIndividual { get => player;}
 
     public static Individual BaseIndividual { get => baseIndividual;}
-
-    //检测是否存在怪物
-    public static bool HasMonsterIndividual()
-    {
-        foreach(var ind in _IDToIndividualDictionary.Values)
-        {
-            if (ind.power == Individual.Power.Monster) return true;
-        }
-
-        return false;
-    }
 
     #endregion
 
@@ -90,16 +84,12 @@ public class Factory : MonoBehaviour
     }
 
     /// <summary>
-    /// 在Individual死亡时注销Individual
+    /// 在Individual死亡时注销Individual(lazy delete)
     /// </summary>
-    /// <param name="ind">死亡的Individual</param>
-    public static void RemoveIndividual(Individual ind)
+    /// <param name="individualID">死亡的Individual</param>
+    public static void RemoveIndividual(int individualID)
     {
-        if (IDToIndividualDictionary.ContainsKey(ind.ID))
-        {
-            IDToIndividualDictionary.Remove(ind.ID);
-            _IDQueue.Enqueue(ind.ID);
-        }
+        _IDToRemove.Add(individualID);
     }
 
     /// <summary>
@@ -188,10 +178,22 @@ public class Factory : MonoBehaviour
         }
     }
 
-    #endregion
+    /// <summary>
+    /// 检测是否存在怪物
+    /// </summary>
+    /// <returns></returns>
+    public static bool HasMonsterIndividual()
+    {
+        foreach (var ind in _IDToIndividualDictionary.Values)
+        {
+            if (ind.power == Individual.Power.Monster) return true;
+        }
 
-    #region Private Methods
-    private bool IsPlayerDead()
+        return false;
+    }
+
+
+    public static bool IsPlayerDead()
     {
         Individual player = GetIndividual(0);
         if (player)
@@ -209,7 +211,7 @@ public class Factory : MonoBehaviour
         }
     }
 
-    private bool IsBaseDestroyed()
+    public static bool IsBaseDestroyed()
     {
         Individual iBase = GetIndividual(1);
         if (iBase)
@@ -227,10 +229,11 @@ public class Factory : MonoBehaviour
         }
     }
 
-    private bool IsGameOver()
+    public static bool IsGameOver()
     {
         return IsPlayerDead() || IsBaseDestroyed();
     }
+
     #endregion
 
 
@@ -240,17 +243,16 @@ public class Factory : MonoBehaviour
         messageSystem = GetComponent<MessageSystem>();
         //初始化ID序号池
         _IDQueue = new Queue<int>(_MAX_IDQUEUE_SIZE);
+        for (int id = 1; id < _MAX_IDQUEUE_SIZE; id++) _IDQueue.Enqueue(id);
+
         _IDToIndividualDictionary = new Dictionary<int, Individual>();
-        for (int id = 1; id < _MAX_IDQUEUE_SIZE; id++)
-        {
-            _IDQueue.Enqueue(id);
-        }
+
+        _IDToRemove = new List<int>();
     }
 
     void Start()
     {
-        //工厂注册死亡监听事件
-        messageSystem.registerDieEvent(RemoveIndividual);
+
     }
 
     void Update()
@@ -260,7 +262,23 @@ public class Factory : MonoBehaviour
 
     private void LateUpdate()
     {
+        LazyRemoveIndividuals();
+    }
 
+    #endregion
+
+    #region private
+
+    private void LazyRemoveIndividuals()
+    {
+        for (int i = 0; i < _IDToRemove.Count; ++i)
+        {
+            if (IDToIndividualDictionary.Remove(_IDToRemove[i]))
+            {
+                _IDQueue.Enqueue(_IDToRemove[i]);
+            }
+        }
+        _IDToRemove.Clear();
     }
 
     #endregion

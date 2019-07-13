@@ -54,10 +54,10 @@ public class MoneyManager : MonoBehaviour {
     /// 通过击杀个体，获得金币
     /// </summary>
     /// <param name="individual"></param>
-    public void AddMoneyByKillIndividual(Individual individual)
+    public void AddMoneyByKillIndividual(int individualID)
     {
         //只有怪物势力个体增加金币
-        if (individual.power != Individual.Power.Monster) return;
+        if (Factory.GetIndividual(individualID).power != Individual.Power.Monster) return;
 
         //TODO:暂定每个怪物金币 12
         AddCash(12);

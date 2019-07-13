@@ -86,8 +86,8 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //若玩家死了，则提示失败
-        if (!Factory.PlayerIndividual.enabled && !alreadyLose)
+        //若玩家基地死了，则提示失败
+        if ((!Factory.PlayerIndividual.enabled || !Factory.BaseIndividual || !Factory.BaseIndividual.enabled) && !alreadyLose)
         {
             losePanel.Play();
             alreadyLose = true;
