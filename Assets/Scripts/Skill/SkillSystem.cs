@@ -13,12 +13,13 @@ public class SkillSystem : MonoBehaviour
     ////装备技能对象列表
     //List<ISkill> EquipmentSkill = new List<ISkill>();
 
-    private Individual individual;
-
+    private Individual selfIndividual;
+    private MessageSystem messageSystem;
 
     private void Awake()
     {
-        individual = GetComponent<Individual>();
+        selfIndividual = GetComponent<Individual>();
+        messageSystem = GetComponent<MessageSystem>();
         //TODO
         //目前硬编码给玩家赋予3个技能
         HeroSkills.Add(new BuffSkill(6, true, true, 5.0f));   //主动技能：嘲讽Buff
@@ -33,8 +34,11 @@ public class SkillSystem : MonoBehaviour
     {
         foreach (ISkill skill in HeroSkills)
         {
-            skill.InitSkill(individual);
+            skill.InitSkill(selfIndividual);
         }
+
+        //订阅消息
+        messageSystem.registerDieEvent((int sender) => { if (sender == selfIndividual.ID) { this.enabled = false; } });
     }
 
     // Update is called once per frame
@@ -42,7 +46,7 @@ public class SkillSystem : MonoBehaviour
     {
         foreach(ISkill skill in HeroSkills)
         {
-            skill.UpdateSkill(individual);
+            skill.UpdateSkill(selfIndividual);
         }
     } 
 
@@ -54,14 +58,14 @@ public class SkillSystem : MonoBehaviour
     {
         Logger.Log("Release Skill " + index , LogType.Skill);
 
-        if (!individual.enabled)
+        if (!selfIndividual.enabled)
             return;
 
         if (index >= HeroSkills.Count){ return; }
 
         if (HeroSkills[index].IsColdTimeEnd())
         {
-            HeroSkills[index].ReleaseSkill(individual);
+            HeroSkills[index].ReleaseSkill(selfIndividual);
             skillEffectManager.PlayEffect(transform, index);
         }
     }

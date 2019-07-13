@@ -38,9 +38,7 @@ public class PlayerController : IndividualController{
     private float right = 0.0f;
 
     private Individual selfIndividual;
-    private BuffSystem buffSystem;
     private MessageSystem messageSystem;
-    private SkillSystem skillSystem;
 
 
     void Awake () {
@@ -48,9 +46,7 @@ public class PlayerController : IndividualController{
         animator = model.GetComponent<Animator> ();
         rigidbody = GetComponent<Rigidbody> ();
         capsuleCollider = GetComponent<CapsuleCollider> ();
-        buffSystem = GetComponent<BuffSystem>();
         messageSystem = GetComponent<MessageSystem>();
-        skillSystem = GetComponent<SkillSystem>();
     }
     private void Start()
     {
@@ -290,9 +286,6 @@ public class PlayerController : IndividualController{
         Cursor.lockState = CursorLockMode.None;
 
         //关闭脚本
-        buffSystem.enabled = false;
-        messageSystem.enabled = false;
-        skillSystem.enabled = false;
         selfIndividual.enabled = false;
         this.enabled = false;
 

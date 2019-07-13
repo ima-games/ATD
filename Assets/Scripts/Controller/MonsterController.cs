@@ -15,8 +15,6 @@ public class MonsterController : IndividualController
     private Animator animator;
     private new Rigidbody rigidbody;
     private NavMeshAgent navMeshAgent;
-    private BuffSystem buffSystem;
-    private HatredSystem hatredSystem;
     private BehaviorTree behaviorTree;
     private MessageSystem messageSystem;
 
@@ -26,8 +24,6 @@ public class MonsterController : IndividualController
         navMeshAgent = GetComponent<NavMeshAgent>();
         rigidbody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
-        buffSystem = GetComponent<BuffSystem>();
-        hatredSystem = GetComponent<HatredSystem>();
         behaviorTree = GetComponent<BehaviorTree>();
         messageSystem = GetComponent<MessageSystem>();
     }
@@ -84,8 +80,6 @@ public class MonsterController : IndividualController
         animator.SetTrigger("Die");
 
         //关闭脚本
-        buffSystem.enabled = false;
-        hatredSystem.enabled = false;
         behaviorTree.enabled = false;
         messageSystem.enabled = false;
         selfIndividual.enabled = false;

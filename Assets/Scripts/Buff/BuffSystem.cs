@@ -38,6 +38,8 @@ public class BuffSystem : MonoBehaviour
         InitializeBuffList();
         //订阅消息
         messageSystem.registerBuffEvent((int sender, int buffID) => { AddBuff(buffID); });
+        //订阅消息
+        messageSystem.registerDieEvent((int sender) => { if (sender == myIndividual.ID) { this.enabled = false; } });
     }
 
     private void Update()

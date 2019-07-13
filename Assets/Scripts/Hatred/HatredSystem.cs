@@ -35,7 +35,10 @@ public class HatredSystem : MonoBehaviour
         ////实例化时调用
         //StartCoroutine(HateDecrementTimer());
 
-        RegisterMessage();
+        //订阅消息
+        messageSystem.registerAttackEvent((int attackerID, float damage) => { AddHateValue(attackerID); });
+        messageSystem.registerBuffEvent((int targetID, int buffID) => { if (BuffDataBase.Instance.GetBuffData(buffID).isTaunt) { AddHateValue(targetID); } });
+        messageSystem.registerDieEvent((int sender) => { if (sender == individual.ID) { this.enabled = false; } });
     }
 
     private void Update()
@@ -43,12 +46,6 @@ public class HatredSystem : MonoBehaviour
 
     }
 
-    //订阅消息
-    public void RegisterMessage()
-    {
-        messageSystem.registerAttackEvent((int attackerID, float damage) => { AddHateValue(attackerID); });
-        messageSystem.registerBuffEvent((int targetID,int buffID) => { if (BuffDataBase.Instance.GetBuffData(buffID).isTaunt) { AddHateValue(targetID); } });
-    }
 
 
     /// <summary>

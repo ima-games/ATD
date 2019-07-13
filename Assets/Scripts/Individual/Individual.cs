@@ -42,6 +42,15 @@ public class Individual : MonoBehaviour
         GetComponent<MessageSystem>().selfID = ID;
     }
 
+    /// <summary>
+    /// 当个体组件被Disable时，说明该个体已经死亡。enable表示该个体的存活标志。
+    /// </summary>
+    private void OnDisable()
+    {
+        //向工厂注销个体
+        Factory.RemoveIndividual(ID);
+    }
+
     void Start()
     {
     }
