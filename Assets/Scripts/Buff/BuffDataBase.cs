@@ -2,18 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
-/// 挂在空物体上才能用
+/// BuffDataBase（全局单例类），负责读入Excel表，初始化对应所有BuffData，并提供访问它们的方法
 /// </summary>
 public class BuffDataBase : MonoBehaviour
 {
     //读取excel插件生成的json文件
     public TextAsset BuffDataJ;
-
-    
     private List<BuffData> buffDatas;
-    private Dictionary<int, BuffData> buffDataDictionary = new Dictionary<int, BuffData>();
+
     private static BuffDataBase instance;
-    
 
     //禁止外界通过new获取该类的实例
     private BuffDataBase() { }
@@ -40,7 +37,6 @@ public class BuffDataBase : MonoBehaviour
         //列表数据读入字典
         foreach (var a in buffDatas)
         {
-            buffDataDictionary.Add(a.ID, a);
             Logger.Log("BuffData数据:ID = " + a.ID + ";触发类型 = " + a.isTrigger + ";持续时间 = " + a.Time + ";触发次数 = " + a.Count, LogType.Data);
         }
     }
@@ -51,12 +47,12 @@ public class BuffDataBase : MonoBehaviour
     /// <returns></returns>
     public BuffData GetBuffData(int ID)
     {
-        if (!buffDataDictionary.ContainsKey(ID))
+        if (ID >= buffDatas.Count || ID < 0)
         {
             Debug.Log("buffData中不存在" + ID);
             return null;
         }
-        return buffDataDictionary[ID];
+        return buffDatas[ID];
     }
 
     // Update is called once per frame
