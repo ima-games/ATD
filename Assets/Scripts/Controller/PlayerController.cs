@@ -55,15 +55,14 @@ public class PlayerController : IndividualController{
     }
 
     void Update () {
-        //根据个体属性，更新移动速度
-        walkSpeed = selfIndividual.speed / 8.0f;
-        //根据个体属性，更新攻击速度
-        animator.SetFloat("attackSpeed", selfIndividual.attackSpeed);
 
-        Walk(new Vector3(forward, right, 0));
     }
 
-    void FixedUpdate () {
+    void FixedUpdate ()
+    {                
+        //根据个体属性，更新移动速度
+        walkSpeed = selfIndividual.speed / 8.0f;
+
         rigidbody.position += deltaPos;
         rigidbody.velocity = new Vector3 (planeVec.x, rigidbody.velocity.y, planeVec.z) + thrustVec;
         thrustVec = Vector3.zero;
@@ -91,7 +90,7 @@ public class PlayerController : IndividualController{
         //animator.SetBool ("defense", playerInput.defense);
 
         //翻滚
-        if (playerInput.roll || rigidbody.velocity.magnitude > 7f)
+        if (playerInput.roll)
         {
             animator.SetTrigger("roll");
             canAttack = false;
@@ -149,6 +148,14 @@ public class PlayerController : IndividualController{
             }
         }
 
+
+        //根据个体属性，更新攻击速度
+        animator.SetFloat("attackSpeed", selfIndividual.attackSpeed);
+
+        //更新移动速度
+        animator.SetFloat("bodyVelocityMagnitude", rigidbody.velocity.magnitude);
+
+       Walk(new Vector3(forward, right, 0));
     }
 
     /// <summary>

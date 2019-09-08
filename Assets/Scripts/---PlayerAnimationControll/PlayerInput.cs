@@ -109,7 +109,7 @@ public class PlayerInput : MonoBehaviour
         //Button
         //attack = buttonAttack.onPressed;
         run = (buttonRun.isPressing && !buttonRun.isDelaying) || buttonRun.isExtending;
-        jump = buttonRun.onPressed && buttonRun.isExtending;
+        jump = buttonJump.onPressed;
         roll = buttonRun.onReleased && buttonRun.isDelaying;
         lHand = buttonLHand.onPressed;
         rHand = buttonRHand.onPressed;

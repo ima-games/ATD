@@ -9,7 +9,25 @@ AnimatorController:
   m_Name: PlayerController
   serializedVersion: 5
   m_AnimatorParameters:
+  - m_Name: bodyVelocityMagnitude
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   - m_Name: forward
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: right
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: attackSpeed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -23,7 +41,7 @@ AnimatorController:
     m_Controller: {fileID: 0}
   - m_Name: attack1aAVelocity
     m_Type: 1
-    m_DefaultFloat: 0
+    m_DefaultFloat: 0.1
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
@@ -59,18 +77,6 @@ AnimatorController:
     m_Controller: {fileID: 0}
   - m_Name: defense
     m_Type: 4
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-  - m_Name: right
-    m_Type: 1
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-  - m_Name: attackSpeed
-    m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
@@ -843,9 +849,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: isGround
     m_EventTreshold: 0
-  - m_ConditionMode: 4
-    m_ConditionEvent: forward
-    m_EventTreshold: 1.1
+  - m_ConditionMode: 3
+    m_ConditionEvent: bodyVelocityMagnitude
+    m_EventTreshold: 9
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102911390743923700}
   m_Solo: 0
@@ -1209,9 +1215,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: roll
-    m_EventTreshold: 0
+  - m_ConditionMode: 3
+    m_ConditionEvent: bodyVelocityMagnitude
+    m_EventTreshold: 9
   - m_ConditionMode: 1
     m_ConditionEvent: isGround
     m_EventTreshold: 0
@@ -1478,7 +1484,7 @@ AnimatorState:
   - {fileID: 1101910266427201608}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
+  m_IKOnFeet: 1
   m_WriteDefaultValues: 1
   m_Mirror: 0
   m_SpeedParameterActive: 1
@@ -1847,7 +1853,7 @@ AnimatorState:
   - {fileID: 114462814926546308}
   - {fileID: 114621510967329618}
   m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
+  m_IKOnFeet: 1
   m_WriteDefaultValues: 1
   m_Mirror: 0
   m_SpeedParameterActive: 1
@@ -1984,7 +1990,7 @@ AnimatorState:
   - {fileID: 1101813881736635116}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
+  m_IKOnFeet: 1
   m_WriteDefaultValues: 1
   m_Mirror: 0
   m_SpeedParameterActive: 1
@@ -2036,10 +2042,10 @@ AnimatorStateMachine:
     m_Position: {x: 276, y: 12, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102954242800854584}
-    m_Position: {x: 564, y: -12, z: 0}
+    m_Position: {x: 528, y: -48, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102423942196924280}
-    m_Position: {x: 792, y: 12, z: 0}
+    m_Position: {x: 828, y: 12, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102656545581515954}
     m_Position: {x: 288, y: 228, z: 0}
@@ -2075,10 +2081,10 @@ AnimatorStateMachine:
     m_Position: {x: 264, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102605604468043192}
-    m_Position: {x: 264, y: 12, z: 0}
+    m_Position: {x: 312, y: -84, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102692353841578552}
-    m_Position: {x: 528, y: 12, z: 0}
+    m_Position: {x: 552, y: -84, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102911390743923700}
     m_Position: {x: 528, y: 120, z: 0}
