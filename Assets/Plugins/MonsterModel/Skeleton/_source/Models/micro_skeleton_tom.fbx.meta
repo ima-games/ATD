@@ -78,10 +78,22 @@ ModelImporter:
     7400080: skeleton_dizzy
     7400082: skeleton_talk
     7400084: skeleton_laugh
+    9500000: //RootNode
     11100000: //RootNode
     13700000: eyes
     13700002: micro_skeleton_tom
-  externalObjects: {}
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: micro_skeleton_tom1
+    second: {fileID: 2100000, guid: 60504a290015a4aaa89c8668ac96b296, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: micro_skeleton_tom_transp
+    second: {fileID: 2100000, guid: 906c4dd6f7d994aa8a1a5efc1ad5898e, type: 2}
   materials:
     importMaterials: 1
     materialName: 1
@@ -101,7 +113,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -204,7 +216,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -703,6 +715,7 @@ ModelImporter:
     globalScale: 0.01
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
     importVisibility: 0
     importBlendShapes: 1
     importCameras: 0
@@ -720,19 +733,97 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 0
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 4
     normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2
     human: []
-    skeleton: []
+    skeleton:
+    - name: micro_skeleton_tom(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: eyes
+      parentName: micro_skeleton_tom(Clone)
+      position: {x: -0, y: 0, z: -0.0061643803}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: micro_skeleton_tom
+      parentName: micro_skeleton_tom(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: root_skel
+      parentName: micro_skeleton_tom(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: body_skel
+      parentName: root_skel
+      position: {x: -0, y: 0.22299345, z: -0.01472573}
+      rotation: {x: 0.0009601937, y: -0, z: -0, w: 0.9999996}
+      scale: {x: 1, y: 1, z: 1}
+    - name: head_skel
+      parentName: body_skel
+      position: {x: -0, y: 0.4055224, z: -0.03553495}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: hair_skel
+      parentName: head_skel
+      position: {x: -0, y: 0.39637312, z: -0.101246335}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: eyes_skel
+      parentName: head_skel
+      position: {x: -0, y: 0.021409241, z: 0.042382613}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: face
+      parentName: head_skel
+      position: {x: -0, y: 0.2197272, z: 0.40177527}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: left_shoulder_skel
+      parentName: body_skel
+      position: {x: -0.56658685, y: 0.29359725, z: -0.06652362}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: left_arm_skel
+      parentName: left_shoulder_skel
+      position: {x: -0.015793838, y: -0.12042018, z: 0.03217145}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: left_hand_skel
+      parentName: left_arm_skel
+      position: {x: -0.046288222, y: -0.09491062, z: 0.07684888}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: right_shoulder_skel
+      parentName: body_skel
+      position: {x: 0.56658685, y: 0.29359725, z: -0.06652362}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: right_arm_skel
+      parentName: right_shoulder_skel
+      position: {x: 0.015793838, y: -0.12042018, z: 0.03217145}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: right_hand_skel
+      parentName: right_arm_skel
+      position: {x: 0.046288222, y: -0.09491062, z: 0.07684888}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -741,12 +832,11 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 1
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 1
   userData: 
