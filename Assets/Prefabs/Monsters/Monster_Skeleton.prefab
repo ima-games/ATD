@@ -474,13 +474,13 @@ GameObject:
   - component: {fileID: 1834984485323710614}
   - component: {fileID: 3974134261080946107}
   - component: {fileID: 2019586240975761770}
+  - component: {fileID: 8819386761806734921}
   - component: {fileID: 3389242263602445212}
   - component: {fileID: 2303414166464579407}
   - component: {fileID: 2114536716506304668}
   - component: {fileID: 2217048188248335932}
   - component: {fileID: 8164748866073761936}
   - component: {fileID: 8695080332497170065}
-  - component: {fileID: 8819386761806734921}
   m_Layer: 10
   m_Name: Monster_Skeleton
   m_TagString: Untagged
@@ -556,6 +556,25 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!95 &8819386761806734921
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7362269429914008349}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b69336de197ac814c82bb60278de65ea, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &3389242263602445212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,25 +698,6 @@ MonoBehaviour:
         byteData: 4265686176696f7244657369676e65722e52756e74696d652e5368617265645472616e73666f726d546172676574014265686176696f7244657369676e65722e52756e74696d652e5368617265645472616e73666f726d4d6f7374486174726564546172676574014265686176696f7244657369676e65722e52756e74696d652e5368617265645472616e73666f726d4c697374526f616401000000004265686176696f7244657369676e65722e52756e74696d652e536861726564466c6f6174302e3101000000004265686176696f7244657369676e65722e52756e74696d652e536861726564466c6f617453706565640100004040
         byteDataArray: 4265686176696f7244657369676e65722e52756e74696d652e5368617265645472616e73666f726d546172676574014265686176696f7244657369676e65722e52756e74696d652e5368617265645472616e73666f726d4d6f7374486174726564546172676574014265686176696f7244657369676e65722e52756e74696d652e5368617265645472616e73666f726d4c697374526f616401000000004265686176696f7244657369676e65722e52756e74696d652e536861726564466c6f6174302e3101000000004265686176696f7244657369676e65722e52756e74696d652e536861726564466c6f617453706565640100004040
       Version: 1.6.1
---- !u!95 &8819386761806734921
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7362269429914008349}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b69336de197ac814c82bb60278de65ea, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7362269429914008351
 GameObject:
   m_ObjectHideFlags: 0
