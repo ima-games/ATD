@@ -38,6 +38,11 @@ public class MonsterController : IndividualController
     // Update is called once per frame
     void Update()
     {
+    }
+
+    private void FixedUpdate()
+    {
+        //移动
         Walk(rigidbody.velocity);
     }
 

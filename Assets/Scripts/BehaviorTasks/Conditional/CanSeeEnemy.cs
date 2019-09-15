@@ -6,7 +6,7 @@ using UnityEngine;
 namespace BehaviorDesigner.Runtime.Tasks
 {
     [TaskDescription("看到视野范围内的怪物")]
-    [TaskCategory("Movement")]
+    [TaskCategory("ATDConditional")]
     [TaskIcon("Assets/Behavior Designer Movement/Editor/Icons/{SkinColor}CanSeeObjectIcon.png")]
     public class CanSeeEnemy : Conditional
     {
