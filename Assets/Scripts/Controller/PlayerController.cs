@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : IndividualController{
+public class PlayerController : BaseIndividualController{
     public GameObject model;
     public PlayerInput playerInput;
     public LockController lockController;
@@ -38,24 +38,17 @@ public class PlayerController : IndividualController{
     private float right = 0.0f;
 
     private Individual selfIndividual;
-    private MessageSystem messageSystem;
 
-
+    
     void Awake () {
         selfIndividual = GetComponent<Individual>();
         animator = model.GetComponent<Animator> ();
         rigidbody = GetComponent<Rigidbody> ();
-        capsuleCollider = GetComponent<CapsuleCollider> ();
-        messageSystem = GetComponent<MessageSystem>();
+        capsuleCollider = GetComponent<CapsuleCollider>();
     }
     private void Start()
     {
-        //注册受伤监听事件
-        messageSystem.registerAttackEvent(GetDamaged);
-    }
-
-    void Update () {
-
+        InitRegister();
     }
 
     void FixedUpdate ()
@@ -262,11 +255,6 @@ public class PlayerController : IndividualController{
         animator.SetFloat("right", velocity.y);
     }
 
-    public override void Attack(int targetID)
-    {
-        messageSystem.SendMessage(1, targetID, selfIndividual.attack);
-    }
-
     public override void GetDamaged(int sourceID, float damage)
     {
         selfIndividual.HealthChange(-damage);
@@ -280,6 +268,11 @@ public class PlayerController : IndividualController{
         {
             animator.SetTrigger("hit");
         }
+    }
+    public override void Attack(Individual ind)
+    {
+        if (ind == null) return;
+        messageSystem.SendMessage(1,ind.ID, selfIndividual.attack);
     }
 
     public override void Die()

@@ -7,7 +7,7 @@ using UnityEngine.AI;
 /// <summary>
 /// 怪物个体对象控制器
 /// </summary>
-public class MonsterController : IndividualController
+public class MonsterController : BaseIndividualController
 {
     public float removeTime = 3.0f; //死亡后移除时间
 
@@ -16,7 +16,7 @@ public class MonsterController : IndividualController
     private new Rigidbody rigidbody;
     private NavMeshAgent navMeshAgent;
     private BehaviorTree behaviorTree;
-    private MessageSystem messageSystem;
+    private HatredSystem hatredSystem;
 
     private void Awake()
     {
@@ -25,19 +25,12 @@ public class MonsterController : IndividualController
         rigidbody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         behaviorTree = GetComponent<BehaviorTree>();
-        messageSystem = GetComponent<MessageSystem>();
+        hatredSystem = GetComponent<HatredSystem>();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        //注册受伤监听事件
-        messageSystem.registerAttackEvent(GetDamaged);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        InitRegister();
     }
 
     private void FixedUpdate()
@@ -47,17 +40,20 @@ public class MonsterController : IndividualController
     }
 
 
+    /// <summary>
+    /// 怪物移动函数
+    /// </summary>
+    /// <param name="velocity"></param>
     public override void Walk(Vector3 velocity)
     {
         animator.SetFloat("Velocity",velocity.magnitude);
     }
 
-    public override void Attack(int targetID)
-    {
-        messageSystem.SendMessage(1, targetID, selfIndividual.attack);
-        //animator.SetTrigger("Attack");
-    }
-
+    /// <summary>
+    /// 怪物对象受到伤害
+    /// </summary>
+    /// <param name="sourceID"></param>
+    /// <param name="damage"></param>
     public override void GetDamaged(int sourceID, float damage)
     {
         selfIndividual.HealthChange(-damage);
@@ -74,7 +70,17 @@ public class MonsterController : IndividualController
     }
 
     /// <summary>
-    /// 个体对象死亡，执行一些必要的死亡操作（但未被移除）
+    /// 怪物攻击
+    /// </summary>
+    public override void Attack(Individual ind)
+    {
+        if (ind == null) return;
+
+        messageSystem.SendMessage(1, ind.ID, selfIndividual.attack);
+    }
+
+    /// <summary>
+    /// 怪物对象死亡，执行一些必要的死亡操作（但未被移除）
     /// </summary>
     public override void Die()
     {
@@ -95,14 +101,29 @@ public class MonsterController : IndividualController
 
         StartCoroutine(RemoveObject());
     }
+    
+    /// <summary>
+    /// 动画攻击事件用
+    /// </summary>
+    public void StartAttack()
+    {
+        var target = hatredSystem.GetMostHatedTarget();
+        //若存在仇恨目标且距离在一定范围
+        if (target && (target.position-transform.position).sqrMagnitude < 2.0f)
+        {
+            //攻击之
+            Attack(target.GetComponent<Individual>());
+        }
+
+    }
+
+    //--------------辅助函数-------------------------------------------
 
     // 移除个体对象
-    IEnumerator RemoveObject()
+    private IEnumerator RemoveObject()
     {
         yield return new WaitForSeconds(removeTime);
-
         Destroy(gameObject);
-
         yield break;
     }
 

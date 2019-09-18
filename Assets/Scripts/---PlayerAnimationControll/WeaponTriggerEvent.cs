@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// 玩家武器触发事件
+/// </summary>
 public class WeaponTriggerEvent : MonoBehaviour {
-    public Individual master;
-
-    //TODO 
+    private Individual master;
     private List<GameObject> attackedObjects = new List<GameObject>();
-    bool attackable = false;
+    private bool attackable = false;
 
-    private void Start()
+    private void Awake()
     {
-        
+        master = GetComponentInParent<Individual>();
     }
 
     private void OnEnable()
@@ -33,16 +35,15 @@ public class WeaponTriggerEvent : MonoBehaviour {
         if (otherGo == master.gameObject || LayerMask.LayerToName(otherGo.layer) != "Individual" )
             return;
 
+        //已经对某目标触发过攻击，则不再触发
         if (attackedObjects.Contains(otherGo))
             return;
         
-        Logger.Log("Weapon Trigger Attack！", LogType.Individual);
-
         //添加被攻击对象 到 已攻击目标
         attackedObjects.Add(otherGo);
 
         Individual target = otherGo.GetComponent<Individual>();
-        master.GetComponent<IndividualController>().Attack(target.ID);
+        master.GetComponent<BaseIndividualController>().Attack(target);
     }
 
     public void StartAttack()
