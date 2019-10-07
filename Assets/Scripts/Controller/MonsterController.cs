@@ -85,12 +85,13 @@ public class MonsterController : BaseIndividualController
     public override void Die()
     {
         //避免物理碰撞事件
-        gameObject.layer = 0;//default layer
+        gameObject.layer = 12;//Dead layer
 
         //播放死亡动画
         animator.SetTrigger("Die");
 
         //关闭脚本
+        
         behaviorTree.enabled = false;
         messageSystem.enabled = false;
         selfIndividual.enabled = false;
