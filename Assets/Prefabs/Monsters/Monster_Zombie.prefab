@@ -423,11 +423,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   individualType: 0
   ID: 0
-  health: 100
-  maxHealth: 100
+  health: 300
+  maxHealth: 300
   attack: 10
   attackSpeed: 1
-  speed: 1
+  speed: 0.5
   attackDistance: 1
   recoverRate: 0
   hatredValue: 10
@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buffShow: []
-  initBuffs: 
+  initBuffs: 00000000
 --- !u!114 &8471845512086717828
 MonoBehaviour:
   m_ObjectHideFlags: 0

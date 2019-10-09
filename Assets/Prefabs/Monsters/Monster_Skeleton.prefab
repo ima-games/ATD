@@ -602,8 +602,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   individualType: 0
   ID: 0
-  health: 100
-  maxHealth: 100
+  health: 200
+  maxHealth: 200
   attack: 10
   attackSpeed: 1
   speed: 1

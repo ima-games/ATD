@@ -544,7 +544,7 @@ GameObject:
   - component: {fileID: 5505657453510177586}
   - component: {fileID: 5505657453510177576}
   m_Layer: 10
-  m_Name: Monster_Orc
+  m_Name: Monster_orc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
