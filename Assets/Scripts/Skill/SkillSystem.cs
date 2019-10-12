@@ -21,9 +21,8 @@ public class SkillSystem : MonoBehaviour
         selfIndividual = GetComponent<Individual>();
         messageSystem = GetComponent<MessageSystem>();
         //TODO
-        //目前硬编码给玩家赋予3个技能
+        //目前硬编码给玩家赋予2个技能
         HeroSkills.Add(new BuffSkill(6, true, true, 5.0f));   //主动技能：嘲讽Buff
-        HeroSkills.Add(new BuffSkill(0, true, false));        //主动技能：回血buff
         HeroSkills.Add(new BuffSkill(14, true, false));       //主动技能：攻速戒指buff
 
         skillEffectManager = GameObject.FindGameObjectWithTag("Effects").GetComponent<SkillEffectManager>();
