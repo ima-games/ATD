@@ -427,7 +427,7 @@ MonoBehaviour:
   maxHealth: 100
   attack: 5
   attackSpeed: 1
-  speed: 1
+  speed: 3
   attackDistance: 1
   recoverRate: 0
   hatredValue: 10

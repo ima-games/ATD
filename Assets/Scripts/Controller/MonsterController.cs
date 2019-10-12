@@ -33,8 +33,14 @@ public class MonsterController : BaseIndividualController
         InitRegister();
     }
 
+    private void Update()
+    {
+        navMeshAgent.speed = selfIndividual.speed;
+    }
+
     private void FixedUpdate()
     {
+
         //移动
         Walk(rigidbody.velocity);
     }

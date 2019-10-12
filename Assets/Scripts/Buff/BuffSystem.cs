@@ -114,11 +114,13 @@ public class BuffSystem : MonoBehaviour
         myIndividual.AttackChange(buffdata.AttackChange);
         myIndividual.AttackChange(buffdata.AttackChange_p);
         myIndividual.AttackSpeedChange(buffdata.AttSpeedChange_p);
+
+        Debug.Log(buffdata.SpeedChange_p);
+
         myIndividual.SpeedChange(buffdata.SpeedChange_p);
         myIndividual.RecoverRateChange(buffdata.HpReturnChange);
         myIndividual.RecoverRateChange(buffdata.HpReturnChange_p);
         myIndividual.ReviveCountChange(buffdata.AddReviveCount);
-
         buffEffectManager.PlayEffect(transform,buffID);
 
         Logger.Log("生效Buff" + buffID + " ", LogType.Buff);
