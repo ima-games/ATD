@@ -423,11 +423,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   individualType: 0
   ID: 0
-  health: 300
-  maxHealth: 300
+  health: 100
+  maxHealth: 100
   attack: 5
   attackSpeed: 1
-  speed: 0.5
+  speed: 1
   attackDistance: 1
   recoverRate: 0
   hatredValue: 10

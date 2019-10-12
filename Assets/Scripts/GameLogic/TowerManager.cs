@@ -91,7 +91,18 @@ public class TowerManager : MonoBehaviour
         }
 
         //TODO：建造一个塔，耗费50元
-        _moneyManager.ReduceCash(50);
+        switch (towerIndex)
+        {
+            case 0:
+                _moneyManager.ReduceCash(50);
+                break;
+            case 1:
+                _moneyManager.ReduceCash(100);
+                break;
+            case 2:
+                _moneyManager.ReduceCash(50);
+                break;
+        }
 
         _towerBaseHasTower[TargetTowerBase] = true;
         Instantiate(_towerPrefabs[towerIndex], TargetTowerBase.transform);

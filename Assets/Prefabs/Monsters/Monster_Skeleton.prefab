@@ -604,7 +604,7 @@ MonoBehaviour:
   ID: 0
   health: 200
   maxHealth: 200
-  attack: 5
+  attack: 3
   attackSpeed: 1
   speed: 1
   attackDistance: 1
