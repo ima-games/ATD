@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace BehaviorDesigner.Runtime.Tasks
 {
-    [TaskDescription("机枪塔的攻击行为")]
-    [TaskCategory("Tower Attack Model")]
+    [TaskDescription("直射子弹行为")]
+    [TaskCategory("Straight Gatling")]
     [TaskIcon("Assets/Behavior Designer Movement/Editor/Icons/{SkinColor}gatlingIcon.png")]
     public class Gatling : Action
     {

@@ -6,8 +6,7 @@ using UnityEngine;
 public class BulletTriggerEvent : MonoBehaviour
 {
     //发射炮弹的塔
-    [SerializeField]
-    private Individual tower;
+    public Individual tower;
 
     //可能的炮弹添加BUFF
     public int buffID;
