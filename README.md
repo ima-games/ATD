@@ -48,7 +48,7 @@
 
 ## 架构设计
 
-详见我的博客：
+详见博客：
 
 [Unity《ATD》塔防RPG类3D游戏架构设计（一） - KillerAery - 博客园](https://www.cnblogs.com/KillerAery/p/11191222.html)
 
