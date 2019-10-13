@@ -29,6 +29,7 @@ public class BloodHUD : MonoBehaviour
     /// <param name="receverID"></param>
     public void SolveMessage(int messageID, int senderID, int receverID, object ob)
     {
+        //todo
         //只要处理攻击消息
         if(messageID != 1) {
             return;
@@ -52,6 +53,27 @@ public class BloodHUD : MonoBehaviour
             go.transform.GetChild(0).GetComponent<Animation>().Play();
             StartCoroutine(DeleteBloodChangeTextLater(go));
         }
+    }
+
+    //TODO
+    public void ShowBlood(int health,Transform target)
+    {
+        int bloodchange = health;
+        GameObject go;
+        //血量减少HUD显示
+        if (bloodchange < 0.0f)
+        {
+            go = Instantiate(reduceBloodTextPrefab, Vector3.zero, Quaternion.identity, transform);
+        }
+        else
+        {
+            go = Instantiate(addBloodTextPrefab, Vector3.zero, Quaternion.identity, transform);
+        }
+        go.transform.position = Camera.main.WorldToScreenPoint(target.transform.position);
+        go.transform.localScale = Vector3.one / (Camera.main.transform.position - target.transform.position).magnitude * 7;
+        go.transform.GetChild(0).GetComponent<Text>().text = bloodchange.ToString();
+        go.transform.GetChild(0).GetComponent<Animation>().Play();
+        StartCoroutine(DeleteBloodChangeTextLater(go));
     }
 
     IEnumerator DeleteBloodChangeTextLater(GameObject gameObject)

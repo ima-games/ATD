@@ -26,11 +26,15 @@ public class BuffSystem : MonoBehaviour
     private BuffEffectManager buffEffectManager;
     private MessageSystem messageSystem;
 
+    //TODO
+    private BloodHUD bloodHUD;
+
     private void Awake()
     {
         messageSystem = GetComponent<MessageSystem>();
         myIndividual = GetComponent<Individual>();
         buffEffectManager = GameObject.FindGameObjectWithTag("Effects").GetComponent<BuffEffectManager>();
+        bloodHUD = GameObject.Find("BloodHUD").GetComponent<BloodHUD>();
     }
 
     private void Start()
@@ -110,13 +114,14 @@ public class BuffSystem : MonoBehaviour
     {
         BuffData buffdata = BuffDataBase.Instance.GetBuffData(buffID);
         myIndividual.HealthChange(buffdata.HpChange);
+
+        //TODO
+        if (buffdata.HpChange != 0) bloodHUD.ShowBlood(buffdata.HpChange,transform);
+
         //myIndividual.HealthChange(buffdata.HpChange_p);
         myIndividual.AttackChange(buffdata.AttackChange);
         myIndividual.AttackChange(buffdata.AttackChange_p);
         myIndividual.AttackSpeedChange(buffdata.AttSpeedChange_p);
-
-        Debug.Log(buffdata.SpeedChange_p);
-
         myIndividual.SpeedChange(buffdata.SpeedChange_p);
         myIndividual.RecoverRateChange(buffdata.HpReturnChange);
         myIndividual.RecoverRateChange(buffdata.HpReturnChange_p);

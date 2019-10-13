@@ -104,11 +104,13 @@ public class PlayerCamera : MonoBehaviour
             {
                 mouseSelect.enabled = true;
                 Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
             }
             else
             {
                 mouseSelect.enabled = false;
                 Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
             }
 
             if (distanSq < .015f * .015f)

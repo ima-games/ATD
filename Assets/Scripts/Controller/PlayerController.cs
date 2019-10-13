@@ -284,7 +284,7 @@ public class PlayerController : BaseIndividualController{
 
         //解锁鼠标
         Cursor.lockState = CursorLockMode.None;
-
+        Cursor.visible = true;
         //关闭脚本
         selfIndividual.enabled = false;
         this.enabled = false;

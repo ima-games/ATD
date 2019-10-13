@@ -25,6 +25,7 @@ public class LockController : MonoBehaviour
     {
         lockState = false;
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
