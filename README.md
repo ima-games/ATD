@@ -74,7 +74,7 @@
 - Shader Graph
 - Post processing
 
-![https://user-images.githubusercontent.com/31158107/67136389-167f5c00-f258-11e9-8296-30e14c2d626f.png](:storage\691fd987-c879-4fe4-803a-85c058d9fbe4\b21e88e8.png)
+![](https://img2018.cnblogs.com/blog/1409576/201910/1409576-20191023133732291-1061139742.png)
 
 ## 分辨率
 
