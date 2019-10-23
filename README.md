@@ -72,8 +72,6 @@
 
 由于项目配置了LWRP作为基本渲染管线，需要安装如下Package:
 - LightWeight RP
-- Shader Graph
-- Post processing
 
 ![](https://github.com/ima-games/ATD/blob/master/MarkDown_Image/notice.png)
 
