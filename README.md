@@ -53,6 +53,7 @@
 
 ![](https://github.com/ima-games/ATD/blob/master/MarkDown_Image/screenshot%20(4).png)
 
+
 # 架构设计
 
 ---
@@ -74,7 +75,7 @@
 - Shader Graph
 - Post processing
 
-![](https://img2018.cnblogs.com/blog/1409576/201910/1409576-20191023133732291-1061139742.png)
+![](https://github.com/ima-games/ATD/blob/master/MarkDown_Image/notice.png)
 
 ## 分辨率
 
