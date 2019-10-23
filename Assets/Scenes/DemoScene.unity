@@ -7669,7 +7669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f55f49d556ceed142bc16e231b79bd8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuffDataJ: {fileID: 4900000, guid: 78140357a49e2394588e82a5d4216880, type: 3}
+  BuffDataJ: {fileID: 4900000, guid: 1f2e37299bb40d04bb92bd0dfd548481, type: 3}
 --- !u!1001 &518986370
 PrefabInstance:
   m_ObjectHideFlags: 0
