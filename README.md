@@ -1,13 +1,16 @@
 # ATD Ver-0.2
 
+---
+
 **游戏简介**：使用Unity2018开发的一款RPG元素+塔防元素结合的3D游戏。
 
 **Unity版本**: Unity 2018.3.7f1 (64-bit)
 
 **可运行平台**：windows
 
-## 游戏介绍
+# 游戏介绍
 
+---
 
 **游戏类型**：塔防+RPG的3D游戏
 
@@ -36,7 +39,9 @@
 **失败条件**：基地生命值为0 或者 英雄死亡
 
 
-## 游戏截图
+# 游戏截图
+
+---
 
 ![](https://github.com/ima-games/ATD/blob/master/MarkDown_Image/screenshot%20(1).png)
 
@@ -48,10 +53,30 @@
 
 ![](https://github.com/ima-games/ATD/blob/master/MarkDown_Image/screenshot%20(4).png)
 
-## 架构设计
+# 架构设计
+
+---
 
 详见博客：
 
 [Unity《ATD》塔防RPG类3D游戏架构设计（一） - KillerAery - 博客园](https://www.cnblogs.com/KillerAery/p/11191222.html)
 
 [Unity《ATD》塔防RPG类3D游戏架构设计（二） - KillerAery - 博客园](https://www.cnblogs.com/KillerAery/p/11197175.html)
+
+# 项目配置注意事项
+
+---
+
+## 安装package
+
+由于项目配置了LWRP作为基本渲染管线，需要安装如下Package:
+- LightWeight RP
+- Shader Graph
+- Post processing
+
+![https://user-images.githubusercontent.com/31158107/67136389-167f5c00-f258-11e9-8296-30e14c2d626f.png](:storage\691fd987-c879-4fe4-803a-85c058d9fbe4\b21e88e8.png)
+
+## 分辨率
+
+项目目前基于固定的 ***1920\*1600分辨率*** 开发，没有对其他分辨率做适配。
+可以在Editor时使用 ***1920\*1600分辨率*** ，而不要用FreeAspect。
