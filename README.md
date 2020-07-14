@@ -1,7 +1,5 @@
 # ATD Ver-0.2
 
----
-
 **游戏简介**：使用Unity2018开发的一款RPG元素+塔防元素结合的3D游戏。
 
 **Unity版本**: Unity 2018.3.7f1 (64-bit)
@@ -9,8 +7,6 @@
 **可运行平台**：windows
 
 # 游戏介绍
-
----
 
 **游戏类型**：塔防+RPG的3D游戏
 
@@ -41,8 +37,6 @@
 
 # 游戏截图
 
----
-
 ![](https://github.com/ima-games/ATD/blob/master/MarkDown_Image/screenshot%20(1).png)
 
 ![](https://github.com/ima-games/ATD/blob/master/MarkDown_Image/screenshot%20(2).png)
@@ -65,8 +59,6 @@
 [Unity《ATD》塔防RPG类3D游戏架构设计（二） - KillerAery - 博客园](https://www.cnblogs.com/KillerAery/p/11197175.html)
 
 # 项目配置注意事项
-
----
 
 ## 安装package
 
